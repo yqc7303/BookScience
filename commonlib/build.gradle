@@ -75,7 +75,7 @@ dependencies {
     /**
      * https://github.com/laobie/StatusBarUtil
      */
-    //compile 'com.jaeger.statusbaruitl:library:1.3.5'
+    compile 'com.jaeger.statusbaruitl:library:1.4.0'
 
     /**
      * https://github.com/crazycodeboy/TakePhoto#%E8%A3%81%E5%89%AA%E5%9B%BE%E7%89%87

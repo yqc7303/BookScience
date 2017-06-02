@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.yangqichao.democenter">
+    package="com.yangqichao.bokuscience">
 
     <uses-permission android:name="android.permission.READ_LOGS" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -28,14 +28,14 @@
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 
     <application
-        android:name=".common.APP"
+        android:name="com.yangqichao.bokuscience.common.APP"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name="com.yangqichao.bokuscience.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -59,16 +59,16 @@
                 android:resource="@xml/provider_paths" />
         </provider>
 
-        <activity android:name=".business.ui.EpubReaderActivity" />
+        <activity android:name="com.yangqichao.bokuscience.business.ui.EpubReaderActivity" />
         <activity android:name="com.folioreader.activity.FolioActivity" />
-        <activity android:name=".business.ui.HomeActivity" />
+        <activity android:name="com.yangqichao.bokuscience.business.ui.HomeActivity" />
 
         <service
-            android:name=".business.service.GetuiPushService"
+            android:name="com.yangqichao.bokuscience.business.service.GetuiPushService"
             android:exported="true"
             android:label="PushService"
             android:process=":pushservice" />
-        <service android:name=".business.service.GetuiIntentService" />
+        <service android:name="com.yangqichao.bokuscience.business.service.GetuiIntentService" />
 
         <!-- 高德 -->
         <meta-data
@@ -77,7 +77,7 @@
         <service android:name="com.amap.api.location.APSService"></service>
         <!-- end -->
 
-        <activity android:name=".business.ui.LocationActivity"></activity>
+        <activity android:name="com.yangqichao.bokuscience.business.ui.LocationActivity"></activity>
     </application>
 
 </manifest>

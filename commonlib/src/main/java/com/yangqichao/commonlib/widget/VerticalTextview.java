@@ -36,7 +36,7 @@ public class VerticalTextview extends TextSwitcher implements ViewSwitcher.ViewF
     /**
      * @param textSize 字号
      * @param padding 内边距
-     * @param textColor 字体颜色
+     * @param textColor 字体颜色  #e4ddd8
      */
     public void setText(float textSize,int padding,int textColor) {
         mTextSize = textSize;
