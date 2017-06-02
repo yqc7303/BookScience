@@ -1,0 +1,93 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.jakewharton.butterknife'
+apply from: 'tinker-support.gradle'
+
+android {
+    signingConfigs {
+        release {
+            keyAlias 'demo'
+            keyPassword '137459'
+            storeFile file('/Users/yangqichao/DemoCenter/app/demoKey.jks')
+            storePassword '137459'
+            v2SigningEnabled false
+        }
+    }
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
+    defaultConfig {
+        applicationId "com.yangqichao.democenter"
+        minSdkVersion 15
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        //个推
+        manifestPlaceholders = [
+                GETUI_APP_ID    : "dAZWcoCURC9e99naNYHZo1",
+                GETUI_APP_KEY   : "MQdUt8fK4E87jCVab5GQ3A",
+                GETUI_APP_SECRET: "suYJxJ15gP9U0vTsMYzAw8"
+        ]
+
+        ndk {
+            abiFilters "armeabi"  //, "armeabi-v7a", "x86_64"
+        }
+    }
+    buildTypes {
+        debug {
+            buildConfigField("String", "BaseUrl", debug_base_url)
+        }
+        release {
+            minifyEnabled false
+            buildConfigField("String", "BaseUrl", release_base_url)
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile project(':commonlib')
+
+
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha9'
+    testCompile 'junit:junit:4.12'
+
+    /**
+     * https://github.com/JakeWharton/butterknife
+     * todo:Project.gradle:buildscript->dependencies->classpath 'com.jakewharton:butterknife-gradle-plugin:8.5.1'
+     * todo:module:apply plugin: 'com.jakewharton.butterknife'
+     */
+    compile 'com.jakewharton:butterknife:8.6.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
+
+    /**
+     * https://github.com/hotchemi/PermissionsDispatcher
+     */
+    compile('com.github.hotchemi:permissionsdispatcher:2.4.0') {
+        // if you don't use android.app.Fragment you can exclude support for them
+        exclude module: "support-v13"
+    }
+    annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:2.4.0'
+
+    /**
+     * 个推
+     */
+    compile 'com.getui:sdk:2.+'
+
+    /**
+     *https://github.com/FolioReader/FolioReader-Android
+     */
+    compile 'com.folioreader:folioreader:0.2.5'
+
+    /**
+     * 高德
+     */
+    compile 'com.amap.api:location:latest.integration'
+}
