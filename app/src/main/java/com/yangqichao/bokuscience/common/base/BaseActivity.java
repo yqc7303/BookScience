@@ -7,6 +7,7 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
+import com.jaeger.library.StatusBarUtil;
 import com.yangqichao.commonlib.util.AppManager;
 
 import butterknife.ButterKnife;
@@ -28,6 +29,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         setContentView(getLayoutResID());
         setStatusBar();
         ButterKnife.bind(this);
+        StatusBarUtil.setTranslucent(this,0);
         initView(savedInstanceState);
     }
 

@@ -1,13 +1,58 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.yangqichao.bokuscience.business.ui.main.MenuTwoFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
 
-</FrameLayout>
+    <ImageView
+        android:id="@+id/img_function_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/icon_gjgx_big"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/img_function_1"
+        app:layout_constraintTop_toTopOf="@+id/img_function_1"
+        android:layout_marginTop="1dp" />
+
+    <ImageView
+        android:id="@+id/img_function_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/icon_gjgx_big"
+        app:layout_constraintRight_toLeftOf="@+id/img_function_2"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="0dp"
+        app:layout_constraintVertical_bias="0.39999998" />
+
+    <TextView
+        android:id="@+id/tv_function_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="8dp"
+        android:text="TextView"
+        android:textColor="#fff"
+        app:layout_constraintLeft_toLeftOf="@+id/img_function_1"
+        app:layout_constraintRight_toRightOf="@+id/img_function_1"
+        app:layout_constraintTop_toBottomOf="@+id/img_function_1"
+        app:layout_constraintHorizontal_bias="0.482" />
+
+    <TextView
+        android:id="@+id/tv_function_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="8dp"
+        android:text="TextView"
+        android:textColor="#fff"
+        app:layout_constraintLeft_toLeftOf="@+id/img_function_2"
+        app:layout_constraintRight_toRightOf="@+id/img_function_2"
+        app:layout_constraintTop_toBottomOf="@+id/img_function_2" />
+</android.support.constraint.ConstraintLayout>

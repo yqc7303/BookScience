@@ -28,20 +28,13 @@
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 
     <application
-        android:name="com.yangqichao.bokuscience.common.APP"
+        android:name=".common.APP"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.yangqichao.bokuscience.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
 
         <!-- bugly热更新 -->
         <activity
@@ -59,25 +52,42 @@
                 android:resource="@xml/provider_paths" />
         </provider>
 
-        <activity android:name="com.yangqichao.bokuscience.business.ui.EpubReaderActivity" />
+        <activity android:name=".business.ui.EpubReaderActivity" />
         <activity android:name="com.folioreader.activity.FolioActivity" />
-        <activity android:name="com.yangqichao.bokuscience.business.ui.HomeActivity" />
+        <activity android:name=".business.ui.HomeActivity" />
 
         <service
-            android:name="com.yangqichao.bokuscience.business.service.GetuiPushService"
+            android:name=".business.service.GetuiPushService"
             android:exported="true"
             android:label="PushService"
             android:process=":pushservice" />
-        <service android:name="com.yangqichao.bokuscience.business.service.GetuiIntentService" />
+        <service android:name=".business.service.GetuiIntentService" />
 
         <!-- 高德 -->
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="c8b2ecf1cd570a2dbc086c2f2f4fb989" />
-        <service android:name="com.amap.api.location.APSService"></service>
+
+        <service android:name="com.amap.api.location.APSService" />
         <!-- end -->
 
-        <activity android:name="com.yangqichao.bokuscience.business.ui.LocationActivity"></activity>
+        <activity android:name=".business.ui.LocationActivity" />
+        <activity android:name=".business.ui.login.LoginActivity"></activity>
+        <activity
+            android:name=".business.ui.login.RegisterActivity"
+            android:label="@string/title_activity_register"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".business.ui.login.ForgetPWActivity" />
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".business.ui.login.RegisterCompleActivity">
+
+        </activity>
     </application>
 
 </manifest>

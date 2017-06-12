@@ -1,7 +1,6 @@
 package com.yangqichao.bokuscience.business.ui.main;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,18 +8,17 @@ import android.view.ViewGroup;
 
 import com.yangqichao.bokuscience.R;
 
-public class MenuTwoFragment extends Fragment {
+public class FunctionFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
 
     private String mParam1;
 
-
-    public MenuTwoFragment() {
+    public FunctionFragment() {
         // Required empty public constructor
     }
 
-    public static MenuOneFragment newInstance(String param1, String param2) {
-        MenuOneFragment fragment = new MenuOneFragment();
+    public static FunctionFragment newInstance(String param1, String param2) {
+        FunctionFragment fragment = new FunctionFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         fragment.setArguments(args);
@@ -38,11 +36,8 @@ public class MenuTwoFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_menu_two, container, false);
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_function, container, false);
     }
 
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-    }
 }

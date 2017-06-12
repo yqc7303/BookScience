@@ -2,5 +2,20 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#ec9f3f</color>
+
+
+    <color name="drawerTextColor">#fff</color>
+    <color name="base_text_gray">#B3ffffff</color>
+
+    <color name="base_orange">#CAA881</color>
+    <color name="base_orange_dark">#A57961</color>
+    <color name="base_orange_dark_2">#805732</color>
+
+
+    <color name="transparent">#00000000</color>
+
+    <color name="base_white_line">#30ffffff</color>
+
+
 </resources>
