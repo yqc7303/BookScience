@@ -69,10 +69,15 @@ public abstract class CommonsSubscriber<T> extends Subscriber<T> {
                 errorMsg = "请重试";
             }
         }
+        onErrorShow(errorMsg);
+
+
+    }
+
+    protected void onErrorShow(String errorMsg){
         if (!TextUtils.isEmpty(errorMsg)) {
             Toast.makeText(APP.getInstance(), errorMsg, Toast.LENGTH_SHORT).show();
         }
-
     }
 
     protected abstract void onSuccess(T t);

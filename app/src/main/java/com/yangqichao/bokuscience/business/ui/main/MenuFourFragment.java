@@ -9,9 +9,14 @@ import android.view.ViewGroup;
 
 import com.yangqichao.bokuscience.R;
 
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
+
 
 public class MenuFourFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
+    Unbinder unbinder;
 
     private String mParam1;
 
@@ -39,11 +44,35 @@ public class MenuFourFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_menu_four, container, false);
+        View view = inflater.inflate(R.layout.fragment_menu_four, container, false);
+        unbinder = ButterKnife.bind(this, view);
+        return view;
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+    }
+
+    @OnClick({R.id.img_function_2, R.id.img_function_3, R.id.img_function_4, R.id.img_function_1})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.img_function_2:
+
+                break;
+            case R.id.img_function_3:
+                break;
+            case R.id.img_function_4:
+                break;
+            case R.id.img_function_1:
+
+                break;
+        }
     }
 }

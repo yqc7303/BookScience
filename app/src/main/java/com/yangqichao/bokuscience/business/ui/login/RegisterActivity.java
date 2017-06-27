@@ -44,6 +44,8 @@ public class RegisterActivity extends BaseActivity{
 
     private MyCountTimer timer;
 
+    private boolean isForgetPw;
+
     @Override
     protected int getLayoutResID() {
         return R.layout.activity_register;
@@ -56,7 +58,14 @@ public class RegisterActivity extends BaseActivity{
         etVerification.addTextChangedListener(new CleanTextWatcher(textInputLayoutVerification));
         etPassword.addTextChangedListener(new CleanTextWatcher(textInputLayoutPassword));
         etAccount.addTextChangedListener(new CleanTextWatcher(textInputLayoutAccount));
+
+        isForgetPw = getIntent().getBooleanExtra("isForgetPw",false);
+        if(isForgetPw){
+            textInputLayoutPassword.setHint("请设置新密码");
+            btnLogin.setText("确定");
+        }
     }
+
 
 
     @OnClick({R.id.btn_login, R.id.tv_getcode})
@@ -78,6 +87,19 @@ public class RegisterActivity extends BaseActivity{
                     textInputLayoutPassword.setError("密码不能小于6位");
                     return;
                 }
+                if(isForgetPw){
+                    RequestUtil.createApi().resetpassword(tel2,code).compose(RequestUtil.<String>handleResult())
+                            .subscribe(new CommonsSubscriber<String>() {
+                                @Override
+                                protected void onSuccess(String s) {
+                                    showToast("重置成功");
+                                    finish();
+                                }
+                            });
+                }else{
+                    RegisterCompleActivity.startAction(this,tel2,code,pw);
+                    finish();
+                }
 
                 break;
             case R.id.tv_getcode:
@@ -94,6 +116,7 @@ public class RegisterActivity extends BaseActivity{
         }
     }
 
+
     private void getCode(String tel) {
 
 
@@ -101,12 +124,7 @@ public class RegisterActivity extends BaseActivity{
                 .subscribe(new CommonsSubscriber<String>() {
                     @Override
                     protected void onSuccess(String s) {
-
-                    }
-
-                    @Override
-                    public void onFail(String errorCode, String message) {
-                        super.onFail(errorCode, message);
+                        showToast("验证码已发送");
                     }
                 });
 

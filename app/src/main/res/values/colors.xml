@@ -17,5 +17,9 @@
 
     <color name="base_white_line">#30ffffff</color>
 
+    <color name="base_text_white">#d9d3ce</color>
+
+    <color name="base_text_black_light">#999999</color>
+
 
 </resources>

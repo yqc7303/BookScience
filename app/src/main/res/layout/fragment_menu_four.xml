@@ -133,7 +133,7 @@
         android:layout_marginLeft="0dp"
         android:layout_marginRight="0dp"
         android:layout_marginTop="8dp"
-        android:text="TextView"
+        android:text="共建共享"
         android:textColor="#fff"
         app:layout_constraintHorizontal_bias="0.482"
         app:layout_constraintLeft_toLeftOf="@+id/img_function_1"

@@ -18,7 +18,8 @@ import com.yangqichao.bokuscience.common.net.CommonsSubscriber;
 import com.yangqichao.bokuscience.common.net.RequestBody;
 import com.yangqichao.bokuscience.common.net.RequestUtil;
 import com.yangqichao.commonlib.util.CheckUtils;
-import com.yangqichao.commonlib.widget.CleanTextWatcher;
+import com.yangqichao.commonlib.util.PreferenceUtils;
+import com.yangqichao.commonlib.widget.CleanTextErrorWatcher;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -46,8 +47,7 @@ public class LoginActivity extends BaseActivity {
     EditText etPassword;
     @BindView(R.id.textInputLayout_password)
     TextInputLayout textInputLayoutPassword;
-    @BindView(R.id.imageView4)
-    ImageView imageView4;
+
 
     @Override
     protected int getLayoutResID() {
@@ -56,8 +56,8 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-        etAccount.addTextChangedListener(new CleanTextWatcher(textInputLayoutAccount));
-        etPassword.addTextChangedListener(new CleanTextWatcher(textInputLayoutPassword));
+        etAccount.addTextChangedListener(new CleanTextErrorWatcher(textInputLayoutAccount,tvError));
+        etPassword.addTextChangedListener(new CleanTextErrorWatcher(textInputLayoutPassword,tvError));
     }
 
 
@@ -65,15 +65,17 @@ public class LoginActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_forget:
-
+                Intent intent = new Intent(this,RegisterActivity.class);
+                intent.putExtra("isForgetPw",true);
+                startActivity(intent);
                 break;
             case R.id.btn_login:
-                String phone = etAccount.getText().toString();
-                String pw = etPassword.getText().toString();
-//                if(!CheckUtils.isPhoneValid(phone)){
-//                    textInputLayoutAccount.setError("手机格式有误");
-//                    return;
-//                }
+                final String phone = etAccount.getText().toString();
+                final String pw = etPassword.getText().toString();
+                if(!CheckUtils.isPhoneValid(phone)){
+                    textInputLayoutAccount.setError("手机格式有误");
+                    return;
+                }
                 if(!CheckUtils.isLengthValid(pw,6)){
                     textInputLayoutPassword.setError("密码有误");
                     return;
@@ -86,6 +88,20 @@ public class LoginActivity extends BaseActivity {
                             @Override
                             protected void onSuccess(LoginBean loginBean) {
                                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                                PreferenceUtils.setPrefString(LoginActivity.this,"uId",loginBean.getId());
+                                PreferenceUtils.setPrefString(LoginActivity.this,"pw",pw);
+                                PreferenceUtils.setPrefString(LoginActivity.this,"phone",phone);
+                                finish();
+                            }
+
+                            @Override
+                            public void onFail(String errorCode, String message) {
+                                tvError.setVisibility(View.VISIBLE);
+                                tvError.setText(message);
+                            }
+
+                            @Override
+                            protected void onErrorShow(String errorMsg) {
                             }
                         });
 

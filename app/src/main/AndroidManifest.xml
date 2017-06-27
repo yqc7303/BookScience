@@ -72,22 +72,26 @@
         <!-- end -->
 
         <activity android:name=".business.ui.LocationActivity" />
-        <activity android:name=".business.ui.login.LoginActivity"></activity>
+        <activity android:name=".business.ui.login.LoginActivity" />
         <activity
             android:name=".business.ui.login.RegisterActivity"
             android:label="@string/title_activity_register"
             android:theme="@style/AppTheme" />
         <activity android:name=".business.ui.login.ForgetPWActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity" />
+        <activity android:name=".business.ui.login.RegisterCompleActivity" />
+        <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".business.ui.login.RegisterCompleActivity">
-
-        </activity>
+        <activity android:name=".business.ui.message.DynamicListActivity" />
+        <activity android:name=".business.ui.message.DynamicDetailActivity" />
+        <activity android:name=".business.ui.meetting.MeetingActivity" />
+        <activity android:name=".business.ui.meetting.CreateMeetingActivity" />
+        <activity android:name=".business.ui.share.ShareActivity"></activity>
     </application>
 
 </manifest>

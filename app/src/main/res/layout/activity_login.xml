@@ -46,11 +46,11 @@
     <Button
         android:id="@+id/btn_login"
         android:layout_width="0dp"
-        android:elevation="1dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="32dp"
         android:layout_marginRight="32dp"
         android:background="@drawable/login_bg"
+        android:elevation="1dp"
         android:text="登录"
         android:textColor="#fff"
         android:textSize="16sp"
@@ -82,10 +82,11 @@
         android:layout_marginLeft="0dp"
         android:layout_marginRight="0dp"
         android:layout_marginTop="0dp"
-        android:text="TextView"
-        android:visibility="gone"
+        android:drawableLeft="@drawable/icon_jg"
+        android:drawablePadding="5dp"
         android:textColor="#fff"
         android:textSize="15sp"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/btn_login"
         app:layout_constraintHorizontal_bias="0.52"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -100,6 +101,8 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="0dp"
+        android:textColorHighlight="@color/gray_text"
+        android:textColorHint="#fff"
         android:theme="@style/customLineColor"
         app:hintTextAppearance="@style/hintAppearance"
         app:layout_constraintHorizontal_bias="0.0"
@@ -107,8 +110,6 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout_account"
         app:passwordToggleEnabled="true"
-        android:textColorHighlight="@color/gray_text"
-        android:textColorHint="#fff"
         app:passwordToggleTint="@color/white">
 
         <EditText
@@ -116,20 +117,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="请输入密码"
-            android:textColor="@color/white"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:textColor="@color/white" />
     </android.support.design.widget.TextInputLayout>
-
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="0dp"
-        app:layout_constraintRight_toLeftOf="@+id/tv_error"
-        app:layout_constraintTop_toTopOf="@+id/tv_error"
-        android:visibility="gone"
-        app:srcCompat="@drawable/icon_jg" />
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/textInputLayout_account"
@@ -139,9 +129,9 @@
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
         android:hint="请输入手机号"
-        android:theme="@style/customLineColor"
         android:textColorHighlight="@color/gray_text"
         android:textColorHint="#fff"
+        android:theme="@style/customLineColor"
         app:counterEnabled="true"
         app:counterMaxLength="11"
         app:hintTextAppearance="@style/hintAppearance"
@@ -153,9 +143,10 @@
         <EditText
             android:id="@+id/et_account"
             android:layout_width="match_parent"
+            android:inputType="phone"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:maxLength="11" />
+            android:maxLength="11"
+            android:textColor="@color/white" />
     </android.support.design.widget.TextInputLayout>
 
 

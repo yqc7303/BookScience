@@ -1,5 +1,7 @@
 package com.yangqichao.bokuscience.business.ui.login;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,11 +16,15 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
+import com.yangqichao.bokuscience.MainActivity;
 import com.yangqichao.bokuscience.R;
 import com.yangqichao.bokuscience.business.bean.LevelBean;
+import com.yangqichao.bokuscience.business.bean.RegisteBean;
 import com.yangqichao.bokuscience.common.base.BaseActivity;
 import com.yangqichao.bokuscience.common.net.CommonsSubscriber;
+import com.yangqichao.bokuscience.common.net.RequestBody;
 import com.yangqichao.bokuscience.common.net.RequestUtil;
+import com.yangqichao.commonlib.util.PreferenceUtils;
 
 import java.util.List;
 
@@ -45,6 +51,16 @@ public class RegisterCompleActivity extends BaseActivity {
 
     private LevelBean hospitalBean, keshiBean, addressBean;
 
+    private String phone,code,pw;
+
+    public static void startAction(Context context,String phone,String code,String pw){
+        Intent intent = new Intent(context,RegisterCompleActivity.class);
+        intent.putExtra("phone",phone);
+        intent.putExtra("code",code);
+        intent.putExtra("pw",pw);
+        context.startActivity(intent);
+    }
+
     @Override
     protected int getLayoutResID() {
         return R.layout.activity_register_comple;
@@ -52,6 +68,15 @@ public class RegisterCompleActivity extends BaseActivity {
 
     @Override
     protected void initView(Bundle savedInstanceState) {
+        phone = getIntent().getStringExtra("phone");
+        code = getIntent().getStringExtra("code");
+        pw = getIntent().getStringExtra("pw");
+        if(TextUtils.isEmpty(phone)||TextUtils.isEmpty(code)||TextUtils.isEmpty(pw)){
+            showToast("参数有误");
+            finish();
+        }
+
+
         RequestUtil.createApi().get().compose(RequestUtil.<List<LevelBean>>handleResult()).subscribe(
                 new CommonsSubscriber<List<LevelBean>>() {
                     @Override
@@ -175,6 +200,8 @@ public class RegisterCompleActivity extends BaseActivity {
                     showToast("姓名不能为空");
                     return;
                 }
+
+                register();
                     break;
             case R.id.img_back:
                 finish();
@@ -198,6 +225,44 @@ public class RegisterCompleActivity extends BaseActivity {
                 showPopupWindow(recyclerViewAddress, privinceList, tvAddress);
                 break;
         }
+    }
+
+    private void register() {
+//        {
+//            "birthday": "2017-06-12T02:02:16.658Z",
+//                "checkCode": "string",
+//                "deptId": 0,
+//                "deptName": "string",
+//                "hospitalId": 0,
+//                "hospitalName": "string",
+//                "name": "string",
+//                "tel": "string"
+//        }
+
+        RequestBody requestBody = new RequestBody();
+        requestBody.setCheckCode(code);
+        requestBody.setHospitalId(hospitalBean.getId());
+        requestBody.setHospitalName(hospitalBean.getOrgName());
+        requestBody.setName(etName.getText().toString());
+        requestBody.setTel(phone);
+        // TODO: 2017/6/24  注册界面没有生日设置 先写死
+        requestBody.setBirthday("1992");
+        if(keshiBean != null){
+            requestBody.setDeptId(keshiBean.getId());
+            requestBody.setDeptName(keshiBean.getOrgName());
+        }
+        RequestUtil.createApi().registe(requestBody).compose(RequestUtil.<RegisteBean>handleResult())
+                .subscribe(new CommonsSubscriber<RegisteBean>() {
+                    @Override
+                    protected void onSuccess(RegisteBean registeBean) {
+                        //// TODO: 2017/6/24 缓存用户信息
+
+                        //
+
+                        startActivity(new Intent(RegisterCompleActivity.this, MainActivity.class));
+                    }
+                });
+
     }
 
     public void showPopupWindow(RecyclerView recyclerView, List<LevelBean> beanList, TextView textView) {

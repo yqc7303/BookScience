@@ -3,6 +3,8 @@ package com.yangqichao.bokuscience.common.net;
 
 import com.yangqichao.bokuscience.business.bean.LoginBean;
 import com.yangqichao.bokuscience.business.bean.LevelBean;
+import com.yangqichao.bokuscience.business.bean.RegisteBean;
+import com.yangqichao.bokuscience.business.bean.ScienceDynamicBean;
 
 import java.util.List;
 
@@ -28,13 +30,10 @@ public interface API {
     Observable<Response<String>> searchPatentAppPic();
 
 
-    @GET("app/check/{tel}")
+    @GET("app/user/check/{tel}")
     Observable<Response<String>> check(@Path("tel") String tel);
 
-    @GET("app/resetpassword/{tel}/{checkcode}")
-    Observable<Response<String>> resetpassword(@Path("tel") String tel,@Path("checkcode") String code);
-
-    @POST("app/login")
+    @POST("app/user/login")
     Observable<Response<LoginBean>> login(@Body RequestBody requestBody);
 
     @GET("app/province/get")
@@ -46,6 +45,14 @@ public interface API {
 //    @POST("app/registe/add")
 //    Observable<Response<>> add(RequestBody requestBody);
 
+    @POST("/app/user/registe")
+    Observable<Response<RegisteBean>> registe(@Body RequestBody requestBody);
+
+    @GET("/app/user/resetpassword/{tel}/{checkcode}")
+    Observable<Response<String>> resetpassword(@Path("tel") String tel,@Path("checkcode") String checkcode);
+
+    @GET("/app/notifications/getbyuser/{userId}")
+    Observable<Response<List<ScienceDynamicBean>>> getbyuser(@Path("userId") String userId);
 
 
 
