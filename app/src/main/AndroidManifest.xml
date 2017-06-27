@@ -91,7 +91,8 @@
         <activity android:name=".business.ui.message.DynamicDetailActivity" />
         <activity android:name=".business.ui.meetting.MeetingActivity" />
         <activity android:name=".business.ui.meetting.CreateMeetingActivity" />
-        <activity android:name=".business.ui.share.ShareActivity"></activity>
+        <activity android:name=".business.ui.share.ShareActivity" />
+        <activity android:name=".business.ui.share.AddShareActivity"></activity>
     </application>
 
 </manifest>

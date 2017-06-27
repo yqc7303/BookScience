@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.yangqichao.bokuscience.business.ui.share.ShareActivity">
 
 
 
     <RelativeLayout
         android:background="@color/base_orange"
-        android:layout_width="344dp"
+        android:layout_width="match_parent"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:layout_height="40dp"
@@ -32,6 +33,24 @@
             android:layout_height="wrap_content" />
 
 
+        <ImageView
+            android:id="@+id/img_add"
+            android:src="@drawable/btn_add_meet"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </RelativeLayout>
 
-</android.support.constraint.ConstraintLayout>
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:layout_width="match_parent"
+        android:id="@+id/swipe"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycle_share"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+</LinearLayout>
