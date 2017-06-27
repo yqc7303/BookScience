@@ -45,11 +45,17 @@
 
     <EditText
         android:id="@+id/et_h5"
+        android:hint="网页内容"
+        android:gravity="top"
+        android:padding="10dp"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:background="@color/white" />
 
     <EditText
+        android:hint="网址地址"
+        android:gravity="top"
+        android:padding="10dp"
         android:id="@+id/et_content"
         android:layout_width="match_parent"
         android:layout_height="100dp"
@@ -61,17 +67,20 @@
         android:paddingRight="10dp"
         android:layout_width="match_parent"
         android:layout_height="70dp"
+        android:background="@color/white"
         android:layout_marginTop="10dp">
 
         <TextView
             android:id="@+id/fenxiangfujian"
             android:text="分享附件"
+            android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:layout_height="wrap_content" />
 
         <TextView
+            android:layout_marginTop="10dp"
             android:textColor="@color/base_text_gray"
             android:text="一次只能分享一个附件，附件格式:.pdf/.doc/.docx"
             android:layout_below="@id/fenxiangfujian"
@@ -91,6 +100,8 @@
         <ImageView
             android:src="@drawable/list_arrow"
             android:layout_width="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:layout_height="wrap_content" />
     </RelativeLayout>
 
