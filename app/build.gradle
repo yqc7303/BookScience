@@ -30,7 +30,7 @@ android {
         ]
 
         ndk {
-            abiFilters "armeabi"  , "armeabi-v7a", "x86_64" ,"x8"
+            abiFilters "armeabi", "armeabi-v7a", "x86_64", "x8"
         }
     }
     buildTypes {
@@ -55,39 +55,28 @@ dependencies {
     compile project(':commonlib')
 
 
-    compile 'com.android.support:appcompat-v7:25.3.1'
-    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha9'
-    testCompile 'junit:junit:4.12'
 
-    /**
-     * https://github.com/JakeWharton/butterknife
-     * todo:Project.gradle:buildscript->dependencies->classpath 'com.jakewharton:butterknife-gradle-plugin:8.5.1'
-     * todo:module:apply plugin: 'com.jakewharton.butterknife'
-     */
-    compile 'com.jakewharton:butterknife:8.6.0'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
 
-    /**
-     * https://github.com/hotchemi/PermissionsDispatcher
-     */
+
+
     compile('com.github.hotchemi:permissionsdispatcher:2.4.0') {
         // if you don't use android.app.Fragment you can exclude support for them
         exclude module: "support-v13"
     }
-    annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:2.4.0'
 
-    /**
-     * 个推
-     */
+
+
+
+
+
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha9'
+    compile 'com.jakewharton:butterknife:8.6.0'
     compile 'com.getui:sdk:2.+'
-
-    /**
-     *https://github.com/FolioReader/FolioReader-Android
-     */
     compile 'com.folioreader:folioreader:0.2.5'
-
-    /**
-     * 高德
-     */
     compile 'com.amap.api:location:latest.integration'
+    compile 'com.amap.api:search:latest.integration'
+    testCompile 'junit:junit:4.12'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
+    annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:2.4.0'
 }

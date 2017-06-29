@@ -6,6 +6,7 @@ import android.support.multidex.MultiDex;
 
 import com.tencent.bugly.Bugly;
 import com.tencent.bugly.beta.Beta;
+import com.yangqichao.commonlib.util.PreferenceUtils;
 
 /**
  * Created by yangqc on 2017/3/23.
@@ -34,5 +35,9 @@ public class APP extends Application{
         MultiDex.install(base);
 
         Beta.installTinker();
+    }
+
+    public static String getUserId(){
+        return PreferenceUtils.getPrefString(getInstance(),"uId","");
     }
 }

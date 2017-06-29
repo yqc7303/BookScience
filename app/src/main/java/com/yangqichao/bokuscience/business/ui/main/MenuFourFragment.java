@@ -1,5 +1,6 @@
 package com.yangqichao.bokuscience.business.ui.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.yangqichao.bokuscience.R;
+import com.yangqichao.bokuscience.business.ui.share.ShareActivity;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -71,7 +73,7 @@ public class MenuFourFragment extends Fragment {
             case R.id.img_function_4:
                 break;
             case R.id.img_function_1:
-
+                startActivity(new Intent(getActivity(), ShareActivity.class));
                 break;
         }
     }

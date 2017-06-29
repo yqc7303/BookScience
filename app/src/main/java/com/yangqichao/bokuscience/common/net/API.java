@@ -40,7 +40,7 @@ public interface API {
     Observable<Response<List<LevelBean>>> get();
 
     @GET("app/orgsub/get/{pid}")
-    Observable<Response<List<LevelBean>>> getLevel(@Path("pid") int pid);
+    Observable<Response<List<LevelBean>>> getLevel(@Path("pid") String pid);
 
 //    @POST("app/registe/add")
 //    Observable<Response<>> add(RequestBody requestBody);
@@ -53,6 +53,9 @@ public interface API {
 
     @GET("/app/notifications/getbyuser/{userId}")
     Observable<Response<List<ScienceDynamicBean>>> getbyuser(@Path("userId") String userId);
+
+    @POST("/app/sharemsg/insertInfo")
+    Observable<Response<String>> insertInfo(@Body RequestBody requestBody);
 
 
 

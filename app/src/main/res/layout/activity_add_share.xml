@@ -4,14 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/app_gray"
+    android:background="@color/base_bg_gray"
     android:orientation="vertical"
+    android:fitsSystemWindows="true"
     tools:context="com.yangqichao.bokuscience.business.ui.share.AddShareActivity">
 
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="@dimen/title_height"
         android:background="@color/base_orange"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
@@ -39,15 +40,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:textColor="@color/base_text_gray"
             android:layout_centerVertical="true"
             android:text="发布" />
     </RelativeLayout>
 
     <EditText
-        android:id="@+id/et_h5"
-        android:hint="网页内容"
+        android:id="@+id/et_content"
+        android:hint="请输入想分享的内容"
         android:gravity="top"
         android:padding="10dp"
+        android:textColorHint="@color/base_text_gray_dark"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:background="@color/white" />
@@ -56,13 +59,14 @@
         android:hint="网址地址"
         android:gravity="top"
         android:padding="10dp"
-        android:id="@+id/et_content"
+        android:id="@+id/et_h5"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="70dp"
         android:layout_marginTop="10dp"
         android:background="@color/white" />
 
     <RelativeLayout
+        android:id="@+id/rl_file"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:layout_width="match_parent"
@@ -81,7 +85,7 @@
 
         <TextView
             android:layout_marginTop="10dp"
-            android:textColor="@color/base_text_gray"
+            android:textColor="@color/base_text_gray_dark"
             android:text="一次只能分享一个附件，附件格式:.pdf/.doc/.docx"
             android:layout_below="@id/fenxiangfujian"
             android:layout_width="wrap_content"
@@ -95,10 +99,12 @@
             android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:visibility="gone"
+            android:textColor="@color/base_text_gray_dark"
             android:layout_height="wrap_content" />
 
         <ImageView
-            android:src="@drawable/list_arrow"
+            android:id="@+id/img_next"
+            android:src="@drawable/icon_arrow_right_gray"
             android:layout_width="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
@@ -108,13 +114,14 @@
     <LinearLayout
         android:id="@+id/ll_add_file"
         android:layout_width="match_parent"
-        android:visibility="gone"
         android:layout_marginTop="1dp"
         android:background="@color/white"
+        android:orientation="vertical"
+        android:visibility="gone"
         android:layout_height="wrap_content">
 
         <ImageView
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="30dp"
             android:src="@drawable/icon_img_fj"
             android:layout_width="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -124,12 +131,15 @@
             android:id="@+id/tv_file_name"
             android:layout_marginTop="5dp"
             android:layout_gravity="center_horizontal"
+            android:textSize="14sp"
+            android:textColor="@color/base_text_black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <ImageView
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="15dp"
             android:src="@drawable/btn_delet"
+            android:layout_marginBottom="20dp"
             android:id="@+id/img_cancel"
             android:layout_gravity="center_horizontal"
             android:layout_width="wrap_content"

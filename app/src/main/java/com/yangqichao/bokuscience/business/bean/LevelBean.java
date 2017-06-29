@@ -19,21 +19,21 @@ public class LevelBean {
      * orgProvince : null
      */
 
-    private int id;
+    private String id;
     private String orgCode;
     private String orgName;
-    private int parentId;
-    private int level;
+    private String parentId;
+    private String level;
     private String logoUrl;
     private String moduleIds;
     private Object videosIds;
     private Object orgProvince;
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -53,19 +53,19 @@ public class LevelBean {
         this.orgName = orgName;
     }
 
-    public int getParentId() {
+    public String getParentId() {
         return parentId;
     }
 
-    public void setParentId(int parentId) {
+    public void setParentId(String parentId) {
         this.parentId = parentId;
     }
 
-    public int getLevel() {
+    public String getLevel() {
         return level;
     }
 
-    public void setLevel(int level) {
+    public void setLevel(String level) {
         this.level = level;
     }
 

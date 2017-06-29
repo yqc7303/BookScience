@@ -14,7 +14,7 @@ public class RequestBody {
      * password : string
      */
 
-    private int appType;
+    private String appType;
     private String cid;
     private String loginName;
     private String password;
@@ -31,18 +31,30 @@ public class RequestBody {
 
     private String birthday;
     private String checkCode;
-    private int deptId;
+    private String deptId;
     private String deptName;
-    private int hospitalId;
+    private String hospitalId;
     private String hospitalName;
     private String name;
     private String tel;
+    /**
+     * documentUrl : string
+     * shareContent : string
+     * shareUrl : string
+     * userId : 0
+     */
 
-    public int getAppType() {
+    private String documentUrl;
+    private String shareContent;
+    private String shareUrl;
+    private String userId;
+
+
+    public String getAppType() {
         return appType;
     }
 
-    public void setAppType(int appType) {
+    public void setAppType(String appType) {
         this.appType = appType;
     }
 
@@ -86,11 +98,11 @@ public class RequestBody {
         this.checkCode = checkCode;
     }
 
-    public int getDeptId() {
+    public String getDeptId() {
         return deptId;
     }
 
-    public void setDeptId(int deptId) {
+    public void setDeptId(String deptId) {
         this.deptId = deptId;
     }
 
@@ -102,11 +114,11 @@ public class RequestBody {
         this.deptName = deptName;
     }
 
-    public int getHospitalId() {
+    public String getHospitalId() {
         return hospitalId;
     }
 
-    public void setHospitalId(int hospitalId) {
+    public void setHospitalId(String hospitalId) {
         this.hospitalId = hospitalId;
     }
 
@@ -132,5 +144,37 @@ public class RequestBody {
 
     public void setTel(String tel) {
         this.tel = tel;
+    }
+
+    public String getDocumentUrl() {
+        return documentUrl;
+    }
+
+    public void setDocumentUrl(String documentUrl) {
+        this.documentUrl = documentUrl;
+    }
+
+    public String getShareContent() {
+        return shareContent;
+    }
+
+    public void setShareContent(String shareContent) {
+        this.shareContent = shareContent;
+    }
+
+    public String getShareUrl() {
+        return shareUrl;
+    }
+
+    public void setShareUrl(String shareUrl) {
+        this.shareUrl = shareUrl;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

@@ -22,4 +22,9 @@
     <color name="base_text_black_light">#999999</color>
 
 
+    <color name="base_bg_gray">#f5f5f5</color>
+
+    <color name="base_text_black">#333333</color>
+
+    <color name="base_text_gray_dark">#999999</color>
 </resources>

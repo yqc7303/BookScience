@@ -2,12 +2,14 @@ package com.yangqichao.bokuscience.common.base;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import com.jaeger.library.StatusBarUtil;
+import com.yangqichao.bokuscience.R;
 import com.yangqichao.commonlib.util.AppManager;
 
 import butterknife.ButterKnife;
@@ -27,9 +29,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
         AppManager.getAppManager().addActivity(this);
         setContentView(getLayoutResID());
-        setStatusBar();
+//        setStatusBar();
         ButterKnife.bind(this);
-        StatusBarUtil.setTranslucent(this,0);
+        StatusBarUtil.setColor(this, ContextCompat.getColor(this, R.color.base_orange),0);
         initView(savedInstanceState);
     }
 
@@ -72,9 +74,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onDestroy();
         AppManager.getAppManager().removeActivity(this);
     }
-    protected void setStatusBar() {
-//        StatusBarUtil.setColor(this, ContextCompat.getColor(this,R.color.colorPrimary),0);
-    }
+//    protected void setStatusBar() {
+//        StatusBarUtil.setColor(this, ContextCompat.getColor(this, R.color.base_orange),255);
+//    }
 
 
 }
