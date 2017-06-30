@@ -31,6 +31,7 @@
             android:layout_height="wrap_content" />
 
         <TextView
+            android:id="@+id/tv_create"
             android:text="发布"
             android:textSize="16sp"
             android:textStyle="bold"
@@ -59,7 +60,7 @@
                 android:text="会议标题"
                 android:layout_centerVertical="true"
                 android:textSize="16sp"
-                android:textColor="@color/base_text_black_light"
+                android:textColor="@color/base_text_black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -92,7 +93,7 @@
                 android:text="会议描述"
                 android:layout_centerVertical="true"
                 android:textSize="16sp"
-                android:textColor="@color/base_text_black_light"
+                android:textColor="@color/base_text_black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -114,21 +115,25 @@
     <RelativeLayout
         android:layout_marginTop="10dp"
         android:paddingLeft="10dp"
+        android:background="@color/white"
         android:paddingRight="10dp"
         android:layout_width="match_parent"
         android:layout_height="45dp">
 
         <TextView
             android:text="会议时间"
-            android:layout_centerVertical="true"
             android:textSize="16sp"
-            android:textColor="@color/base_text_black_light"
+            android:textColor="@color/base_text_black"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
 
         <TextView
             android:hint="请选择"
-            android:drawableRight="@drawable/btn_back"
+            android:drawableRight="@drawable/icon_arrow_right_gray"
+            android:drawablePadding="3dp"
             android:textColorHint="@color/base_text_black_light"
             android:textColor="@color/black"
             android:textSize="16sp"
@@ -141,6 +146,69 @@
     </RelativeLayout>
 
 
+
+        <RelativeLayout
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="45dp">
+
+            <TextView
+                android:text="会议地点"
+                android:layout_centerVertical="true"
+                android:textSize="16sp"
+                android:textColor="@color/base_text_black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:hint="请选择"
+                android:drawableRight="@drawable/icon_arrow_right_gray"
+                android:drawablePadding="3dp"
+                android:textColorHint="@color/base_text_black_light"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:id="@+id/tv_meeting_address"
+                android:background="@null"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+
+    <RelativeLayout
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+
+        <TextView
+            android:text="参会人员"
+            android:layout_centerVertical="true"
+            android:textSize="16sp"
+            android:textColor="@color/base_text_black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:hint="请选择"
+            android:drawableRight="@drawable/icon_arrow_right_gray"
+            android:drawablePadding="3dp"
+            android:textColorHint="@color/base_text_black_light"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:id="@+id/tv_meeting_person"
+            android:background="@null"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
     <LinearLayout
         android:layout_marginTop="10dp"
         android:orientation="vertical"
@@ -148,39 +216,46 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+
         <RelativeLayout
             android:paddingLeft="10dp"
+            android:background="@color/white"
             android:paddingRight="10dp"
             android:layout_width="match_parent"
             android:layout_height="45dp">
 
             <TextView
-                android:text="会议标题"
-                android:layout_centerVertical="true"
+                android:text="会议附件"
                 android:textSize="16sp"
-                android:textColor="@color/base_text_black_light"
+                android:textColor="@color/base_text_black"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:id="@+id/textView10" />
 
-            <EditText
-                android:hint="点击输入"
+            <TextView
+                android:hint="请添加"
+                android:drawableRight="@drawable/icon_arrow_right_gray"
+                android:drawablePadding="3dp"
                 android:textColorHint="@color/base_text_black_light"
                 android:textColor="@color/black"
                 android:textSize="16sp"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
-                android:id="@+id/tv_meeting_name"
+                android:id="@+id/tv_meeting_file"
                 android:background="@null"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/textView10"
+                android:layout_alignBottom="@+id/textView10"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
         </RelativeLayout>
-
         <View
             android:layout_width="match_parent"
             android:background="#f5f5f5"
             android:layout_marginLeft="10dp"
             android:layout_height="1dp"/>
-
         <RelativeLayout
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
@@ -188,24 +263,61 @@
             android:layout_height="45dp">
 
             <TextView
-                android:text="会议描述"
+                android:text="宣传册"
                 android:layout_centerVertical="true"
                 android:textSize="16sp"
-                android:textColor="@color/base_text_black_light"
+                android:textColor="@color/base_text_black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
             <EditText
-                android:hint="点击输入"
+                android:hint="请输入网址，例如：www.xxxx.com"
                 android:textColorHint="@color/base_text_black_light"
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
-                android:id="@+id/tv_meeting_describe"
+                android:id="@+id/tv_meeting_xcc"
                 android:background="@null"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </RelativeLayout>
-    </LinearLayout>
+        </LinearLayout>
+
+
+    <RelativeLayout
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <TextView
+            android:text="短信通知"
+            android:layout_marginTop="15dp"
+            android:textSize="14sp"
+            android:id="@+id/tv_duanxin"
+            android:textColor="@color/base_text_black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_below="@id/tv_duanxin"
+            android:text="打开后将会通过手机短信的形式通知参会人员"
+            android:layout_marginTop="5dp"
+            android:textSize="10sp"
+            android:textColor="@color/base_text_black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <android.support.v7.widget.SwitchCompat
+            android:id="@+id/switch_duanxin"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:checked="true"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
 </LinearLayout>

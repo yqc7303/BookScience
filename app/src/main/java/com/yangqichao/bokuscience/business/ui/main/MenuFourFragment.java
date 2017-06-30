@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.yangqichao.bokuscience.R;
+import com.yangqichao.bokuscience.business.ui.meetting.MeetingActivity;
 import com.yangqichao.bokuscience.business.ui.share.ShareActivity;
 
 import butterknife.ButterKnife;
@@ -66,7 +67,7 @@ public class MenuFourFragment extends Fragment {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.img_function_2:
-
+                startActivity(new Intent(getActivity(), MeetingActivity.class));
                 break;
             case R.id.img_function_3:
                 break;
