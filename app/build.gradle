@@ -53,22 +53,10 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile project(':commonlib')
-
-
-
-
-
-
     compile('com.github.hotchemi:permissionsdispatcher:2.4.0') {
         // if you don't use android.app.Fragment you can exclude support for them
         exclude module: "support-v13"
     }
-
-
-
-
-
-
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha9'
     compile 'com.jakewharton:butterknife:8.6.0'
@@ -79,4 +67,5 @@ dependencies {
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
     annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:2.4.0'
+    compile project(':libzxing')
 }

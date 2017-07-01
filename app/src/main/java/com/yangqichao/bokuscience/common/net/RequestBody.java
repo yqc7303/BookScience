@@ -37,6 +37,9 @@ public class RequestBody {
     private String hospitalName;
     private String name;
     private String tel;
+
+    private int page;
+    private int pageSize;
     /**
      * documentUrl : string
      * shareContent : string
@@ -49,6 +52,21 @@ public class RequestBody {
     private String shareUrl;
     private String userId;
 
+    public int getPage() {
+        return page;
+    }
+
+    public void setPage(int page) {
+        this.page = page;
+    }
+
+    public int getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
+    }
 
     public String getAppType() {
         return appType;

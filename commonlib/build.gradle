@@ -82,10 +82,10 @@ dependencies {
      */
     //compile 'com.jph.takephoto:takephoto_library:4.0.3'
 
+    compile 'com.contrarywind:Android-PickerView:3.2.5'
 
 
-
-
+    compile 'com.github.anzaizai:EasySwipeMenuLayout:1.0.6'
 
 
 }

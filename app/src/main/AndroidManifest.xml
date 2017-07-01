@@ -96,7 +96,7 @@
         <activity android:name=".business.ui.share.FileListActivity" />
         <activity android:name=".business.ui.meetting.MeetingDetailActivity" />
         <activity android:name=".business.ui.meetting.MeetingPersonChoseActivity" />
-        <activity android:name=".business.ui.meetting.MeetingParticipantActivity" />
+        <activity android:name=".business.ui.meetting.MeetingPersonActivity" />
         <activity android:name=".business.ui.meetting.GetLocationActivity"></activity>
     </application>
 

@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
 
 import com.amap.api.services.help.Inputtips;
@@ -13,8 +14,10 @@ import com.amap.api.services.help.InputtipsQuery;
 import com.amap.api.services.help.Tip;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.yangqichao.bokuscience.R;
 import com.yangqichao.bokuscience.common.base.BaseActivity;
+import com.yangqichao.commonlib.event.RxBus;
 
 import java.util.List;
 
@@ -52,6 +55,13 @@ public class GetLocationActivity extends BaseActivity implements Inputtips.Input
         };
         recycleShare.setLayoutManager(new LinearLayoutManager(this));
         recycleShare.setAdapter(adapter);
+        recycleShare.addOnItemTouchListener(new OnItemClickListener() {
+            @Override
+            public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+                RxBus.getDefault().post(adapter.getData().get(position));
+                finish();
+            }
+        });
     }
 
     @OnClick(R.id.img_back)

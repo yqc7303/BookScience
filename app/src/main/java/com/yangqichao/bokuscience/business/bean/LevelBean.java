@@ -1,5 +1,7 @@
 package com.yangqichao.bokuscience.business.bean;
 
+import java.util.List;
+
 /**
  * Created by yangqc on 2017/6/8.
  */
@@ -28,6 +30,26 @@ public class LevelBean {
     private String moduleIds;
     private Object videosIds;
     private Object orgProvince;
+    private String seleteNum;
+
+    private List<GetKeShiPerson.RecordsBean> keShiPerson;
+
+
+    public List<GetKeShiPerson.RecordsBean> getKeShiPerson() {
+        return keShiPerson;
+    }
+
+    public void setKeShiPerson(List<GetKeShiPerson.RecordsBean> keShiPerson) {
+        this.keShiPerson = keShiPerson;
+    }
+
+    public String getSeleteNum() {
+        return seleteNum;
+    }
+
+    public void setSeleteNum(String seleteNum) {
+        this.seleteNum = seleteNum;
+    }
 
     public String getId() {
         return id;
@@ -99,5 +121,62 @@ public class LevelBean {
 
     public void setOrgProvince(Object orgProvince) {
         this.orgProvince = orgProvince;
+    }
+
+    class KeShiPerson{
+
+        /**
+         * meetingId : 0
+         * meetingTitle : string
+         * userId : 0
+         * userName : string
+         * userTel : string
+         */
+
+        private String meetingId;
+        private String meetingTitle;
+        private String userId;
+        private String userName;
+        private String userTel;
+
+        public String getMeetingId() {
+            return meetingId;
+        }
+
+        public void setMeetingId(String meetingId) {
+            this.meetingId = meetingId;
+        }
+
+        public String getMeetingTitle() {
+            return meetingTitle;
+        }
+
+        public void setMeetingTitle(String meetingTitle) {
+            this.meetingTitle = meetingTitle;
+        }
+
+        public String getUserId() {
+            return userId;
+        }
+
+        public void setUserId(String userId) {
+            this.userId = userId;
+        }
+
+        public String getUserName() {
+            return userName;
+        }
+
+        public void setUserName(String userName) {
+            this.userName = userName;
+        }
+
+        public String getUserTel() {
+            return userTel;
+        }
+
+        public void setUserTel(String userTel) {
+            this.userTel = userTel;
+        }
     }
 }

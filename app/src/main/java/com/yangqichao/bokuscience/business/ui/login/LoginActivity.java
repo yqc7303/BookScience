@@ -91,6 +91,9 @@ public class LoginActivity extends BaseActivity {
                                 PreferenceUtils.setPrefString(LoginActivity.this,"uId",loginBean.getId());
                                 PreferenceUtils.setPrefString(LoginActivity.this,"pw",pw);
                                 PreferenceUtils.setPrefString(LoginActivity.this,"phone",phone);
+                                PreferenceUtils.setPrefString(LoginActivity.this,"hospital",loginBean.getHospitalId()+"");
+                                PreferenceUtils.setPrefString(LoginActivity.this,"deptId",loginBean.getDeptId()+"");
+                                PreferenceUtils.setPrefInt(LoginActivity.this,"publish",loginBean.getPublishFlag());
                                 finish();
                             }
 

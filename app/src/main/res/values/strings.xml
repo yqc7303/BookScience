@@ -9,5 +9,6 @@
     <string name="title_activity_register">RegisterActivity</string>
 
     <string name="code_wait">获取等待%d秒</string>
+    <string name="meeting_create_time">会议于%s创建</string>
 
 </resources>

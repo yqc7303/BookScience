@@ -1,8 +1,11 @@
 package com.yangqichao.bokuscience.common.net;
 
 
-import com.yangqichao.bokuscience.business.bean.LoginBean;
+import com.yangqichao.bokuscience.business.bean.GetKeShiPerson;
 import com.yangqichao.bokuscience.business.bean.LevelBean;
+import com.yangqichao.bokuscience.business.bean.LoginBean;
+import com.yangqichao.bokuscience.business.bean.MeetingDetailBean;
+import com.yangqichao.bokuscience.business.bean.MyMeetingBean;
 import com.yangqichao.bokuscience.business.bean.RegisteBean;
 import com.yangqichao.bokuscience.business.bean.ScienceDynamicBean;
 
@@ -57,6 +60,18 @@ public interface API {
     @POST("/app/sharemsg/insertInfo")
     Observable<Response<String>> insertInfo(@Body RequestBody requestBody);
 
+    @POST("/app/org/users")
+    Observable<Response<GetKeShiPerson>> users(@Body RequestBody requestBody);
+
+    @POST("/app/mymeetings/select")
+    Observable<Response<MyMeetingBean>> select(@Body RequestBody requestBody);
+
+
+    @GET("/app/meeting/get/{id}")
+    Observable<Response<MeetingDetailBean>> meetingDetail(@Path("id") int id);
+
+    @GET("/app/meeting/sign/{meetingId}/{userId}/{gps}")
+    Observable<Response<String>> sign(@Path("meetingId") String meetingId,@Path("userId") String userId,@Path("gps") String gps);
 
 
 }

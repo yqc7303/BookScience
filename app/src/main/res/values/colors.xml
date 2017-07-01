@@ -27,4 +27,6 @@
     <color name="base_text_black">#333333</color>
 
     <color name="base_text_gray_dark">#999999</color>
+
+    <color name="gray_dark">#b9b9b9</color>
 </resources>
