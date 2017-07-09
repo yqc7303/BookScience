@@ -11,7 +11,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <!-- 用于获取运营商信息，用于支持提供运营商信息相关的接口 -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <!-- 用于访问wifi网络信息，wifi信息会用于进行网络定位 -->
+    <!-- 用于访问wifi网络信息，wifi信息会用于进行网络定位 -->c
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <!-- 用于获取wifi的获取权限，wifi信息会用来进行网络定位 -->
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
@@ -27,6 +27,8 @@
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 
+
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
     <application
         android:name=".common.APP"
         android:allowBackup="true"
@@ -97,7 +99,8 @@
         <activity android:name=".business.ui.meetting.MeetingDetailActivity" />
         <activity android:name=".business.ui.meetting.MeetingPersonChoseActivity" />
         <activity android:name=".business.ui.meetting.MeetingPersonActivity" />
-        <activity android:name=".business.ui.meetting.GetLocationActivity"></activity>
+        <activity android:name=".business.ui.meetting.GetLocationActivity" />
+        <activity android:name=".business.ui.meetting.MeetingPersonShowActivity"></activity>
     </application>
 
 </manifest>

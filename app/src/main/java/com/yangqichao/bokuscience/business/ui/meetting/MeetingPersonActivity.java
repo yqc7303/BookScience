@@ -64,7 +64,7 @@ public class MeetingPersonActivity extends BaseActivity {
         recycleKeshi.setLayoutManager(new LinearLayoutManager(this));
         recycleKeshi.setAdapter(adapter);
 
-        RequestUtil.createApi().getLevel(PreferenceUtils.getPrefString(this, "hospital", "")).compose(RequestUtil.<List<LevelBean>>handleResult())
+        RequestUtil.createApi().getLevel(PreferenceUtils.getPrefString(this, "hospitalId", "")).compose(RequestUtil.<List<LevelBean>>handleResult())
                 .subscribe(new CommonsSubscriber<List<LevelBean>>() {
                     @Override
                     protected void onSuccess(List<LevelBean> levelBeen) {

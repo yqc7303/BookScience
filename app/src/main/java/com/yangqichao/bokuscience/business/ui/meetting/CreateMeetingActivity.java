@@ -6,30 +6,41 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.SwitchCompat;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.amap.api.services.core.LatLonPoint;
 import com.amap.api.services.help.Tip;
 import com.bigkoo.pickerview.TimePickerView;
 import com.yangqichao.bokuscience.R;
-import com.yangqichao.bokuscience.business.bean.CreateMeetingRequestBean;
 import com.yangqichao.bokuscience.business.bean.FileBean;
 import com.yangqichao.bokuscience.business.bean.GetKeShiPerson;
+import com.yangqichao.bokuscience.business.ui.share.FileListActivity;
+import com.yangqichao.bokuscience.common.APP;
 import com.yangqichao.bokuscience.common.base.BaseActivity;
 import com.yangqichao.bokuscience.common.net.CommonsSubscriber;
+import com.yangqichao.bokuscience.common.net.RequestUtil;
 import com.yangqichao.commonlib.event.EventSubscriber;
 import com.yangqichao.commonlib.event.RxBus;
+import com.yangqichao.commonlib.util.PreferenceUtils;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -62,6 +73,7 @@ public class CreateMeetingActivity extends BaseActivity implements CompoundButto
     private List<GetKeShiPerson.RecordsBean> chooseList;
     private FileBean fileBean;
     private SimpleDateFormat dateFormat;
+    private Date meetingDate;
 
     @Override
     protected int getLayoutResID() {
@@ -78,6 +90,7 @@ public class CreateMeetingActivity extends BaseActivity implements CompoundButto
                     protected void onSuccess(Tip tip) {
                         tvMeetingAddress.setText(tip.getName());
                         address = tip;
+
                     }
                 });
 
@@ -100,10 +113,12 @@ public class CreateMeetingActivity extends BaseActivity implements CompoundButto
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_meeting_time:
+                hideSoftInputView();
                 TimePickerView pickerView = new TimePickerView.Builder(this, new TimePickerView.OnTimeSelectListener() {
                     @Override
                     public void onTimeSelect(Date date, View v) {
                         tvMeetingTime.setText(dateFormat.format(date));
+                        meetingDate = date;
                     }
                 }).setType(new boolean[]{true, true, true, true, true, false})
                         .setSubmitColor(ContextCompat.getColor(this,R.color.base_orange))//确定按钮文字颜色
@@ -120,35 +135,107 @@ public class CreateMeetingActivity extends BaseActivity implements CompoundButto
                 startActivityForResult(intent, 100);
                 break;
             case R.id.tv_meeting_file:
-
-                break;
-            case R.id.tv_meeting_xcc:
-                break;
-            case R.id.switch_duanxin:
+                startActivity(new Intent(this, FileListActivity.class));
                 break;
             case R.id.tv_create:
-                CreateMeetingRequestBean requestBody = new CreateMeetingRequestBean();
-                requestBody.setNoticeflag(switchDuanxin.isChecked() ? "1" : "0");
-
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle("会议即将发布")
-                        .setMessage("会议发布后无法修改，是否继续？")
-                        .setPositiveButton("继续", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                dialogInterface.dismiss();
-                                //// TODO: 2017/7/1 会议提交
-                            }
-                        })
-                        .setNegativeButton("再想想", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                dialogInterface.dismiss();
-                            }
-                        });
+                createMeeting();
                 break;
         }
+    }
+
+    private void createMeeting() {
+        String title = etMeetingName.getText().toString();
+        String describe = etMeetingDescribe.getText().toString();
+        String time = tvMeetingTime.getText().toString();
+        String addressStr = tvMeetingAddress.getText().toString();
+        String person = tvMeetingPerson.getText().toString();
+        final String h5 = tvMeetingXcc.getText().toString();
+
+        if(TextUtils.isEmpty(title)){
+            showToast("会议标题不能为空");
+            return;
+        }
+        if(TextUtils.isEmpty(describe)){
+            showToast("会议描述不能为空");
+            return;
+        }
+        if(TextUtils.isEmpty(time)){
+            showToast("会议时间不能为空");
+            return;
+        }
+        if(TextUtils.isEmpty(addressStr)){
+            showToast("会议地点不能为空");
+            return;
+        }
+        if(TextUtils.isEmpty(person)){
+            showToast("请选择参会人员");
+            return;
+        }
+        StringBuilder builder = new StringBuilder();
+            for(GetKeShiPerson.RecordsBean bean:chooseList){
+                if(bean == chooseList.get(chooseList.size()-1)){
+                    builder.append(bean.getId());
+                }else{
+                    builder.append(bean.getId()+",");
+                }
+
+            }
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        final Map<String, RequestBody> bodyMap = new HashMap<>();
+        LatLonPoint point = address.getPoint();
+        bodyMap.put("title", RequestBody.create(MediaType.parse("multipart/form-data"), title));
+        bodyMap.put("content",RequestBody.create(MediaType.parse("multipart/form-data"), describe));
+        bodyMap.put("gmtStart",RequestBody.create(MediaType.parse("multipart/form-data"), dateFormat.format(meetingDate)));
+        bodyMap.put("address",RequestBody.create(MediaType.parse("multipart/form-data"), address.getName()));
+        bodyMap.put("gps",RequestBody.create(MediaType.parse("multipart/form-data"),point.getLongitude()+","+point.getLatitude()));
+        bodyMap.put("noticeflag",RequestBody.create(MediaType.parse("multipart/form-data"), switchDuanxin.isChecked() ? "1" : "0"));
+        bodyMap.put("createrId",RequestBody.create(MediaType.parse("multipart/form-data"), APP.getUserId()));
+        bodyMap.put("hospitalId",RequestBody.create(MediaType.parse("multipart/form-data"), PreferenceUtils.getPrefString(this,"hospitalId","")));
+        bodyMap.put("hospitalName",RequestBody.create(MediaType.parse("multipart/form-data"), PreferenceUtils.getPrefString(this,"hospitalName","")));
+        bodyMap.put("userIds",RequestBody.create(MediaType.parse("multipart/form-data"), builder.toString()));
+
+
+        if(!TextUtils.isEmpty(h5)){
+            bodyMap.put("h5Url",RequestBody.create(MediaType.parse("multipart/form-data"), APP.getUserId()));
+        }
+
+
+        AlertDialog.Builder builderDialog = new AlertDialog.Builder(this);
+        builderDialog.setTitle("会议即将发布")
+                .setMessage("会议发布后无法修改，是否继续？")
+                .setPositiveButton("继续", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                        if(fileBean != null){
+                            File file = new File(fileBean.getPath());
+                            MultipartBody.Part body =
+                                    MultipartBody.Part.createFormData("file", file.getName(), RequestBody.create(MediaType.parse("application/otcet-stream"), file));
+                            RequestUtil.createApi().publish(bodyMap,body).compose(RequestUtil.<String>handleResult())
+                                    .subscribe(new CommonsSubscriber<String>() {
+                                        @Override
+                                        protected void onSuccess(String s) {
+                                            finish();
+                                        }
+                                    });
+                        }else{
+                            RequestUtil.createApi().publish(bodyMap).compose(RequestUtil.<String>handleResult())
+                                    .subscribe(new CommonsSubscriber<String>() {
+                                        @Override
+                                        protected void onSuccess(String s) {
+                                            finish();
+                                        }
+                                    });
+                        }
+                    }
+                })
+                .setNegativeButton("再想想", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+        builderDialog.show();
     }
 
     @Override
@@ -167,6 +254,7 @@ public class CreateMeetingActivity extends BaseActivity implements CompoundButto
         if (resultCode == RESULT_OK) {
             chooseList = (List<GetKeShiPerson.RecordsBean>) data.getSerializableExtra("choose");
             tvMeetingPerson.setText(chooseList.size() + "人");
+
         }
     }
 }

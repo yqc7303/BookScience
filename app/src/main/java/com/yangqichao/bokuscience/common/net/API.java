@@ -8,13 +8,21 @@ import com.yangqichao.bokuscience.business.bean.MeetingDetailBean;
 import com.yangqichao.bokuscience.business.bean.MyMeetingBean;
 import com.yangqichao.bokuscience.business.bean.RegisteBean;
 import com.yangqichao.bokuscience.business.bean.ScienceDynamicBean;
+import com.yangqichao.bokuscience.business.bean.ShareItemBean;
+import com.yangqichao.bokuscience.business.bean.ShowPersonBean;
 
 import java.util.List;
+import java.util.Map;
 
+import okhttp3.MultipartBody;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
+import retrofit2.http.PartMap;
 import retrofit2.http.Path;
+import retrofit2.http.Url;
 import rx.Observable;
 
 /**
@@ -57,8 +65,15 @@ public interface API {
     @GET("/app/notifications/getbyuser/{userId}")
     Observable<Response<List<ScienceDynamicBean>>> getbyuser(@Path("userId") String userId);
 
+    @Multipart
     @POST("/app/sharemsg/insertInfo")
-    Observable<Response<String>> insertInfo(@Body RequestBody requestBody);
+    Observable<Response<String>> insertInfo(@PartMap Map<String, okhttp3.RequestBody> params);
+
+    @Multipart
+    @POST("/app/sharemsg/insertInfo")
+    Observable<Response<String>> insertInfo(@PartMap Map<String, okhttp3.RequestBody> params
+                                                     ,@Part MultipartBody.Part file);
+
 
     @POST("/app/org/users")
     Observable<Response<GetKeShiPerson>> users(@Body RequestBody requestBody);
@@ -70,8 +85,26 @@ public interface API {
     @GET("/app/meeting/get/{id}")
     Observable<Response<MeetingDetailBean>> meetingDetail(@Path("id") int id);
 
-    @GET("/app/meeting/sign/{meetingId}/{userId}/{gps}")
-    Observable<Response<String>> sign(@Path("meetingId") String meetingId,@Path("userId") String userId,@Path("gps") String gps);
+    @GET
+    Observable<Response<String>> sign(@Url String url);
+
+    @GET("/app/meetingjoin/select/{meetingId}")
+    Observable<Response<ShowPersonBean>> showPerson(@Path("meetingId") String meetingId);
+
+    @Multipart
+    @POST("/app/meeting/publish")
+    Observable<Response<String>> publish(@PartMap() Map<String, okhttp3.RequestBody> partMap,
+                                         @Part MultipartBody.Part file);
+    @Multipart
+    @POST("/app/meeting/publish")
+    Observable<Response<String>> publish(@PartMap() Map<String, okhttp3.RequestBody> partMap);
+
+    @POST("/app/sharemsg/select")
+    Observable<Response<ShareItemBean>> selectShare(@Body RequestBody requestBody);
+
+
+    @GET("/app/meeting/signflag/{meetingId}/{flag}")
+    Observable<Response<ShowPersonBean>> signflag(@Path("meetingId") int meetingId,@Path("flag") int flag);
 
 
 }

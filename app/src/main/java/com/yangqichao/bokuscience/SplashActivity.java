@@ -41,6 +41,10 @@ public class SplashActivity extends BaseActivity {
                                 @Override
                                 protected void onSuccess(LoginBean loginBean) {
                                     MainActivity.startAction(SplashActivity.this,loginBean);
+                                    PreferenceUtils.setPrefString(SplashActivity.this,"hospitalId",loginBean.getHospitalId()+"");
+                                    PreferenceUtils.setPrefString(SplashActivity.this,"hospitalName",loginBean.getHospitalName()+"");
+                                    PreferenceUtils.setPrefString(SplashActivity.this,"deptId",loginBean.getDeptId()+"");
+                                    PreferenceUtils.setPrefInt(SplashActivity.this,"publish",loginBean.getPublishFlag());
                                 }
                             });
 

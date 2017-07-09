@@ -361,6 +361,7 @@
             android:id="@+id/rl_create_close"
             android:layout_width="0dp"
             android:layout_weight="1"
+            android:visibility="gone"
             android:background="@color/gray_dark"
             android:layout_height="match_parent">
 
@@ -381,6 +382,7 @@
             android:id="@+id/rl_create_open"
             android:layout_width="0dp"
             android:layout_weight="1"
+            android:visibility="gone"
             android:background="@color/base_orange"
             android:layout_height="match_parent">
 

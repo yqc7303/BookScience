@@ -24,8 +24,10 @@ import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
+import com.xys.libzxing.zxing.activity.CaptureActivity;
 import com.yangqichao.bokuscience.R;
 import com.yangqichao.bokuscience.business.bean.MeetingDetailBean;
+import com.yangqichao.bokuscience.business.bean.ShowPersonBean;
 import com.yangqichao.bokuscience.common.APP;
 import com.yangqichao.bokuscience.common.base.BaseActivity;
 import com.yangqichao.bokuscience.common.net.CommonsSubscriber;
@@ -37,7 +39,8 @@ import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.RuntimePermissions;
 
 @RuntimePermissions
-public class MeetingDetailActivity extends BaseActivity implements CompoundButton.OnCheckedChangeListener, AMapLocationListener {
+public class MeetingDetailActivity extends BaseActivity implements
+        CompoundButton.OnCheckedChangeListener, AMapLocationListener {
 
     @BindView(R.id.tv_meeting_name)
     TextView tvMeetingName;
@@ -76,6 +79,10 @@ public class MeetingDetailActivity extends BaseActivity implements CompoundButto
     private int meetingId;
     MeetingDetailBean meetingDetail;
     int meetingStatus;
+
+    private static final int REQUESTCODE = 300;
+    private String codeUrl;
+
     @Override
     protected int getLayoutResID() {
         return R.layout.activity_meeting_detail;
@@ -121,7 +128,7 @@ public class MeetingDetailActivity extends BaseActivity implements CompoundButto
             //创建人
             llMeetingCreate.setVisibility(View.VISIBLE);
 
-            setStatus(signStatus);
+            setStatusView(signStatus);
             switchSao.setOnCheckedChangeListener(this);
         } else {
             //普通者
@@ -132,6 +139,12 @@ public class MeetingDetailActivity extends BaseActivity implements CompoundButto
             }
 
         }
+        if(meetingDetail.getSignflag()==1){
+            switchSao.setChecked(true);
+        }else{
+            switchSao.setChecked(false);
+        }
+
 
         // TODO: 2017/7/1 取消会议显示
         if(meetingStatus == 0 && createId.equals(APP.getUserId())){
@@ -141,13 +154,26 @@ public class MeetingDetailActivity extends BaseActivity implements CompoundButto
         }
     }
 
-    private void setStatus(boolean status) {
+    private void setStatus(final boolean status) {
+        RequestUtil.createApi().signflag(meetingId,status?1:0).compose(RequestUtil.<ShowPersonBean>handleResult())
+                .subscribe(new CommonsSubscriber<ShowPersonBean>() {
+                    @Override
+                    protected void onSuccess(ShowPersonBean showPersonBean) {
+                        setStatusView(status);
+                    }
+                });
+
+    }
+
+    private void setStatusView(boolean status) {
         if (status) {
             switchSao.setChecked(true);
             rlCreateOpen.setVisibility(View.VISIBLE);
+            rlCreateClose.setVisibility(View.GONE);
         } else {
             switchSao.setChecked(false);
             rlCreateClose.setVisibility(View.VISIBLE);
+            rlCreateOpen.setVisibility(View.GONE);
         }
     }
 
@@ -166,7 +192,7 @@ public class MeetingDetailActivity extends BaseActivity implements CompoundButto
                 finish();
                 break;
             case R.id.tv_meeting_person:
-
+                MeetingPersonShowActivity.startAction(this,meetingId+"");
                 break;
             case R.id.rl_meeting_file:
                 openFile(meetingDetail.getFileUrl());
@@ -175,10 +201,10 @@ public class MeetingDetailActivity extends BaseActivity implements CompoundButto
                 openFile(meetingDetail.getH5Url());
                 break;
             case R.id.rl_normal_open:
-                MeetingDetailActivityPermissionsDispatcher.signWithCheck(this);
+                MeetingDetailActivityPermissionsDispatcher.saomaWithCheck(this);
                 break;
             case R.id.rl_create_open:
-                MeetingDetailActivityPermissionsDispatcher.signWithCheck(this);
+                MeetingDetailActivityPermissionsDispatcher.saomaWithCheck(this);
                 break;
             case R.id.img_create:
                 View dismissView = LayoutInflater.from(this).inflate(R.layout.popwindow_dismiss_meeting,null);
@@ -213,6 +239,8 @@ public class MeetingDetailActivity extends BaseActivity implements CompoundButto
         }
     }
 
+
+
     private void openFile(String url) {
         Intent intent = new Intent();
         intent.setAction("android.intent.action.VIEW");
@@ -231,6 +259,11 @@ public class MeetingDetailActivity extends BaseActivity implements CompoundButto
     //声明AMapLocationClientOption对象
     public AMapLocationClientOption mLocationOption = null;
 
+    @NeedsPermission(Manifest.permission.CAMERA)
+    public void saoma() {
+        Intent intent = new Intent(this, CaptureActivity.class);
+        startActivityForResult(intent,REQUESTCODE);
+    }
     @NeedsPermission(Manifest.permission.ACCESS_COARSE_LOCATION)
     public void sign() {
         //初始化AMapLocationClientOption对象
@@ -263,15 +296,13 @@ public class MeetingDetailActivity extends BaseActivity implements CompoundButto
             if (amapLocation.getErrorCode() == 0) {
                 //可在其中解析amapLocation获取相应内容。
                 String location = amapLocation.getLongitude() + "," + amapLocation.getLatitude();
-                RequestUtil.createApi().sign(meetingId + "", APP.getUserId(), location).compose(RequestUtil.<String>handleResult())
+                RequestUtil.createApi().sign(codeUrl+"/"+APP.getUserId()+"/"+location).compose(RequestUtil.<String>handleResult())
                         .subscribe(new CommonsSubscriber<String>() {
                             @Override
                             protected void onSuccess(String s) {
 
                             }
                         });
-
-
             } else {
                 //定位失败时，可通过ErrCode（错误码）信息来确定失败的原因，errInfo是错误信息，详见错误码表。
                 Log.e("AmapError", "location Error, ErrCode:"
@@ -292,6 +323,15 @@ public class MeetingDetailActivity extends BaseActivity implements CompoundButto
         super.onDestroy();
         if(mLocationClient!=null){
             mLocationClient.onDestroy();//销毁定位客户端，同时销毁本地定位服务。
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (REQUESTCODE == requestCode && data != null) {
+            codeUrl = data.getExtras().getString("result");
+            MeetingDetailActivityPermissionsDispatcher.signWithCheck(this);
         }
     }
 }

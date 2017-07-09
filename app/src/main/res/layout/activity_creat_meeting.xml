@@ -4,334 +4,333 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:focusableInTouchMode="true"
+    android:orientation="vertical"
     tools:context="com.yangqichao.bokuscience.business.ui.meetting.CreateMeetingActivity">
 
 
     <RelativeLayout
-        android:background="@color/base_orange"
         android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/base_orange"
         android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:layout_height="40dp">
+        android:paddingRight="10dp">
+
         <ImageView
             android:id="@+id/img_back"
-            android:layout_centerVertical="true"
-            android:src="@drawable/btn_back"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:src="@drawable/btn_back" />
 
         <TextView
-            android:text="会议管理"
-            android:textSize="18sp"
-            android:textColor="@color/white"
-            android:layout_centerInParent="true"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="会议管理"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/tv_create"
-            android:text="发布"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:text="发布"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
 
     </RelativeLayout>
 
     <LinearLayout
-        android:orientation="vertical"
-        android:background="@color/white"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
 
         <RelativeLayout
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:minHeight="45dp"
-            android:layout_height="wrap_content">
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
 
             <TextView
-                android:text="会议标题"
                 android:id="@+id/huiyi_biaoti"
-                android:layout_centerVertical="true"
-                android:textSize="16sp"
-                android:layout_marginRight="10dp"
-                android:textColor="@color/base_text_black"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:text="会议标题"
+                android:textColor="@color/base_text_black"
+                android:textSize="16sp" />
 
             <EditText
-                android:hint="点击输入"
-                android:layout_toRightOf="@id/huiyi_biaoti"
-                android:paddingBottom="5dp"
-                android:textColorHint="@color/base_text_black_light"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                android:gravity="right"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
                 android:id="@+id/tv_meeting_name"
-                android:background="@null"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/huiyi_biaoti"
+                android:background="@null"
+                android:gravity="right"
+                android:hint="点击输入"
+                android:paddingBottom="5dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/base_text_black_light"
+                android:textSize="16sp" />
         </RelativeLayout>
-        
+
         <View
             android:layout_width="match_parent"
-            android:background="#f5f5f5"
+            android:layout_height="1dp"
             android:layout_marginLeft="10dp"
-            android:layout_height="1dp"/>
+            android:background="#f5f5f5" />
 
         <RelativeLayout
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:minHeight="45dp"
-            android:layout_height="wrap_content">
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
 
             <TextView
                 android:id="@+id/huiyi_miaoshu"
-                android:text="会议描述"
-                android:layout_centerVertical="true"
-                android:textSize="16sp"
-                android:layout_marginRight="10dp"
-                android:textColor="@color/base_text_black"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:text="会议描述"
+                android:textColor="@color/base_text_black"
+                android:textSize="16sp" />
 
             <EditText
-                android:hint="点击输入"
-                android:layout_toRightOf="@id/huiyi_miaoshu"
-                android:textColorHint="@color/base_text_black_light"
-                android:textColor="@color/black"
-                android:paddingBottom="5dp"
-                android:textSize="16sp"
-                android:gravity="right"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
                 android:id="@+id/tv_meeting_describe"
-                android:background="@null"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/huiyi_miaoshu"
+                android:background="@null"
+                android:gravity="right"
+                android:hint="点击输入"
+                android:paddingBottom="5dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/base_text_black_light"
+                android:textSize="16sp" />
         </RelativeLayout>
     </LinearLayout>
 
 
     <RelativeLayout
-        android:layout_marginTop="10dp"
-        android:paddingLeft="10dp"
-        android:background="@color/white"
-        android:paddingRight="10dp"
         android:layout_width="match_parent"
-        android:layout_height="45dp">
+        android:layout_height="45dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:paddingLeft="10dp">
 
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
             android:text="会议时间"
-            android:textSize="16sp"
             android:textColor="@color/base_text_black"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_meeting_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@null"
+            android:drawablePadding="3dp"
+            android:drawableRight="@drawable/icon_arrow_right_gray"
+            android:gravity="right"
+            android:hint="请选择"
+            android:padding="10dp"
+            android:textColor="@color/base_text_black"
+            android:textColorHint="@color/base_text_gray_dark"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:paddingLeft="10dp">
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:text="会议地点"
+            android:textColor="@color/base_text_black"
+            android:textSize="16sp" />
 
         <TextView
-            android:hint="请选择"
-            android:drawableRight="@drawable/icon_arrow_right_gray"
-            android:drawablePadding="3dp"
-            android:textColorHint="@color/base_text_gray_dark"
-            android:textColor="@color/base_text_black"
-            android:gravity="right"
-            android:textSize="16sp"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:id="@+id/tv_meeting_time"
-            android:background="@null"
+            android:id="@+id/tv_meeting_address"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@null"
+            android:drawablePadding="3dp"
+            android:drawableRight="@drawable/icon_arrow_right_gray"
+            android:gravity="right"
+            android:hint="请选择"
+            android:padding="10dp"
+            android:textColor="@color/base_text_black"
+            android:textColorHint="@color/base_text_gray_dark"
+            android:textSize="16sp" />
     </RelativeLayout>
 
-
-
-        <RelativeLayout
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:layout_marginTop="10dp"
-            android:background="@color/white"
-            android:layout_width="match_parent"
-            android:layout_height="45dp">
-
-            <TextView
-                android:text="会议地点"
-                android:layout_centerVertical="true"
-                android:textSize="16sp"
-                android:textColor="@color/base_text_black"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:hint="请选择"
-                android:drawableRight="@drawable/icon_arrow_right_gray"
-                android:drawablePadding="3dp"
-                android:textColorHint="@color/base_text_gray_dark"
-                android:textColor="@color/base_text_black"
-                android:gravity="right"
-                android:textSize="16sp"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
-                android:id="@+id/tv_meeting_address"
-                android:background="@null"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </RelativeLayout>
-
     <RelativeLayout
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
         android:layout_marginTop="10dp"
         android:background="@color/white"
-        android:layout_width="match_parent"
-        android:layout_height="45dp">
+        android:paddingLeft="10dp">
 
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:text="参会人员"
-            android:layout_centerVertical="true"
-            android:textSize="16sp"
             android:textColor="@color/base_text_black"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:textSize="16sp" />
 
         <TextView
-            android:hint="请选择"
-            android:drawableRight="@drawable/icon_arrow_right_gray"
-            android:drawablePadding="3dp"
-            android:textColorHint="@color/base_text_gray_dark"
-            android:textColor="@color/base_text_black"
-            android:gravity="right"
-            android:textSize="16sp"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
             android:id="@+id/tv_meeting_person"
-            android:background="@null"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@null"
+            android:drawablePadding="3dp"
+            android:drawableRight="@drawable/icon_arrow_right_gray"
+            android:gravity="right"
+            android:hint="请选择"
+            android:padding="10dp"
+            android:textColor="@color/base_text_black"
+            android:textColorHint="@color/base_text_gray_dark"
+            android:textSize="16sp" />
     </RelativeLayout>
 
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:paddingLeft="10dp">
 
-        <RelativeLayout
-            android:paddingLeft="10dp"
-            android:background="@color/white"
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:text="会议附件"
+            android:textColor="@color/base_text_black"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_meeting_file"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/textView10"
+            android:layout_alignBottom="@+id/textView10"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:background="@null"
+            android:drawablePadding="3dp"
+            android:drawableRight="@drawable/icon_arrow_right_gray"
+            android:gravity="right"
+            android:hint="请添加"
             android:paddingRight="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="45dp">
+            android:textColor="@color/base_text_black"
+            android:textColorHint="@color/base_text_gray_dark"
+            android:textSize="16sp" />
+    </RelativeLayout>
 
-            <TextView
-                android:text="会议附件"
-                android:textSize="16sp"
-                android:textColor="@color/base_text_black"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:id="@+id/textView10" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="10dp"
+        android:background="#f5f5f5" />
 
-            <TextView
-                android:hint="请添加"
-                android:drawableRight="@drawable/icon_arrow_right_gray"
-                android:drawablePadding="3dp"
-                android:textColorHint="@color/base_text_gray_dark"
-                android:textColor="@color/base_text_black"
-                android:gravity="right"
-                android:textSize="16sp"
-                android:id="@+id/tv_meeting_file"
-                android:background="@null"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/textView10"
-                android:layout_alignBottom="@+id/textView10"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
-        </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:paddingLeft="10dp"
+        android:background="@color/white"
+        android:paddingRight="10dp">
 
-        <View
-            android:layout_width="match_parent"
-            android:background="#f5f5f5"
-            android:layout_marginLeft="10dp"
-            android:layout_height="1dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="宣传册"
+            android:textColor="@color/base_text_black"
+            android:textSize="16sp" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:text="宣传册"
-                android:textColor="@color/base_text_black"
-                android:textSize="16sp" />
-
-            <EditText
-                android:id="@+id/tv_meeting_xcc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:background="@null"
-                android:hint="请输入网址，例如：www.xxxx.com"
-                android:textColorHint="@color/base_text_gray_dark"
-                android:textColor="@color/base_text_black"
-                android:gravity="right"
-                android:textSize="16sp" />
-        </RelativeLayout>
-
-
+        <EditText
+            android:id="@+id/tv_meeting_xcc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@null"
+            android:gravity="right"
+            android:hint="请输入网址，例如：www.xxxx.com"
+            android:textColor="@color/base_text_black"
+            android:textColorHint="@color/base_text_gray_dark"
+            android:textSize="16sp" />
+    </RelativeLayout>
 
 
     <RelativeLayout
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
         android:layout_marginTop="10dp"
         android:background="@color/white"
-        android:layout_width="match_parent"
-        android:layout_height="60dp">
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
 
         <TextView
-            android:text="短信通知"
-            android:layout_marginTop="15dp"
-            android:textSize="14sp"
             android:id="@+id/tv_duanxin"
-            android:textColor="@color/base_text_black"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="短信通知"
+            android:textColor="@color/base_text_black"
+            android:textSize="14sp" />
 
         <TextView
-            android:layout_below="@id/tv_duanxin"
-            android:text="打开后将会通过手机短信的形式通知参会人员"
-            android:layout_marginTop="5dp"
-            android:textSize="10sp"
-            android:textColor="@color/base_text_black"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_duanxin"
+            android:layout_marginTop="5dp"
+            android:text="打开后将会通过手机短信的形式通知参会人员"
+            android:textColor="@color/base_text_black"
+            android:textSize="10sp" />
 
         <android.support.v7.widget.SwitchCompat
             android:id="@+id/switch_duanxin"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
             android:layout_width="wrap_content"
-            android:checked="true"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:checked="true" />
     </RelativeLayout>
 
 </LinearLayout>

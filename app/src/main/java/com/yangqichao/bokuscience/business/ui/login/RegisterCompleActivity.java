@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -13,6 +14,7 @@ import android.widget.EditText;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.bigkoo.pickerview.TimePickerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
@@ -24,11 +26,14 @@ import com.yangqichao.bokuscience.common.base.BaseActivity;
 import com.yangqichao.bokuscience.common.net.CommonsSubscriber;
 import com.yangqichao.bokuscience.common.net.RequestBody;
 import com.yangqichao.bokuscience.common.net.RequestUtil;
-import com.yangqichao.commonlib.util.PreferenceUtils;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class RegisterCompleActivity extends BaseActivity {
@@ -41,6 +46,8 @@ public class RegisterCompleActivity extends BaseActivity {
     TextView tvAddress;
     @BindView(R.id.et_name)
     EditText etName;
+    @BindView(R.id.tv_birthday)
+    TextView tvBirthday;
 
     private PopupWindow popupWindow;
     private BaseQuickAdapter<LevelBean, BaseViewHolder> adapter;
@@ -51,13 +58,14 @@ public class RegisterCompleActivity extends BaseActivity {
 
     private LevelBean hospitalBean, keshiBean, addressBean;
 
-    private String phone,code,pw;
+    private String phone, code, pw;
+    private String brithdayStr;
 
-    public static void startAction(Context context,String phone,String code,String pw){
-        Intent intent = new Intent(context,RegisterCompleActivity.class);
-        intent.putExtra("phone",phone);
-        intent.putExtra("code",code);
-        intent.putExtra("pw",pw);
+    public static void startAction(Context context, String phone, String code, String pw) {
+        Intent intent = new Intent(context, RegisterCompleActivity.class);
+        intent.putExtra("phone", phone);
+        intent.putExtra("code", code);
+        intent.putExtra("pw", pw);
         context.startActivity(intent);
     }
 
@@ -71,7 +79,7 @@ public class RegisterCompleActivity extends BaseActivity {
         phone = getIntent().getStringExtra("phone");
         code = getIntent().getStringExtra("code");
         pw = getIntent().getStringExtra("pw");
-        if(TextUtils.isEmpty(phone)||TextUtils.isEmpty(code)||TextUtils.isEmpty(pw)){
+        if (TextUtils.isEmpty(phone) || TextUtils.isEmpty(code) || TextUtils.isEmpty(pw)) {
             showToast("参数有误");
             finish();
         }
@@ -188,21 +196,25 @@ public class RegisterCompleActivity extends BaseActivity {
         switch (view.getId()) {
             case R.id.btn_login:
                 String name = etName.getText().toString();
-                if(addressBean==null){
+                if (addressBean == null) {
                     showToast("请选择地区");
                     return;
                 }
-                if(hospitalBean==null){
+                if (hospitalBean == null) {
                     showToast("请选择医院");
                     return;
                 }
-                if(TextUtils.isEmpty(name)){
+                if (TextUtils.isEmpty(name)) {
                     showToast("姓名不能为空");
+                    return;
+                }
+                if (TextUtils.isEmpty(brithdayStr)) {
+                    showToast("请选择生日");
                     return;
                 }
 
                 register();
-                    break;
+                break;
             case R.id.img_back:
                 finish();
                 break;
@@ -245,12 +257,12 @@ public class RegisterCompleActivity extends BaseActivity {
         requestBody.setHospitalName(hospitalBean.getOrgName());
         requestBody.setName(etName.getText().toString());
         requestBody.setTel(phone);
-        // TODO: 2017/6/24  注册界面没有生日设置 先写死
-        requestBody.setBirthday("1992");
-        if(keshiBean != null){
+        requestBody.setBirthday(brithdayStr);
+        if (keshiBean != null) {
             requestBody.setDeptId(keshiBean.getId());
             requestBody.setDeptName(keshiBean.getOrgName());
         }
+
         RequestUtil.createApi().registe(requestBody).compose(RequestUtil.<RegisteBean>handleResult())
                 .subscribe(new CommonsSubscriber<RegisteBean>() {
                     @Override
@@ -273,4 +285,27 @@ public class RegisterCompleActivity extends BaseActivity {
         popupWindow.showAsDropDown(textView);
     }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
+
+    @OnClick(R.id.tv_birthday)
+    public void onViewClicked() {
+        hideSoftInputView();
+        TimePickerView pickerView = new TimePickerView.Builder(this, new TimePickerView.OnTimeSelectListener() {
+            @Override
+            public void onTimeSelect(Date date, View v) {
+                brithdayStr = new SimpleDateFormat("yyyy.MM.dd").format(date);
+                tvBirthday.setText(brithdayStr);
+            }
+        }).setType(new boolean[]{true, true, true, true, true, false})
+                .setSubmitColor(ContextCompat.getColor(this,R.color.base_orange))//确定按钮文字颜色
+                .setCancelColor(ContextCompat.getColor(this,R.color.base_orange))//取消按钮文字颜色
+                .build();
+        pickerView.setDate(Calendar.getInstance());//注：根据需求来决定是否使用该方法（一般是精确到秒的情况），此项可以在弹出选择器的时候重新设置当前时间，避免在初始化之后由于时间已经设定，导致选中时间与当前时间不匹配的问题。
+        pickerView.show();
+    }
 }

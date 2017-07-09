@@ -78,5 +78,8 @@ public abstract class BaseActivity extends AppCompatActivity {
 //        StatusBarUtil.setColor(this, ContextCompat.getColor(this, R.color.base_orange),255);
 //    }
 
+    public int getColorResource(int color){
+        return ContextCompat.getColor(this,color);
+    }
 
 }

@@ -28,5 +28,9 @@
 
     <color name="base_text_gray_dark">#999999</color>
 
+    <color name="base_text_gray_light">#f0f0f0</color>
+
     <color name="gray_dark">#b9b9b9</color>
+
+    <color name="line_gray">#f5f5f5</color>
 </resources>
