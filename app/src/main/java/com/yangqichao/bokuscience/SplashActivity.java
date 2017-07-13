@@ -36,6 +36,8 @@ public class SplashActivity extends BaseActivity {
                     RequestBody requestBody = new RequestBody();
                     requestBody.setLoginName(phone);
                     requestBody.setPassword(pw);
+                    requestBody.setAppType("0");
+                    requestBody.setCid(PreferenceUtils.getPrefString(SplashActivity.this,"clientid",""));
                     RequestUtil.createApi().login(requestBody).compose(RequestUtil.<LoginBean>handleResult())
                             .subscribe(new CommonsSubscriber<LoginBean>() {
                                 @Override
@@ -45,6 +47,13 @@ public class SplashActivity extends BaseActivity {
                                     PreferenceUtils.setPrefString(SplashActivity.this,"hospitalName",loginBean.getHospitalName()+"");
                                     PreferenceUtils.setPrefString(SplashActivity.this,"deptId",loginBean.getDeptId()+"");
                                     PreferenceUtils.setPrefInt(SplashActivity.this,"publish",loginBean.getPublishFlag());
+                                }
+
+                                @Override
+                                public void onFail(String errorCode, String message) {
+                                    super.onFail(errorCode, message);
+                                    showToast(message);
+                                    startActivity(new Intent(SplashActivity.this,LoginActivity.class));
                                 }
                             });
 

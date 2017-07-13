@@ -1,15 +1,20 @@
 package com.yangqichao.bokuscience.common.net;
 
 
+import com.yangqichao.bokuscience.business.bean.BookBean;
 import com.yangqichao.bokuscience.business.bean.GetKeShiPerson;
+import com.yangqichao.bokuscience.business.bean.InitBookBean;
+import com.yangqichao.bokuscience.business.bean.InitVideoBean;
 import com.yangqichao.bokuscience.business.bean.LevelBean;
 import com.yangqichao.bokuscience.business.bean.LoginBean;
 import com.yangqichao.bokuscience.business.bean.MeetingDetailBean;
+import com.yangqichao.bokuscience.business.bean.MyBookBean;
 import com.yangqichao.bokuscience.business.bean.MyMeetingBean;
 import com.yangqichao.bokuscience.business.bean.RegisteBean;
 import com.yangqichao.bokuscience.business.bean.ScienceDynamicBean;
 import com.yangqichao.bokuscience.business.bean.ShareItemBean;
 import com.yangqichao.bokuscience.business.bean.ShowPersonBean;
+import com.yangqichao.bokuscience.business.bean.VideoListBean;
 
 import java.util.List;
 import java.util.Map;
@@ -107,4 +112,25 @@ public interface API {
     Observable<Response<ShowPersonBean>> signflag(@Path("meetingId") int meetingId,@Path("flag") int flag);
 
 
+    @GET("/app/videos/init/{userId}")
+    Observable<Response<InitVideoBean>> initVideo(@Path("userId") String userId);
+
+    @POST("/app/videos/select")
+    Observable<Response<VideoListBean>> selectVideoList(@Body RequestBody requestBody);
+
+
+    @GET("/app/book/init")
+    Observable<Response<InitBookBean>> initBook();
+
+    @POST("/app/book/selectpage")
+    Observable<Response<BookBean>> selectBook(@Body RequestBody requestBody);
+
+    @POST("/app/mybook/add")
+    Observable<Response<String>> add(@Body RequestBody requestBody);
+
+    @POST("/app/mybook/delete")
+    Observable<Response<String>> delete(@Body RequestBody requestBody);
+
+    @POST("/app/mybook/selectpage")
+    Observable<Response<MyBookBean>> selectMyBook(@Body RequestBody requestBody);
 }

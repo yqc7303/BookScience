@@ -1,15 +1,20 @@
 package com.yangqichao.bokuscience.business.ui.message;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.yangqichao.bokuscience.R;
+import com.yangqichao.bokuscience.common.base.BaseActivity;
 
-public class DynamicListActivity extends AppCompatActivity {
+public class DynamicListActivity extends BaseActivity {
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dynamic_list);
+    protected int getLayoutResID() {
+        return R.layout.activity_dynamic_list;
+    }
+
+    @Override
+    protected void initView(Bundle savedInstanceState) {
+
     }
 }

@@ -21,8 +21,6 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
@@ -47,12 +45,12 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if (ContextCompat.checkSelfPermission(HomeActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(HomeActivity.this, WRITE_EXTERNAL_STORAGE_PERMS, GALLERY_REQUEST);
-                } else {
-                    //openEpub(FolioActivity.EpubSourceType.ASSESTS,"PhysicsSyllabus.epub",0);
-                    openEpub(FolioActivity.EpubSourceType.ASSESTS,"149600.epub",0);
-                }
+//                if (ContextCompat.checkSelfPermission(HomeActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+//                    ActivityCompat.requestPermissions(HomeActivity.this, WRITE_EXTERNAL_STORAGE_PERMS, GALLERY_REQUEST);
+//                } else {
+//                    //openEpub(FolioActivity.EpubSourceType.ASSESTS,"PhysicsSyllabus.epub",0);
+//                    openEpub(FolioActivity.EpubSourceType.ASSESTS,"149600.epub",0);
+//                }
             }
         });
 
@@ -60,11 +58,11 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if (ContextCompat.checkSelfPermission(HomeActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(HomeActivity.this, WRITE_EXTERNAL_STORAGE_PERMS, GALLERY_REQUEST);
-                } else {
-                    openEpub(FolioActivity.EpubSourceType.RAW,null,R.raw.adventures);
-                }
+//                if (ContextCompat.checkSelfPermission(HomeActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+//                    ActivityCompat.requestPermissions(HomeActivity.this, WRITE_EXTERNAL_STORAGE_PERMS, GALLERY_REQUEST);
+//                } else {
+//                    openEpub(FolioActivity.EpubSourceType.RAW,null,R.raw.adventures);
+//                }
             }
         });
     }

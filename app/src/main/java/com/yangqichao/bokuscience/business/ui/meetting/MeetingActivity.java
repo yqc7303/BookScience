@@ -134,8 +134,8 @@ public class MeetingActivity extends BaseActivity implements SwipeRefreshLayout.
             public void run() {
                 RequestBody requestBody = new RequestBody();
                 requestBody.setUserId(APP.getUserId());
-                requestBody.setPageSize(1);
-                requestBody.setPage(1);
+                requestBody.setPageSize(100+"");
+                requestBody.setPage(1+"");
                 RequestUtil.createApi().select(requestBody).compose(RequestUtil.<MyMeetingBean>handleResult())
                         .subscribe(new CommonsSubscriber<MyMeetingBean>() {
                             @Override

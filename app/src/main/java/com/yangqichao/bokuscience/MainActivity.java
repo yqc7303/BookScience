@@ -11,16 +11,15 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.igexin.sdk.PushManager;
 import com.jaeger.library.StatusBarUtil;
 import com.yangqichao.bokuscience.business.bean.LoginBean;
 import com.yangqichao.bokuscience.business.bean.SampleBean;
 import com.yangqichao.bokuscience.business.bean.ScienceDynamicBean;
-import com.yangqichao.bokuscience.business.service.GetuiIntentService;
-import com.yangqichao.bokuscience.business.service.GetuiPushService;
+import com.yangqichao.bokuscience.business.ui.login.LoginActivity;
 import com.yangqichao.bokuscience.business.ui.main.MenuFiveSixFragment;
 import com.yangqichao.bokuscience.business.ui.main.MenuFourFragment;
 import com.yangqichao.bokuscience.business.ui.main.MenuOneFragment;
@@ -49,15 +48,17 @@ public class MainActivity extends BaseActivity {
     Toolbar toolbar;
     @BindView(R.id.verticalTextview)
     VerticalTextview verticalTextview;
+    @BindView(R.id.tv_name)
+    TextView tvName;
     private BaseQuickAdapter<SampleBean, BaseViewHolder> adapter;
     private List<SampleBean> sampleBeanList;
-    private int function_size;
 
 
     private LoginBean loginBean;
-    public static void startAction(Context context, LoginBean loginBean){
-        Intent intent = new Intent(context,MainActivity.class);
-        intent.putExtra("user",loginBean);
+
+    public static void startAction(Context context, LoginBean loginBean) {
+        Intent intent = new Intent(context, MainActivity.class);
+        intent.putExtra("user", loginBean);
         context.startActivity(intent);
     }
 
@@ -71,6 +72,9 @@ public class MainActivity extends BaseActivity {
         StatusBarUtil.setTranslucentForDrawerLayout(this, drawerMain, 0);
 
         loginBean = (LoginBean) getIntent().getSerializableExtra("user");
+        if(loginBean == null){
+            startActivity(new Intent(this, LoginActivity.class));
+        }
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -79,42 +83,10 @@ public class MainActivity extends BaseActivity {
         toggle.syncState();
         drawerMain.addDrawerListener(toggle);
 
+        tvName.setText(loginBean.getHospitalName());
 
-//        showToast("DEBUG:" + BuildConfig.DEBUG + "\n BUILD_TYPE:" + BuildConfig.BUILD_TYPE + "\n VERSION_CODE:" + BuildConfig.VERSION_CODE);
-//        showToast(BuildConfig.BaseUrl);
-//
-//        sampleBeanList = new ArrayList<>();
-//        sampleBeanList.add(new SampleBean("ePud阅读器", EpubReaderActivity.class));
-//        sampleBeanList.add(new SampleBean("ePud", HomeActivity.class));
-//
-//        sampleBeanList.add(new SampleBean("高德定位", LocationActivity.class));
-//
-//        adapter = new BaseQuickAdapter<SampleBean, BaseViewHolder>(R.layout.item_demo, sampleBeanList) {
-//            @Override
-//            protected void convert(BaseViewHolder helper, SampleBean item) {
-//                helper.setText(R.id.sample_name, item.getName());
-//            }
-//        };
-//
-//        recyclerDemo.setLayoutManager(new LinearLayoutManager(this));
-//        recyclerDemo.setAdapter(adapter);
-//        recyclerDemo.addOnItemTouchListener(new OnItemClickListener() {
-//            @Override
-//            public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-//
-//                Class aClass = sampleBeanList.get(position).getActivity();
-//                Intent intent = new Intent(MainActivity.this, aClass);
-//                if (aClass == FolioActivity.class) {
-//                    intent.putExtra(FolioActivity.INTENT_EPUB_SOURCE_TYPE, FolioActivity.EpubSourceType.ASSESTS);
-//                    intent.putExtra(FolioActivity.INTENT_EPUB_SOURCE_PATH, "varun.epub");
-//                }
-//                startActivity(intent);
-//            }
-//        });
 
-        PushManager.getInstance().initialize(this.getApplicationContext(), GetuiPushService.class);
-        PushManager.getInstance().registerPushIntentService(this.getApplicationContext(), GetuiIntentService.class);
-/////////////////////////
+
 
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
@@ -134,41 +106,42 @@ public class MainActivity extends BaseActivity {
 //                        menuItem.setCheckable(true);//设置选项可选
 //                        menuItem.setChecked(true);//设置选型被选中
                         drawerMain.closeDrawers();//关闭侧边菜单栏
-                        getFragment(function_size++);
                         return true;
                     }
                 });
-
-        ////////////////
-
-        function_size = 4;
-
-        getFragment(function_size);
+        if(loginBean.getModuleDTOS()!=null){
+            getFragment();
+        }
+        initGongGao();
 
 
     }
 
-    private void getFragment(int function_size) {
-        if (function_size >= 6) function_size = 6;
+    private void getFragment() {
+        int function_size = loginBean.getModuleDTOS().size();
+        if (function_size > 6) function_size = 7;
         Fragment fragment = null;
         switch (function_size) {
             case 1:
-                fragment = new MenuOneFragment();
+                fragment = MenuOneFragment.newInstance(loginBean);
                 break;
             case 2:
-                fragment = new MenuTwoFragment();
+                fragment = MenuTwoFragment.newInstance(loginBean);
                 break;
             case 3:
-                fragment = new MenuThreeFragment();
+                fragment = MenuThreeFragment.newInstance(loginBean);
                 break;
             case 4:
-                fragment = new MenuFourFragment();
+                fragment = MenuFourFragment.newInstance(loginBean);
                 break;
             case 5:
-                fragment = new MenuFiveSixFragment();
+                fragment = MenuFiveSixFragment.newInstance(loginBean);
                 break;
             case 6:
-                fragment = new MenuSixMoreFragment();
+                fragment = MenuFiveSixFragment.newInstance(loginBean);
+                break;
+            case 7:
+                fragment = MenuSixMoreFragment.newInstance(loginBean);
                 break;
         }
         getSupportFragmentManager().beginTransaction().add(R.id.fragment_main, fragment).commitAllowingStateLoss();
@@ -177,13 +150,13 @@ public class MainActivity extends BaseActivity {
 
 
     private void initGongGao() {
-        RequestUtil.createApi().getbyuser(PreferenceUtils.getPrefString(this,"uId",""))
+        RequestUtil.createApi().getbyuser(PreferenceUtils.getPrefString(this, "uId", ""))
                 .compose(RequestUtil.<List<ScienceDynamicBean>>handleResult())
                 .subscribe(new CommonsSubscriber<List<ScienceDynamicBean>>() {
                     @Override
                     protected void onSuccess(final List<ScienceDynamicBean> scienceDynamicBeanList) {
                         verticalTextview.setTextList(scienceDynamicBeanList);
-                        verticalTextview.setText(13, 0, ContextCompat.getColor(MainActivity.this, R.color.base_text_white));//设置属性
+                        verticalTextview.setText(16, 0, ContextCompat.getColor(MainActivity.this, R.color.white));//设置属性
                         verticalTextview.setTextStillTime(2500);//设置停留时长间隔
                         verticalTextview.setAnimTime(300);//设置进入和退出的时间间隔
                         verticalTextview.setOnItemClickListener(new VerticalTextview.OnItemClickListener() {
@@ -196,4 +169,6 @@ public class MainActivity extends BaseActivity {
                     }
                 });
     }
+
+
 }

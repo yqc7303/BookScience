@@ -79,8 +79,8 @@ public class MeetingPersonChoseActivity extends BaseActivity {
 
         RequestBody requestBody = new RequestBody();
         requestBody.setDeptId(deptId);
-        requestBody.setPage(1);
-        requestBody.setPageSize(100);
+        requestBody.setPage(1+"");
+        requestBody.setPageSize(100+"");
         RequestUtil.createApi().users(requestBody).compose(RequestUtil.<GetKeShiPerson>handleResult())
                 .subscribe(new CommonsSubscriber<GetKeShiPerson>() {
                     @Override

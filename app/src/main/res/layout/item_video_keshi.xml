@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:id="@+id/item_keshi"
+    android:layout_height="50dp">
+
+    <View
+        android:id="@+id/view_select"
+        android:background="@color/base_orange"
+        android:layout_width="3dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
+        android:layout_height="match_parent"/>
+
+    <TextView
+        android:id="@+id/tv_keshi_name"
+        android:textSize="16sp"
+        android:text="肠胃科"
+        android:layout_margin="5dp"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>

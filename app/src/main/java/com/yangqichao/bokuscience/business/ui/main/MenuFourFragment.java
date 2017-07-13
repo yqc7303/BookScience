@@ -1,17 +1,18 @@
 package com.yangqichao.bokuscience.business.ui.main;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.yangqichao.bokuscience.R;
-import com.yangqichao.bokuscience.business.ui.meetting.MeetingActivity;
-import com.yangqichao.bokuscience.business.ui.share.ShareActivity;
+import com.yangqichao.bokuscience.business.bean.LoginBean;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
@@ -20,18 +21,34 @@ import butterknife.Unbinder;
 public class MenuFourFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     Unbinder unbinder;
+    @BindView(R.id.img_function_2)
+    ImageView imgFunction2;
+    @BindView(R.id.img_function_3)
+    ImageView imgFunction3;
+    @BindView(R.id.img_function_4)
+    ImageView imgFunction4;
+    @BindView(R.id.img_function_1)
+    ImageView imgFunction1;
+    @BindView(R.id.textView)
+    TextView tvFunction4;
+    @BindView(R.id.tv_function_2)
+    TextView tvFunction2;
+    @BindView(R.id.tv_function_3)
+    TextView tvFunction3;
+    @BindView(R.id.tv_function_1)
+    TextView tvFunction1;
 
-    private String mParam1;
-
+    private LoginBean mParam1;
+    private LoginBean.ModuleDTOSBean module1, module2, module3, module4;
 
     public MenuFourFragment() {
         // Required empty public constructor
     }
 
-    public static MenuFourFragment newInstance(String param1, String param2) {
+    public static MenuFourFragment newInstance(LoginBean param1) {
         MenuFourFragment fragment = new MenuFourFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
+        args.putSerializable(ARG_PARAM1, param1);
         fragment.setArguments(args);
         return fragment;
     }
@@ -40,7 +57,7 @@ public class MenuFourFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam1 = (LoginBean) getArguments().getSerializable(ARG_PARAM1);
         }
     }
 
@@ -55,6 +72,18 @@ public class MenuFourFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        module1 = mParam1.getModuleDTOS().get(0);
+        module2 = mParam1.getModuleDTOS().get(1);
+        module3 = mParam1.getModuleDTOS().get(2);
+        module4 = mParam1.getModuleDTOS().get(3);
+        imgFunction1.setImageResource(ShowMenuUtil.getImage(module1.getCode()));
+        tvFunction1.setText(module1.getName());
+        imgFunction2.setImageResource(ShowMenuUtil.getImage(module2.getCode()));
+        tvFunction2.setText(module2.getName());
+        imgFunction3.setImageResource(ShowMenuUtil.getImage(module3.getCode()));
+        tvFunction3.setText(module3.getName());
+        imgFunction4.setImageResource(ShowMenuUtil.getImage(module4.getCode()));
+        tvFunction4.setText(module4.getName());
     }
 
     @Override
@@ -67,14 +96,16 @@ public class MenuFourFragment extends Fragment {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.img_function_2:
-                startActivity(new Intent(getActivity(), MeetingActivity.class));
+                startActivity(ShowMenuUtil.getClass(getActivity(),module2));
                 break;
             case R.id.img_function_3:
+                startActivity(ShowMenuUtil.getClass(getActivity(),module3));
                 break;
             case R.id.img_function_4:
+                startActivity(ShowMenuUtil.getClass(getActivity(),module4));
                 break;
             case R.id.img_function_1:
-                startActivity(new Intent(getActivity(), ShareActivity.class));
+                startActivity(ShowMenuUtil.getClass(getActivity(),module1));
                 break;
         }
     }

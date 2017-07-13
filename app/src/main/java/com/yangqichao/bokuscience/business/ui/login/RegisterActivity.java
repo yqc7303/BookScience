@@ -1,9 +1,12 @@
 package com.yangqichao.bokuscience.business.ui.login;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -61,8 +64,9 @@ public class RegisterActivity extends BaseActivity{
 
         isForgetPw = getIntent().getBooleanExtra("isForgetPw",false);
         if(isForgetPw){
-            textInputLayoutPassword.setHint("请设置新密码");
-            btnLogin.setText("确定");
+//            textInputLayoutPassword.setHint("请设置新密码");
+            textInputLayoutPassword.setVisibility(View.GONE);
+            btnLogin.setText("找回密码");
         }
     }
 
@@ -83,7 +87,7 @@ public class RegisterActivity extends BaseActivity{
                     textInputLayoutVerification.setError("验证码有误");
                     return;
                 }
-                if(!CheckUtils.isLengthValid(pw,6)){
+                if(!CheckUtils.isLengthValid(pw,6)&&!isForgetPw){
                     textInputLayoutPassword.setError("密码不能小于6位");
                     return;
                 }
@@ -92,8 +96,21 @@ public class RegisterActivity extends BaseActivity{
                             .subscribe(new CommonsSubscriber<String>() {
                                 @Override
                                 protected void onSuccess(String s) {
-                                    showToast("重置成功");
-                                    finish();
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this)
+                                            .setMessage("验证码已通过短信发送")
+                                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                                @Override
+
+
+
+
+
+                                                public void onClick(DialogInterface dialogInterface, int i) {
+                                                    startActivity(new Intent(RegisterActivity.this,LoginActivity.class));
+                                                    finish();
+                                                }
+                                            }).setCancelable(false);
+                                    builder.show();
                                 }
                             });
                 }else{

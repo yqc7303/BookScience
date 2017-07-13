@@ -83,6 +83,8 @@ public class LoginActivity extends BaseActivity {
                 RequestBody requestBody = new RequestBody();
                 requestBody.setLoginName(phone);
                 requestBody.setPassword(pw);
+                requestBody.setAppType("0");
+                requestBody.setCid(PreferenceUtils.getPrefString(LoginActivity.this,"clientid",""));
                 RequestUtil.createApi().login(requestBody).compose(RequestUtil.<LoginBean>handleResult())
                         .subscribe(new CommonsSubscriber<LoginBean>() {
                             @Override

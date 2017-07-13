@@ -1,0 +1,33 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.yangqichao.bokuscience.business.ui.book.JournalFragment">
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:padding="5dp"
+        android:layout_height="50dp">
+
+        <EditText
+            android:id="@+id/et_"
+            android:background="@drawable/corner_gray"
+            android:layout_width="match_parent"
+            android:drawablePadding="5dp"
+            android:padding="10dp"
+            android:hint = "输入关键词搜索视频"
+            android:textSize="16sp"
+            android:drawableLeft="@drawable/icon_nav_search"
+            android:layout_height="match_parent" />
+    </FrameLayout>
+    
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycle_book"
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    
+</LinearLayout>

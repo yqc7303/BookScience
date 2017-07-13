@@ -11,13 +11,23 @@ public class RequestBody {
      * appType : 0
      * cid : string
      * loginName : string
-     * password : string
+     * passWord : string
      */
 
     private String appType;
     private String cid;
     private String loginName;
+    private String passWord;
     private String password;
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     /**
      * birthday : 2017-06-12T02:02:16.658Z
      * checkCode : string
@@ -38,8 +48,8 @@ public class RequestBody {
     private String name;
     private String tel;
 
-    private int page;
-    private int pageSize;
+    private String page;
+    private String pageSize;
     /**
      * documentUrl : string
      * shareContent : string
@@ -51,20 +61,68 @@ public class RequestBody {
     private String shareContent;
     private String shareUrl;
     private String userId;
+    private String bookId;
 
-    public int getPage() {
+    private String subjectId;
+    private String videoType;
+
+    private String type;
+
+    private String search;
+
+    public String getBookId() {
+        return bookId;
+    }
+
+    public void setBookId(String bookId) {
+        this.bookId = bookId;
+    }
+
+    public String getSearch() {
+        return search;
+    }
+
+    public void setSearch(String search) {
+        this.search = search;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getSubjectId() {
+        return subjectId;
+    }
+
+    public void setSubjectId(String subjectId) {
+        this.subjectId = subjectId;
+    }
+
+    public String getVideoType() {
+        return videoType;
+    }
+
+    public void setVideoType(String videoType) {
+        this.videoType = videoType;
+    }
+
+    public String getPage() {
         return page;
     }
 
-    public void setPage(int page) {
+    public void setPage(String page) {
         this.page = page;
     }
 
-    public int getPageSize() {
+    public String getPageSize() {
         return pageSize;
     }
 
-    public void setPageSize(int pageSize) {
+    public void setPageSize(String pageSize) {
         this.pageSize = pageSize;
     }
 
@@ -92,12 +150,12 @@ public class RequestBody {
         this.loginName = loginName;
     }
 
-    public String getPassword() {
-        return password;
+    public String getPassWord() {
+        return passWord;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPassWord(String passWord) {
+        this.passWord = passWord;
     }
 
     public String getBirthday() {

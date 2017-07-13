@@ -4,8 +4,11 @@ import android.app.Application;
 import android.content.Context;
 import android.support.multidex.MultiDex;
 
+import com.igexin.sdk.PushManager;
 import com.tencent.bugly.Bugly;
 import com.tencent.bugly.beta.Beta;
+import com.yangqichao.bokuscience.business.service.GetuiIntentService;
+import com.yangqichao.bokuscience.business.service.GetuiPushService;
 import com.yangqichao.commonlib.util.PreferenceUtils;
 
 /**
@@ -23,6 +26,9 @@ public class APP extends Application{
 
         // TODO: 2017/5/17 debug == false
         Bugly.init(getApplicationContext(), "aaa40ea2c9", true);
+
+        PushManager.getInstance().initialize(this.getApplicationContext(), GetuiPushService.class);
+        PushManager.getInstance().registerPushIntentService(this.getApplicationContext(), GetuiIntentService.class);
     }
 
     public static APP getInstance() {

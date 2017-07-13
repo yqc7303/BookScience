@@ -65,8 +65,8 @@ public class ShareActivity extends BaseActivity {
         recycleShare.setAdapter(adapter);
         RequestBody requestBody = new RequestBody();
         requestBody.setUserId(APP.getUserId());
-        requestBody.setPage(1);
-        requestBody.setPageSize(100);
+        requestBody.setPage(1+"");
+        requestBody.setPageSize(100+"");
         RequestUtil.createApi().selectShare(requestBody).compose(RequestUtil.<ShareItemBean>handleResult()).subscribe(
                 new CommonsSubscriber<ShareItemBean>() {
                     @Override

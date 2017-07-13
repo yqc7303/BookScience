@@ -1,10 +1,12 @@
 package com.yangqichao.bokuscience.business.ui.login;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -18,7 +20,6 @@ import com.bigkoo.pickerview.TimePickerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
-import com.yangqichao.bokuscience.MainActivity;
 import com.yangqichao.bokuscience.R;
 import com.yangqichao.bokuscience.business.bean.LevelBean;
 import com.yangqichao.bokuscience.business.bean.RegisteBean;
@@ -258,6 +259,7 @@ public class RegisterCompleActivity extends BaseActivity {
         requestBody.setName(etName.getText().toString());
         requestBody.setTel(phone);
         requestBody.setBirthday(brithdayStr);
+        requestBody.setPassWord(pw);
         if (keshiBean != null) {
             requestBody.setDeptId(keshiBean.getId());
             requestBody.setDeptName(keshiBean.getOrgName());
@@ -267,11 +269,16 @@ public class RegisterCompleActivity extends BaseActivity {
                 .subscribe(new CommonsSubscriber<RegisteBean>() {
                     @Override
                     protected void onSuccess(RegisteBean registeBean) {
-                        //// TODO: 2017/6/24 缓存用户信息
-
-                        //
-
-                        startActivity(new Intent(RegisterCompleActivity.this, MainActivity.class));
+                        AlertDialog.Builder builder = new AlertDialog.Builder(RegisterCompleActivity.this)
+                                .setMessage("您已完成注册，请等待管理员审核")
+                                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        startActivity(new Intent(RegisterCompleActivity.this,LoginActivity.class));
+                                        finish();
+                                    }
+                                }).setCancelable(false);
+                        builder.show();
                     }
                 });
 
@@ -298,7 +305,7 @@ public class RegisterCompleActivity extends BaseActivity {
         TimePickerView pickerView = new TimePickerView.Builder(this, new TimePickerView.OnTimeSelectListener() {
             @Override
             public void onTimeSelect(Date date, View v) {
-                brithdayStr = new SimpleDateFormat("yyyy.MM.dd").format(date);
+                brithdayStr = new SimpleDateFormat("yyyy-MM-dd").format(date);
                 tvBirthday.setText(brithdayStr);
             }
         }).setType(new boolean[]{true, true, true, true, true, false})
