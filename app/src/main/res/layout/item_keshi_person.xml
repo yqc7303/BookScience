@@ -8,11 +8,6 @@
     android:layout_height="wrap_content">
 
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:layout_editor_absoluteY="0dp"
-        tools:layout_editor_absoluteX="0dp" />
 
     <TextView
         android:id="@+id/tv_person_name"

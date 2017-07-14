@@ -68,9 +68,9 @@ public class MenuThreeFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        module1 = mParam1.getModuleDTOS().get(0);
-        module2 = mParam1.getModuleDTOS().get(1);
-        module3 = mParam1.getModuleDTOS().get(2);
+        module1 = mParam1.getModuleDTOSUser().get(0);
+        module2 = mParam1.getModuleDTOSUser().get(1);
+        module3 = mParam1.getModuleDTOSUser().get(2);
         imgFunction1.setImageResource(ShowMenuUtil.getImage(module1.getCode()));
         tvFunction1.setText(module1.getName());
         imgFunction2.setImageResource(ShowMenuUtil.getImage(module2.getCode()));

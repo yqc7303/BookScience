@@ -3,6 +3,7 @@ package com.yangqichao.bokuscience;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -10,6 +11,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -29,16 +31,24 @@ import com.yangqichao.bokuscience.business.ui.main.MenuOneFragment;
 import com.yangqichao.bokuscience.business.ui.main.MenuSixMoreFragment;
 import com.yangqichao.bokuscience.business.ui.main.MenuThreeFragment;
 import com.yangqichao.bokuscience.business.ui.main.MenuTwoFragment;
+import com.yangqichao.bokuscience.business.ui.main.SetFuncationActivity;
+import com.yangqichao.bokuscience.business.ui.mine.MineActivity;
 import com.yangqichao.bokuscience.common.base.BaseActivity;
 import com.yangqichao.bokuscience.common.net.CommonsSubscriber;
 import com.yangqichao.bokuscience.common.net.RequestUtil;
 import com.yangqichao.bokuscience.common.widget.VerticalTextview;
+import com.yangqichao.commonlib.event.EventSubscriber;
+import com.yangqichao.commonlib.event.MarkEvent;
+import com.yangqichao.commonlib.event.RxBus;
 import com.yangqichao.commonlib.util.PreferenceUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 public class MainActivity extends BaseActivity {
 
@@ -104,13 +114,13 @@ public class MainActivity extends BaseActivity {
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
                         switch (menuItem.getItemId()) {
                             case R.id.item_home:
-                                showToast("home");
+                                drawerMain.closeDrawers();
                                 break;
                             case R.id.item_function:
-                                showToast("function");
+                                SetFuncationActivity.startAction(MainActivity.this,loginBean);
                                 break;
                             case R.id.item_account:
-                                showToast("account");
+                                startActivity(new Intent(MainActivity.this, MineActivity.class));
                                 break;
                         }
 //                        menuItem.setCheckable(true);//设置选项可选
@@ -119,17 +129,61 @@ public class MainActivity extends BaseActivity {
                         return true;
                     }
                 });
-        if (loginBean.getModuleDTOS() != null) {
+        if (loginBean.getModuleDTOSUser() != null) {
             getFragment();
         }
         initGongGao();
 
 
+        RxBus.getDefault().toObservable(MarkEvent.class)
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new EventSubscriber<MarkEvent>() {
+                    @Override
+                    public void onNextDo(MarkEvent markEvent) {
+                        String mark = PreferenceUtils.getPrefString(MainActivity.this,"mark","");
+                        if(!TextUtils.isEmpty(mark)){
+                            String[] split = mark.split("-");
+                            List<LoginBean.ModuleDTOSBean> beanList = new ArrayList<LoginBean.ModuleDTOSBean>();
+                            for(LoginBean.ModuleDTOSBean dtosBean:loginBean.getModuleDTOS()){
+                                dtosBean.setGone(false);
+                                for(int i = 0;i<split.length;i++){
+                                    if(split[i].equals(dtosBean.getCode())){
+                                        dtosBean.setGone(true);
+                                    }
+                                }
+                            }
+                            for(LoginBean.ModuleDTOSBean dtosBean:loginBean.getModuleDTOS()){
+                                if(!dtosBean.isGone()){
+                                    beanList.add(dtosBean);
+                                }
+                            }
+                            loginBean.setModuleDTOSUser(beanList);
+                        }else{
+                            loginBean.setModuleDTOSUser(loginBean.getModuleDTOS());
+                        }
+                        int function_size = loginBean.getModuleDTOSUser().size();
+                        if (function_size > 6) function_size = 7;
+                        Fragment fragment = getFragment(function_size);
+                        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_main,fragment).commitAllowingStateLoss();
+                    }
+                });
+
     }
 
+
+
     private void getFragment() {
-        int function_size = loginBean.getModuleDTOS().size();
+        int function_size = loginBean.getModuleDTOSUser().size();
         if (function_size > 6) function_size = 7;
+        Fragment fragment = getFragment(function_size);
+        getSupportFragmentManager().beginTransaction().add(R.id.fragment_main, fragment).commitAllowingStateLoss();
+
+    }
+
+    @Nullable
+    private Fragment getFragment(int function_size) {
         Fragment fragment = null;
         switch (function_size) {
             case 1:
@@ -154,8 +208,7 @@ public class MainActivity extends BaseActivity {
                 fragment = MenuSixMoreFragment.newInstance(loginBean);
                 break;
         }
-        getSupportFragmentManager().beginTransaction().add(R.id.fragment_main, fragment).commitAllowingStateLoss();
-
+        return fragment;
     }
 
 

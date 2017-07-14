@@ -12,16 +12,48 @@
         android:padding="5dp"
         android:layout_height="50dp">
 
-        <EditText
-            android:id="@+id/et_"
+
+
+
+        <LinearLayout
+            android:padding="5dp"
             android:background="@drawable/corner_gray"
             android:layout_width="match_parent"
-            android:drawablePadding="5dp"
-            android:padding="10dp"
-            android:hint = "输入关键词搜索视频"
-            android:textSize="16sp"
-            android:drawableLeft="@drawable/icon_nav_search"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent">
+
+
+            <TextView
+                android:id="@+id/tv_seatch_type"
+                android:textSize="16sp"
+                android:text="全部全部全部全部全部"
+                android:lines="1"
+                android:gravity="center"
+                android:textColor="@color/base_orange"
+                android:maxWidth="80dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <View
+                android:layout_width="1.5dp"
+                android:layout_marginTop="6dp"
+                android:visibility="gone"
+                android:layout_marginBottom="6dp"
+                android:background="@color/base_orange"
+                android:layout_height="match_parent"/>
+            <EditText
+                android:id="@+id/et_"
+                android:background="@null"
+                android:layout_marginLeft="10dp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:hint = "输入关键词搜索视频"
+                android:textSize="16sp"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+
     </FrameLayout>
     
     <android.support.v7.widget.RecyclerView

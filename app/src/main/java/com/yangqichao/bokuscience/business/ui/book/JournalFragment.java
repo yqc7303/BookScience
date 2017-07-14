@@ -40,6 +40,8 @@ public class JournalFragment extends Fragment {
     private BaseQuickAdapter<BookBean.RecordsBean, BaseViewHolder> adapter;
     private BaseQuickAdapter<MyBookBean.RecordsBean, BaseViewHolder> adapterMy;
 
+//    private BaseQuickAdapter<>
+
     // TODO: Rename and change types of parameters
     private boolean isMine;
     private String mParam2;

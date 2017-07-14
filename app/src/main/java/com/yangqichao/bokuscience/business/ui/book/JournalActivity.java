@@ -19,7 +19,6 @@ import com.yangqichao.bokuscience.common.net.RequestBody;
 import com.yangqichao.bokuscience.common.net.RequestUtil;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class JournalActivity extends BaseActivity {
@@ -35,6 +34,7 @@ public class JournalActivity extends BaseActivity {
 
     private BookBean.RecordsBean bean;
     private boolean isAdd;
+
 
     @Override
     protected int getLayoutResID() {
@@ -75,17 +75,8 @@ public class JournalActivity extends BaseActivity {
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
-
             }
         });
-    }
-
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
     }
 
 

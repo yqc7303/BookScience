@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import com.yangqichao.bokuscience.MainActivity;
 import com.yangqichao.bokuscience.R;
-import com.yangqichao.bokuscience.SplashActivity;
 import com.yangqichao.bokuscience.business.bean.LoginBean;
 import com.yangqichao.bokuscience.common.base.BaseActivity;
 import com.yangqichao.bokuscience.common.net.CommonsSubscriber;
@@ -90,6 +89,7 @@ public class LoginActivity extends BaseActivity {
                         .subscribe(new CommonsSubscriber<LoginBean>() {
                             @Override
                             protected void onSuccess(LoginBean loginBean) {
+                                loginBean.setModuleDTOSUser(loginBean.getModuleDTOS());
                                 MainActivity.startAction(LoginActivity.this,loginBean);
                                 PreferenceUtils.setPrefString(LoginActivity.this,"uId",loginBean.getId());
                                 PreferenceUtils.setPrefString(LoginActivity.this,"pw",pw);
@@ -98,6 +98,9 @@ public class LoginActivity extends BaseActivity {
                                 PreferenceUtils.setPrefString(LoginActivity.this,"hospitalName",loginBean.getHospitalName()+"");
                                 PreferenceUtils.setPrefString(LoginActivity.this,"deptId",loginBean.getDeptId()+"");
                                 PreferenceUtils.setPrefInt(LoginActivity.this,"publish",loginBean.getPublishFlag());
+                                PreferenceUtils.setPrefString(LoginActivity.this,"deptName",loginBean.getDeptName());
+                                PreferenceUtils.setPrefString(LoginActivity.this,"provice",loginBean.getProvice());
+                                PreferenceUtils.setPrefString(LoginActivity.this,"name",loginBean.getName());
                                 finish();
                             }
 

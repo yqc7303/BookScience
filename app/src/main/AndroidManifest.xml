@@ -109,7 +109,12 @@
             android:configChanges="orientation|screenSize|keyboardHidden" />
         <activity android:name=".business.ui.CommonWebViewActivity" />
         <activity android:name=".business.ui.book.MyBookMainActivity" />
-        <activity android:name=".business.ui.book.JournalActivity"></activity>
+        <activity android:name=".business.ui.book.JournalActivity" />
+        <activity android:name=".business.ui.mine.MineActivity" />
+        <activity android:name=".business.ui.mine.VersionActivity" />
+        <activity android:name=".business.ui.mine.FeedBackActivity" />
+        <activity android:name=".business.ui.mine.ChangePWActivity" />
+        <activity android:name=".business.ui.main.SetFuncationActivity"></activity>
     </application>
 
 </manifest>

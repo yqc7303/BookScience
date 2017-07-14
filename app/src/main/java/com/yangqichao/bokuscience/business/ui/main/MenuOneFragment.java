@@ -61,7 +61,7 @@ public class MenuOneFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        moduleDTOSBean = mParam1.getModuleDTOS().get(0);
+        moduleDTOSBean = mParam1.getModuleDTOSUser().get(0);
         imageView.setImageResource(ShowMenuUtil.getImage(moduleDTOSBean.getCode()));
         tvFunction.setText(moduleDTOSBean.getName());
     }

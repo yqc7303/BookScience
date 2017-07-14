@@ -47,6 +47,25 @@ public class LoginBean implements Serializable{
     private int isPwd;
     private List<ModuleDTOSBean> moduleDTOS;
     private String hospitalLogo;
+    private String provice;
+
+    private List<ModuleDTOSBean> moduleDTOSUser;
+
+    public List<ModuleDTOSBean> getModuleDTOSUser() {
+        return moduleDTOSUser;
+    }
+
+    public void setModuleDTOSUser(List<ModuleDTOSBean> moduleDTOSUser) {
+        this.moduleDTOSUser = moduleDTOSUser;
+    }
+
+    public String getProvice() {
+        return provice;
+    }
+
+    public void setProvice(String provice) {
+        this.provice = provice;
+    }
 
     public String getHospitalLogo() {
         return hospitalLogo;
@@ -206,6 +225,15 @@ public class LoginBean implements Serializable{
         private String name;
         private String imgUrl;
         private String contentUrl;
+        boolean isGone;
+
+        public boolean isGone() {
+            return isGone;
+        }
+
+        public void setGone(boolean gone) {
+            isGone = gone;
+        }
 
         public int getId() {
             return id;

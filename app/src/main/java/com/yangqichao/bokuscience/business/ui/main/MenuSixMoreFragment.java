@@ -61,7 +61,7 @@ public class MenuSixMoreFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        moduleDTOS = mParam1.getModuleDTOS();
+        moduleDTOS = mParam1.getModuleDTOSUser();
         fragments = new ArrayList<>();
         for(int i = 0; i< moduleDTOS.size()/6+1; i++){
             int size = i < (moduleDTOS.size()/6)?6:moduleDTOS.size()%6;

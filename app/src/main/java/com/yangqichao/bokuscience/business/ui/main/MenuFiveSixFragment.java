@@ -62,7 +62,7 @@ public class MenuFiveSixFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        adapter = new BaseQuickAdapter<LoginBean.ModuleDTOSBean, BaseViewHolder>(R.layout.item_function,mParam1.getModuleDTOS()) {
+        adapter = new BaseQuickAdapter<LoginBean.ModuleDTOSBean, BaseViewHolder>(R.layout.item_function,mParam1.getModuleDTOSUser()) {
             @Override
             protected void convert(BaseViewHolder helper, final LoginBean.ModuleDTOSBean item) {
                 helper.setText(R.id.tv_function,item.getName());

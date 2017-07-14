@@ -50,6 +50,12 @@ public class RequestBody {
 
     private String page;
     private String pageSize;
+
+    private String content;
+    private String feedbackUserId;
+    private String feedtype;
+
+
     /**
      * documentUrl : string
      * shareContent : string
@@ -69,6 +75,50 @@ public class RequestBody {
     private String type;
 
     private String search;
+
+    private String oldPassWord;
+
+    private String newPassWord;
+
+    public String getOldPassWord() {
+        return oldPassWord;
+    }
+
+    public void setOldPassWord(String oldPassWord) {
+        this.oldPassWord = oldPassWord;
+    }
+
+    public String getNewPassWord() {
+        return newPassWord;
+    }
+
+    public void setNewPassWord(String newPassWord) {
+        this.newPassWord = newPassWord;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String getFeedbackUserId() {
+        return feedbackUserId;
+    }
+
+    public void setFeedbackUserId(String feedbackUserId) {
+        this.feedbackUserId = feedbackUserId;
+    }
+
+    public String getFeedtype() {
+        return feedtype;
+    }
+
+    public void setFeedtype(String feedtype) {
+        this.feedtype = feedtype;
+    }
 
     public String getBookId() {
         return bookId;

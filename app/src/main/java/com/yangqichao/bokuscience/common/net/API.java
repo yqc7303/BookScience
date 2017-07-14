@@ -2,6 +2,7 @@ package com.yangqichao.bokuscience.common.net;
 
 
 import com.yangqichao.bokuscience.business.bean.BookBean;
+import com.yangqichao.bokuscience.business.bean.FeedBean;
 import com.yangqichao.bokuscience.business.bean.GetKeShiPerson;
 import com.yangqichao.bokuscience.business.bean.InitBookBean;
 import com.yangqichao.bokuscience.business.bean.InitVideoBean;
@@ -136,4 +137,15 @@ public interface API {
 
     @GET("/app/meeting/cancel/{meetingId}")
     Observable<Response<String>> cancelMeeting(@Path("meetingId") String meetingid);
+
+    @GET("/app/feedtype/get")
+    Observable<Response<List<FeedBean>>> getFeedList();
+
+    @POST("/app/feedback/add")
+    Observable<Response<String>> addFeed(@Body RequestBody requestBody);
+
+
+    @POST("/app/user/motifyPassword")
+    Observable<Response<String>> motifyPassword(@Body RequestBody requestBody);
+
 }
