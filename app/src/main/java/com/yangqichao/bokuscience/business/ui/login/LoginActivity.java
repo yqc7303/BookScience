@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.yangqichao.bokuscience.MainActivity;
 import com.yangqichao.bokuscience.R;
+import com.yangqichao.bokuscience.SplashActivity;
 import com.yangqichao.bokuscience.business.bean.LoginBean;
 import com.yangqichao.bokuscience.common.base.BaseActivity;
 import com.yangqichao.bokuscience.common.net.CommonsSubscriber;
@@ -89,7 +90,7 @@ public class LoginActivity extends BaseActivity {
                         .subscribe(new CommonsSubscriber<LoginBean>() {
                             @Override
                             protected void onSuccess(LoginBean loginBean) {
-                                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                                MainActivity.startAction(LoginActivity.this,loginBean);
                                 PreferenceUtils.setPrefString(LoginActivity.this,"uId",loginBean.getId());
                                 PreferenceUtils.setPrefString(LoginActivity.this,"pw",pw);
                                 PreferenceUtils.setPrefString(LoginActivity.this,"phone",phone);

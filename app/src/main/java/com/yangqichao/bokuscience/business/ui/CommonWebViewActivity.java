@@ -14,7 +14,6 @@ import com.yangqichao.bokuscience.R;
 import com.yangqichao.bokuscience.common.base.BaseActivity;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class CommonWebViewActivity extends BaseActivity {
@@ -63,13 +62,6 @@ public class CommonWebViewActivity extends BaseActivity {
 
             }
         });
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
     }
 
 

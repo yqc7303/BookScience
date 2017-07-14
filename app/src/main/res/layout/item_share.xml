@@ -35,6 +35,8 @@
     <TextView
         android:layout_marginLeft="15dp"
         android:layout_marginTop="5dp"
+        android:textColor="@color/base_text_black"
+        android:textSize="16sp"
         android:id="@+id/tv_share_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
@@ -54,11 +56,14 @@
         <ImageView
             android:src="@mipmap/ic_launcher"
             android:id="@+id/img_h5_content"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
+            android:layout_width="50dp"
+            android:layout_gravity="center_vertical"
+            android:layout_height="50dp" />
 
         <TextView
             android:textSize="14sp"
+            android:layout_marginLeft="10dp"
+
             android:textColor="@color/base_text_black"
             android:id="@+id/tv_h5_content"
             android:layout_width="0dp"
@@ -79,15 +84,22 @@
         android:visibility="gone"
         android:layout_height="60dp">
 
-        <ImageView
-            android:src="@mipmap/ic_launcher"
-            android:id="@+id/img_file_content"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
+
+        <TextView
+            android:id="@+id/tv_file_type"
+            android:layout_gravity="center_vertical"
+            android:layout_width="50dp"
+            android:background="#ca4546"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:layout_height="50dp" />
 
         <TextView
             android:textSize="14sp"
+            android:layout_marginLeft="10dp"
             android:textColor="@color/base_text_black"
+            android:layout_gravity="center_vertical"
             android:id="@+id/tv_file_content"
             android:layout_width="0dp"
             android:layout_weight="1"

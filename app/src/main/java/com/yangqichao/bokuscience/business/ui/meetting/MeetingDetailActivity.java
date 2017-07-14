@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.SwitchCompat;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -114,10 +115,10 @@ public class MeetingDetailActivity extends BaseActivity implements
         tvMeetingCreateTime.setText(String.format(getString(R.string.meeting_create_time), meetingDetail.getGmtCreate()));
         tvMeetingPerson.setText(meetingDetail.getMeetingjoinNum() + "人");
         tvMeetingH5.setText(meetingDetail.getH5Url());
-        if (meetingDetail.getFileUrl() != null) {
+        if (!TextUtils.isEmpty(meetingDetail.getFileUrl())) {
             rlMeetingFile.setVisibility(View.VISIBLE);
         }
-        if (meetingDetail.getH5Url() != null) {
+        if (!TextUtils.isEmpty(meetingDetail.getH5Url())) {
             rlMeetingH5.setVisibility(View.VISIBLE);
         }
 

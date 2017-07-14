@@ -133,4 +133,7 @@ public interface API {
 
     @POST("/app/mybook/selectpage")
     Observable<Response<MyBookBean>> selectMyBook(@Body RequestBody requestBody);
+
+    @GET("/app/meeting/cancel/{meetingId}")
+    Observable<Response<String>> cancelMeeting(@Path("meetingId") String meetingid);
 }

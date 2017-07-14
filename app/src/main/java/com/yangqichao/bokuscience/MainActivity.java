@@ -11,8 +11,11 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jaeger.library.StatusBarUtil;
@@ -35,6 +38,7 @@ import com.yangqichao.commonlib.util.PreferenceUtils;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class MainActivity extends BaseActivity {
 
@@ -50,6 +54,10 @@ public class MainActivity extends BaseActivity {
     VerticalTextview verticalTextview;
     @BindView(R.id.tv_name)
     TextView tvName;
+    @BindView(R.id.iv_logo)
+    ImageView ivLogo;
+    @BindView(R.id.fragment_main)
+    FrameLayout fragmentMain;
     private BaseQuickAdapter<SampleBean, BaseViewHolder> adapter;
     private List<SampleBean> sampleBeanList;
 
@@ -72,7 +80,7 @@ public class MainActivity extends BaseActivity {
         StatusBarUtil.setTranslucentForDrawerLayout(this, drawerMain, 0);
 
         loginBean = (LoginBean) getIntent().getSerializableExtra("user");
-        if(loginBean == null){
+        if (loginBean == null) {
             startActivity(new Intent(this, LoginActivity.class));
         }
 
@@ -83,8 +91,10 @@ public class MainActivity extends BaseActivity {
         toggle.syncState();
         drawerMain.addDrawerListener(toggle);
 
-        tvName.setText(loginBean.getHospitalName());
-
+        if(loginBean!=null){
+            tvName.setText(loginBean.getHospitalName()+"");
+            Glide.with(this).load(loginBean.getHospitalLogo()).into(ivLogo);
+        }
 
 
 
@@ -109,7 +119,7 @@ public class MainActivity extends BaseActivity {
                         return true;
                     }
                 });
-        if(loginBean.getModuleDTOS()!=null){
+        if (loginBean.getModuleDTOS() != null) {
             getFragment();
         }
         initGongGao();
@@ -171,4 +181,10 @@ public class MainActivity extends BaseActivity {
     }
 
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
 }

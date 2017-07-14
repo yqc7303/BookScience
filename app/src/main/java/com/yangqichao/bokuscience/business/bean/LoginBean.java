@@ -46,6 +46,15 @@ public class LoginBean implements Serializable{
     private int isSpecial;
     private int isPwd;
     private List<ModuleDTOSBean> moduleDTOS;
+    private String hospitalLogo;
+
+    public String getHospitalLogo() {
+        return hospitalLogo;
+    }
+
+    public void setHospitalLogo(String hospitalLogo) {
+        this.hospitalLogo = hospitalLogo;
+    }
 
     public String getId() {
         return id;

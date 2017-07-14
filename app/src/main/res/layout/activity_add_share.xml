@@ -15,7 +15,6 @@
         android:layout_height="@dimen/title_height"
         android:background="@color/base_orange"
         android:paddingLeft="10dp"
-        android:paddingRight="10dp"
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="0dp">
 
@@ -42,6 +41,8 @@
             android:layout_alignParentRight="true"
             android:textColor="@color/base_text_gray"
             android:layout_centerVertical="true"
+            android:padding="10dp"
+            android:textSize="16sp"
             android:text="发布" />
     </RelativeLayout>
 
@@ -94,7 +95,7 @@
 
         <TextView
             android:id="@+id/submit_staus"
-            android:text="已上传"
+            android:text="已选择"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_width="wrap_content"

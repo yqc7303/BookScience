@@ -163,6 +163,15 @@ public class MyMeetingBean {
         private String showSign;
         private Object signflagName;
         private String meetingStateName;
+        private String createrid;
+
+        public String getCreaterid() {
+            return createrid;
+        }
+
+        public void setCreaterid(String createrid) {
+            this.createrid = createrid;
+        }
 
         public int getId() {
             return id;

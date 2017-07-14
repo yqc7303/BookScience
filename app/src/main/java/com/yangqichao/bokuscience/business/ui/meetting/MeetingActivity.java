@@ -2,6 +2,7 @@ package com.yangqichao.bokuscience.business.ui.meetting;
 
 import android.Manifest;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -11,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
@@ -68,7 +70,7 @@ public class MeetingActivity extends BaseActivity implements SwipeRefreshLayout.
 
         adapter = new BaseQuickAdapter<MyMeetingBean.RecordsBean, BaseViewHolder>(R.layout.item_my_meeting) {
             @Override
-            protected void convert(BaseViewHolder helper, MyMeetingBean.RecordsBean item) {
+            protected void convert(BaseViewHolder helper, final MyMeetingBean.RecordsBean item) {
                 // TODO: 2017/7/1 会议状态样式
 
                 helper.setText(R.id.tv_meeting_title,item.getMeetingTitle());
@@ -77,6 +79,57 @@ public class MeetingActivity extends BaseActivity implements SwipeRefreshLayout.
                 helper.setText(R.id.tv_meeting_date,time[0]);
                 helper.setText(R.id.tv_meeting_time,time[1]);
                 // TODO: 2017/7/1 会议状态
+                // (0=未开始，1=已开始，2=已结束，3=已取消)
+                switch (item.getMeetingState()){
+                    case 0:
+                        helper.setImageResource(R.id.img_meeting_status,R.drawable.icon_meet_1);
+                        helper.setTextColor(R.id.tv_meeting_title,getColorResource(R.color.base_text_black));
+                        helper.setTextColor(R.id.tv_meeting_date,getColorResource(R.color.base_text_black));
+                        helper.setTextColor(R.id.tv_meeting_time,getColorResource(R.color.base_text_black));
+                        ((TextView)helper.getView(R.id.tv_meeting_title)).getPaint().setFlags(0);
+                        break;
+                    case 1:
+                        helper.setImageResource(R.id.img_meeting_status,R.drawable.icon_meet_2);
+                        helper.setTextColor(R.id.tv_meeting_title,getColorResource(R.color.base_text_black));
+                        helper.setTextColor(R.id.tv_meeting_date,getColorResource(R.color.base_text_black));
+                        helper.setTextColor(R.id.tv_meeting_time,getColorResource(R.color.base_text_black));
+                        ((TextView)helper.getView(R.id.tv_meeting_title)).getPaint().setFlags(0);
+                        break;
+                    case 2:
+                        helper.setImageResource(R.id.img_meeting_status,R.drawable.icon_meet_3);
+                        helper.setTextColor(R.id.tv_meeting_title,getColorResource(R.color.base_text_gray_dark));
+                        helper.setTextColor(R.id.tv_meeting_date,getColorResource(R.color.gray_dark));
+                        helper.setTextColor(R.id.tv_meeting_time,getColorResource(R.color.gray_dark));
+                        ((TextView)helper.getView(R.id.tv_meeting_title)).getPaint().setFlags(0);
+                        break;
+                    case 3:
+                        helper.setImageResource(R.id.img_meeting_status,R.drawable.icon_meet_4);
+                        helper.setTextColor(R.id.tv_meeting_title,getColorResource(R.color.base_text_gray_dark));
+                        helper.setTextColor(R.id.tv_meeting_date,getColorResource(R.color.gray_dark));
+                        helper.setTextColor(R.id.tv_meeting_time,getColorResource(R.color.gray_dark));
+                        ((TextView)helper.getView(R.id.tv_meeting_title)).getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+
+                        break;
+
+                }
+                helper.getView(R.id.tv_meeting_cancel).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if(APP.getUserId().equals(item.getCreaterid())&&item.getMeetingState()==0){
+                            RequestUtil.createApi().cancelMeeting(item.getId()+"").compose(RequestUtil.<String>handleResult())
+                                    .subscribe(new CommonsSubscriber<String>() {
+                                        @Override
+                                        protected void onSuccess(String s) {
+                                            showToast("会议已取消");
+                                            item.setMeetingState(3);
+                                            adapter.notifyDataSetChanged();
+                                        }
+                                    });
+                        }else{
+                            showToast("无法取消");
+                        }
+                    }
+                });
 //                helper.setImageResource(R.id.img_meeting_status,R.drawable.icon_meet_1);
             }
         };

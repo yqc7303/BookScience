@@ -104,6 +104,10 @@ public class AddShareActivity extends BaseActivity {
 
                 String h5 = etH5.getText().toString();
                 if(!TextUtils.isEmpty(h5)){
+//                    if(!h5.startsWith("http")){
+//                        showToast("分享地址有误");
+//                        return;
+//                    }
                     bodyMap.put("shareUrl",RequestBody.create(MediaType.parse("multipart/form-data"),h5));
                 }
 
