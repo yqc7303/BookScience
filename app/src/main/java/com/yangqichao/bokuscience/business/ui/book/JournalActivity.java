@@ -38,7 +38,7 @@ public class JournalActivity extends BaseActivity {
 
     @Override
     protected int getLayoutResID() {
-        return R.layout.activity_common_web_view;
+        return R.layout.activity_journal;
     }
 
 

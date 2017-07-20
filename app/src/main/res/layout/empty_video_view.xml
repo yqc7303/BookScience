@@ -5,7 +5,7 @@
 
 
     <TextView
-        android:text="该学科下没有视频"
+        android:text="没有内容"
         android:textSize="15sp"
         android:layout_centerInParent="true"
         android:layout_width="wrap_content"

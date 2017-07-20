@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
+import android.view.WindowManager;
 
 import com.yangqichao.bokuscience.business.bean.LoginBean;
 import com.yangqichao.bokuscience.business.ui.login.LoginActivity;
@@ -21,6 +22,8 @@ public class SplashActivity extends BaseActivity {
 
     @Override
     protected int getLayoutResID() {
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         return R.layout.activity_splash;
     }
 
@@ -80,7 +83,7 @@ public class SplashActivity extends BaseActivity {
                                     PreferenceUtils.setPrefString(SplashActivity.this,"hospitalName",loginBean.getHospitalName()+"");
                                     PreferenceUtils.setPrefString(SplashActivity.this,"deptId",loginBean.getDeptId()+"");
                                     PreferenceUtils.setPrefInt(SplashActivity.this,"publish",loginBean.getPublishFlag());
-
+                                    finish();
                                 }
 
                                 @Override
@@ -88,13 +91,14 @@ public class SplashActivity extends BaseActivity {
                                     super.onFail(errorCode, message);
                                     showToast(message);
                                     startActivity(new Intent(SplashActivity.this,LoginActivity.class));
+                                    finish();
                                 }
                             });
 
                 }
-                finish();
+
             }
-        }, 2000);
+        }, 200);
 
     }
 }

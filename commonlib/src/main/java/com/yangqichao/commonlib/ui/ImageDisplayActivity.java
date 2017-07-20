@@ -26,6 +26,7 @@ public class ImageDisplayActivity extends AppCompatActivity {
         url = getIntent().getStringExtra("url");
         image = (ZoomImageView)findViewById(img_show);
         Glide.with(this).load(url).into(image);
+
     }
 
     public static void startAction(Context context,String url){

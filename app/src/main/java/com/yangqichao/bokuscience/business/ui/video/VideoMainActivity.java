@@ -1,6 +1,5 @@
 package com.yangqichao.bokuscience.business.ui.video;
 
-import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -71,7 +70,7 @@ public class VideoMainActivity extends BaseActivity {
                 swichType(false);
                 break;
             case R.id.img_video_search:
-                startActivity(new Intent(this, SearchVideoActivity.class));
+                SearchVideoActivity.startAction(this,subjectListBean);
                 break;
         }
     }

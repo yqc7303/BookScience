@@ -1,1 +1,1 @@
-include ':app', ':commonlib', ':libzxing'
+include ':app', ':commonlib', ':libzxing', ':webViewMarker', ':folioreade'

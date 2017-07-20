@@ -52,24 +52,31 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile project(':commonlib')
     compile('com.github.hotchemi:permissionsdispatcher:2.4.0') {
         // if you don't use android.app.Fragment you can exclude support for them
         exclude module: "support-v13"
     }
     compile project(':libzxing')
+    compile project(':folioreade')
+    compile project(':webViewMarker')
+    compile project(':commonlib')
 
+    // If you want to use the GPU Filters
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha9'
     compile 'com.jakewharton:butterknife:8.6.0'
     compile 'com.getui:sdk:2.+'
-    compile 'com.folioreader:folioreader:0.2.5'
     compile 'com.amap.api:location:latest.integration'
     compile 'com.amap.api:search:latest.integration'
     compile 'com.android.support:support-v4:25.3.1'
     compile 'fm.jiecao:jiecaovideoplayer:5.6'
     compile 'com.github.anzaizai:EasySwipeMenuLayout:1.0.7'
+    compile 'com.arialyy.aria:aria-core:3.2.0'
+    compile 'com.liulishuo.filedownloader:library:1.6.1'
+    compile 'jp.wasabeef:glide-transformations:2.0.2'
+    compile 'jp.co.cyberagent.android.gpuimage:gpuimage-library:1.4.1'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
     annotationProcessor 'com.github.hotchemi:permissionsdispatcher-processor:2.4.0'
+    annotationProcessor 'com.arialyy.aria:aria-compiler:3.2.0'
 }

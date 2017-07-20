@@ -30,14 +30,34 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-        <ImageView
+
+
+        <LinearLayout
             android:id="@+id/img_create"
-            android:visibility="gone"
-            android:src="@drawable/btn_qd"
+            android:orientation="horizontal"
+            android:layout_marginRight="5dp"
+            android:layout_width="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content">
+
+
+            <ImageView
+                android:src="@drawable/ovel"
+                android:layout_marginLeft="3dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:src="@drawable/ovel"
+                android:layout_marginLeft="3dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:src="@drawable/ovel"
+                android:layout_marginLeft="3dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
 
 
     </RelativeLayout>
@@ -187,20 +207,28 @@
 
         <TextView
             android:text="会议地点"
+            android:id="@+id/huiyididian"
             android:layout_centerVertical="true"
             android:textSize="16sp"
             android:textColor="@color/base_text_black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-        <TextView
-            android:id="@+id/tv_meeting_address"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
+        <RelativeLayout
+            android:layout_toRightOf="@id/huiyididian"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/tv_meeting_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
     </RelativeLayout>
 
     <RelativeLayout

@@ -32,6 +32,8 @@ public class MineActivity extends BaseActivity {
     TextView tvPhone;
     @BindView(R.id.tv_name)
     TextView tvName;
+    @BindView(R.id.tv_xuefen)
+    TextView tvXuefen;
 
     @Override
     protected int getLayoutResID() {
@@ -44,7 +46,7 @@ public class MineActivity extends BaseActivity {
         tvProvince.setText(PreferenceUtils.getPrefString(MineActivity.this, "provice", ""));
         tvPhone.setText(PreferenceUtils.getPrefString(MineActivity.this, "phone", ""));
         String deptName = PreferenceUtils.getPrefString(MineActivity.this, "deptName", "");
-        tvName.setText(PreferenceUtils.getPrefString(MineActivity.this,"name",""));
+        tvName.setText(PreferenceUtils.getPrefString(MineActivity.this, "name", ""));
         if (TextUtils.isEmpty(deptName)) {
             tvKeshiShow.setVisibility(View.GONE);
             tvKeshi.setVisibility(View.GONE);

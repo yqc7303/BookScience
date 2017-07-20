@@ -76,7 +76,7 @@ public class MeetingDetailActivity extends BaseActivity implements
     @BindView(R.id.ll_meeting_create)
     LinearLayout llMeetingCreate;
     @BindView(R.id.img_create)
-    ImageView imgCreate;
+    LinearLayout imgCreate;
     private int meetingId;
     MeetingDetailBean meetingDetail;
     int meetingStatus;

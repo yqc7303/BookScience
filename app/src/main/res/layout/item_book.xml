@@ -5,10 +5,30 @@
     android:id="@+id/item_book"
     android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/img_book"
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="125dp" />
+        android:layout_height="125dp">
+
+        <ImageView
+            android:id="@+id/img_book"
+            android:src="@drawable/icon_book_null"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        
+        <TextView
+            android:id="@+id/tv_download"
+            android:layout_width="50dp"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:text="下载"
+            android:visibility="gone"
+            android:gravity="center"
+            android:layout_centerInParent="true"
+            android:background="@drawable/corner_black"
+            android:layout_height="25dp" />
+    </RelativeLayout>
+
 
     <TextView
         android:id="@+id/tv_book_name"

@@ -6,53 +6,59 @@
     tools:context="com.yangqichao.bokuscience.business.ui.book.JournalFragment">
 
 
+
     <FrameLayout
         android:layout_width="match_parent"
         android:background="@color/white"
         android:padding="5dp"
         android:layout_height="50dp">
 
-
-
-
         <LinearLayout
-            android:padding="5dp"
+            android:id="@+id/ll_search"
+
             android:background="@drawable/corner_gray"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp">
 
             <TextView
                 android:id="@+id/tv_seatch_type"
-                android:textSize="16sp"
-                android:text="全部全部全部全部全部"
-                android:lines="1"
-                android:gravity="center"
-                android:textColor="@color/base_orange"
-                android:maxWidth="80dp"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:visibility="gone"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:text="全部"
+                android:drawableRight="@drawable/triangle"
+                android:drawablePadding="3dp"
+                android:textSize="14sp"
+                android:layout_gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/base_orange" />
 
             <View
                 android:layout_width="1.5dp"
-                android:layout_marginTop="6dp"
-                android:visibility="gone"
-                android:layout_marginBottom="6dp"
                 android:background="@color/base_orange"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                android:layout_marginBottom="6dp"
+                android:layout_marginTop="6dp" />
+
             <EditText
-                android:id="@+id/et_"
+                android:hint="请输入搜索关键字"
+                android:textSize="14sp"
+                android:id="@+id/et_search"
                 android:background="@null"
-                android:layout_marginLeft="10dp"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:hint = "输入关键词搜索视频"
-                android:textSize="16sp"
+                android:imeOptions="actionSearch"
+                android:maxLines="1"
+                android:inputType="text"
+                android:layout_marginLeft="5dp"
+                android:layout_gravity="center_vertical"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent" />
+
         </LinearLayout>
+
 
     </FrameLayout>
     

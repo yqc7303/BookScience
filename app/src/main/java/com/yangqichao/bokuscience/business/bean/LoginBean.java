@@ -41,7 +41,7 @@ public class LoginBean implements Serializable{
     private int publishFlag;
     private int state;
     private long gmtCreate;
-    private int birthday;
+    private long birthday;
     private int isBirthday;
     private int isSpecial;
     private int isPwd;
@@ -171,11 +171,12 @@ public class LoginBean implements Serializable{
         this.gmtCreate = gmtCreate;
     }
 
-    public int getBirthday() {
+
+    public long getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(int birthday) {
+    public void setBirthday(long birthday) {
         this.birthday = birthday;
     }
 

@@ -186,6 +186,15 @@ public class MyBookBean {
             private String imgUrl;
             private String fileUrl;
             private Object type;
+            private boolean isDone;
+
+            public boolean isDone() {
+                return isDone;
+            }
+
+            public void setDone(boolean done) {
+                isDone = done;
+            }
 
             public int getId() {
                 return id;

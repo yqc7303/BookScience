@@ -2,6 +2,7 @@ package com.yangqichao.bokuscience.business.bean;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -63,7 +64,7 @@ public class InitBookBean {
         }
     }
 
-    public static class SubjectsBean {
+    public static class SubjectsBean implements Serializable{
         /**
          * id : 1
          * subName : 内科

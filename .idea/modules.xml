@@ -5,7 +5,9 @@
       <module fileurl="file://$PROJECT_DIR$/BookScience.iml" filepath="$PROJECT_DIR$/BookScience.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/commonlib/commonlib.iml" filepath="$PROJECT_DIR$/commonlib/commonlib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/folioreade/folioreade.iml" filepath="$PROJECT_DIR$/folioreade/folioreade.iml" />
       <module fileurl="file://$PROJECT_DIR$/libzxing/libzxing.iml" filepath="$PROJECT_DIR$/libzxing/libzxing.iml" />
+      <module fileurl="file://$PROJECT_DIR$/webViewMarker/webViewMarker.iml" filepath="$PROJECT_DIR$/webViewMarker/webViewMarker.iml" />
     </modules>
   </component>
 </project>

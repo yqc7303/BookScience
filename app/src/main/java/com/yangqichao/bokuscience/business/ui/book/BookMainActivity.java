@@ -1,8 +1,10 @@
 package com.yangqichao.bokuscience.business.ui.book;
 
+import android.Manifest;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -19,7 +21,10 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import permissions.dispatcher.NeedsPermission;
+import permissions.dispatcher.RuntimePermissions;
 
+@RuntimePermissions
 public class BookMainActivity extends BaseActivity {
 
 
@@ -46,6 +51,7 @@ public class BookMainActivity extends BaseActivity {
         return R.layout.activity_book_main;
     }
 
+
     @Override
     protected void initView(Bundle savedInstanceState) {
         RequestUtil.createApi().initBook().compose(RequestUtil.<InitBookBean>handleResult())
@@ -53,7 +59,7 @@ public class BookMainActivity extends BaseActivity {
                     @Override
                     protected void onSuccess(InitBookBean initBookBean) {
                         subjectListBean = initBookBean.getSubjects();
-                        swichType(true);
+                        BookMainActivityPermissionsDispatcher.swichTypeWithCheck(BookMainActivity.this,true);
                     }
                 });
 
@@ -64,10 +70,10 @@ public class BookMainActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_hospital_video:
-                swichType(true);
+                BookMainActivityPermissionsDispatcher.swichTypeWithCheck(this,true);
                 break;
             case R.id.tv_sys_video:
-                swichType(false);
+                BookMainActivityPermissionsDispatcher.swichTypeWithCheck(this,false);
                 break;
             case R.id.img_video_search:
                 startActivity(new Intent(this, MyBookMainActivity.class));
@@ -75,7 +81,8 @@ public class BookMainActivity extends BaseActivity {
         }
     }
 
-    private void swichType(boolean isJournal) {
+    @NeedsPermission({Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE})
+    public void swichType(boolean isJournal) {
         if (journalFragment != null) {
             getSupportFragmentManager().beginTransaction().hide(journalFragment).commitAllowingStateLoss();
         }
@@ -90,7 +97,7 @@ public class BookMainActivity extends BaseActivity {
             tvHospitalVideo.setTextColor(getColorResource(R.color.white));
             tvSysVideo.setTextColor(getColorResource(R.color.base_bg_gray));
             if(journalFragment == null) {
-                journalFragment = JournalFragment.newInstance(false,"");
+                journalFragment = JournalFragment.newInstance(false,subjectListBean);
             }
             currentFragment = journalFragment;
         } else {
@@ -102,7 +109,7 @@ public class BookMainActivity extends BaseActivity {
             tvSysVideo.setTextColor(getColorResource(R.color.white));
 
             if(booKFragment == null){
-                booKFragment = BooKFragment.newInstance("","");
+               booKFragment = BooKFragment.newInstance(false,subjectListBean);
             }
             currentFragment = booKFragment;
         }
@@ -115,7 +122,11 @@ public class BookMainActivity extends BaseActivity {
         }
     }
 
-
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        BookMainActivityPermissionsDispatcher.onRequestPermissionsResult(this,requestCode,grantResults);
+    }
 
     @OnClick(R.id.img_back)
     public void onViewClicked() {

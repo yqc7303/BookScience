@@ -6,9 +6,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -48,7 +50,8 @@ public class VideoFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         adapterSubject = new SubjectAdapter(R.layout.item_video_keshi,subjectListBeen);
-        recycleViewKeshi.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recycleViewKeshi.setLayoutManager(new LinearLayoutManager(getActivity(),
+                                  LinearLayoutManager.HORIZONTAL,false));
         recycleViewKeshi.setAdapter(adapterSubject);
         recycleViewKeshi.addOnItemTouchListener(new OnItemClickListener() {
             @Override
@@ -146,14 +149,17 @@ public class VideoFragment extends Fragment {
 
         @Override
         protected void convert(BaseViewHolder helper, InitVideoBean.SubjectListBean item) {
+            TextView tv = helper.getView(R.id.tv_keshi_name);
             if(helper.getLayoutPosition() == index){
-                helper.setVisible(R.id.view_select,true);
+//                helper.setVisible(R.id.view_select,true);
                 helper.setTextColor(R.id.tv_keshi_name,getColorResource(R.color.black));
-                helper.setBackgroundColor(R.id.item_keshi,getColorResource(R.color.white));
+                tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP,16);
+//                helper.setBackgroundColor(R.id.item_keshi,getColorResource(R.color.white));
             }else {
-                helper.setVisible(R.id.view_select,false);
+//                helper.setVisible(R.id.view_select,false);
                 helper.setTextColor(R.id.tv_keshi_name,getColorResource(R.color.base_text_gray_dark));
-                helper.setBackgroundColor(R.id.item_keshi,getColorResource(R.color.base_bg_gray));
+                tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP,14);
+//                helper.setBackgroundColor(R.id.item_keshi,getColorResource(R.color.base_bg_gray));
             }
             helper.setText(R.id.tv_keshi_name,item.getSubName());
         }

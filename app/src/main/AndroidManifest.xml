@@ -28,6 +28,8 @@
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
+    <!---->
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
 
     <application
         android:name=".common.APP"
@@ -115,6 +117,7 @@
         <activity android:name=".business.ui.mine.FeedBackActivity" />
         <activity android:name=".business.ui.mine.ChangePWActivity" />
         <activity android:name=".business.ui.main.SetFuncationActivity"></activity>
+
     </application>
 
 </manifest>

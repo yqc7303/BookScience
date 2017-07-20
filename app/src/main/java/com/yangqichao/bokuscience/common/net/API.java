@@ -9,6 +9,8 @@ import com.yangqichao.bokuscience.business.bean.InitVideoBean;
 import com.yangqichao.bokuscience.business.bean.LevelBean;
 import com.yangqichao.bokuscience.business.bean.LoginBean;
 import com.yangqichao.bokuscience.business.bean.MeetingDetailBean;
+import com.yangqichao.bokuscience.business.bean.MessageBean;
+import com.yangqichao.bokuscience.business.bean.MessageDetail;
 import com.yangqichao.bokuscience.business.bean.MyBookBean;
 import com.yangqichao.bokuscience.business.bean.MyMeetingBean;
 import com.yangqichao.bokuscience.business.bean.RegisteBean;
@@ -147,5 +149,12 @@ public interface API {
 
     @POST("/app/user/motifyPassword")
     Observable<Response<String>> motifyPassword(@Body RequestBody requestBody);
+
+
+    @POST("/app/notifications/getbytype")
+    Observable<Response<MessageBean>> getbytype(@Body RequestBody requestBody);
+
+    @GET("/app/notifications/get/{id}")
+    Observable<Response<MessageDetail>> getMessageDetail(@Path("id") String id);
 
 }

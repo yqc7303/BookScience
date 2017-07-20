@@ -155,6 +155,15 @@ public class BookBean {
         private int type;
         private String typeName;
         private int isAdd;
+        private boolean isDone;
+
+        public boolean isDone() {
+            return isDone;
+        }
+
+        public void setDone(boolean done) {
+            isDone = done;
+        }
 
         public int getIsAdd() {
             return isAdd;

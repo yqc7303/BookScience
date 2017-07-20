@@ -2,21 +2,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/base_bg_gray"
     tools:context="com.yangqichao.bokuscience.business.ui.video.VideoFragment">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycleView_keshi"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:background="@color/base_bg_gray"
-        android:layout_weight="1" />
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/base_bg_gray" />
 
     <android.support.v7.widget.RecyclerView
+        android:layout_marginTop="1dp"
         android:id="@+id/recycleView_video"
-        android:layout_width="0dp"
-        android:background="@color/white"
-        android:layout_height="match_parent"
-        android:layout_weight="2" />
+        android:layout_width="match_parent"
+        android:background="@color/base_bg_gray"
+        android:layout_height="match_parent" />
 
 
 </LinearLayout>

@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:focusableInTouchMode="true"
     tools:context="com.yangqichao.bokuscience.business.ui.book.BookMainActivity">
 
 
@@ -46,6 +47,7 @@
                     android:id="@+id/view_bttom_hopital"
                     android:layout_width="25dp"
                     android:layout_height="1.5dp"
+                    android:visibility="gone"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="3dp"
                     android:background="@color/white" />
@@ -71,6 +73,7 @@
                     android:id="@+id/view_bttom_sys"
                     android:layout_width="25dp"
                     android:layout_height="1.5dp"
+                    android:visibility="gone"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="3dp"
                     android:background="@color/white" />

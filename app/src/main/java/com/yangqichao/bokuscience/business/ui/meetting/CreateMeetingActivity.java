@@ -37,6 +37,7 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -67,6 +68,10 @@ public class CreateMeetingActivity extends BaseActivity implements CompoundButto
     SwitchCompat switchDuanxin;
     @BindView(R.id.tv_create)
     TextView tvCreate;
+    @BindView(R.id.tv_meeting_address_detail)
+    EditText tvMeetingAddressDetail;
+    @BindView(R.id.tv_meeting_xuefeng)
+    TextView tvMeetingXuefeng;
 
     private Tip address;
 
@@ -121,8 +126,8 @@ public class CreateMeetingActivity extends BaseActivity implements CompoundButto
                         meetingDate = date;
                     }
                 }).setType(new boolean[]{true, true, true, true, true, false})
-                        .setSubmitColor(ContextCompat.getColor(this,R.color.base_orange))//确定按钮文字颜色
-                        .setCancelColor(ContextCompat.getColor(this,R.color.base_orange))//取消按钮文字颜色
+                        .setSubmitColor(ContextCompat.getColor(this, R.color.base_orange))//确定按钮文字颜色
+                        .setCancelColor(ContextCompat.getColor(this, R.color.base_orange))//取消按钮文字颜色
                         .build();
                 pickerView.setDate(Calendar.getInstance());//注：根据需求来决定是否使用该方法（一般是精确到秒的情况），此项可以在弹出选择器的时候重新设置当前时间，避免在初始化之后由于时间已经设定，导致选中时间与当前时间不匹配的问题。
                 pickerView.show();
@@ -150,53 +155,59 @@ public class CreateMeetingActivity extends BaseActivity implements CompoundButto
         String addressStr = tvMeetingAddress.getText().toString();
         String person = tvMeetingPerson.getText().toString();
         final String h5 = tvMeetingXcc.getText().toString();
+        String addressDetail = tvMeetingAddressDetail.getText().toString();
 
-        if(TextUtils.isEmpty(title)){
+        if (TextUtils.isEmpty(title)) {
             showToast("会议标题不能为空");
             return;
         }
-        if(TextUtils.isEmpty(describe)){
+        if (TextUtils.isEmpty(describe)) {
             showToast("会议描述不能为空");
             return;
         }
-        if(TextUtils.isEmpty(time)){
+        if (TextUtils.isEmpty(time)) {
             showToast("会议时间不能为空");
             return;
         }
-        if(TextUtils.isEmpty(addressStr)){
+        if (TextUtils.isEmpty(addressStr)) {
             showToast("会议地点不能为空");
             return;
         }
-        if(TextUtils.isEmpty(person)){
+        if (TextUtils.isEmpty(person)) {
             showToast("请选择参会人员");
             return;
         }
+        if (TextUtils.isEmpty(addressDetail)) {
+            showToast("会议详细地点不能为空");
+            return;
+        }
         StringBuilder builder = new StringBuilder();
-            for(GetKeShiPerson.RecordsBean bean:chooseList){
-                if(bean == chooseList.get(chooseList.size()-1)){
-                    builder.append(bean.getId());
-                }else{
-                    builder.append(bean.getId()+",");
-                }
-
+        for (GetKeShiPerson.RecordsBean bean : chooseList) {
+            if (bean == chooseList.get(chooseList.size() - 1)) {
+                builder.append(bean.getId());
+            } else {
+                builder.append(bean.getId() + ",");
             }
+
+        }
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         final Map<String, RequestBody> bodyMap = new HashMap<>();
-        LatLonPoint point = address.getPoint();
+        LatLonPoint point = this.address.getPoint();
         bodyMap.put("title", RequestBody.create(MediaType.parse("multipart/form-data"), title));
-        bodyMap.put("content",RequestBody.create(MediaType.parse("multipart/form-data"), describe));
-        bodyMap.put("gmtStart",RequestBody.create(MediaType.parse("multipart/form-data"), dateFormat.format(meetingDate)));
-        bodyMap.put("address",RequestBody.create(MediaType.parse("multipart/form-data"), address.getName()));
-        bodyMap.put("gps",RequestBody.create(MediaType.parse("multipart/form-data"),point.getLongitude()+","+point.getLatitude()));
-        bodyMap.put("noticeflag",RequestBody.create(MediaType.parse("multipart/form-data"), switchDuanxin.isChecked() ? "1" : "0"));
-        bodyMap.put("createrId",RequestBody.create(MediaType.parse("multipart/form-data"), APP.getUserId()));
-        bodyMap.put("hospitalId",RequestBody.create(MediaType.parse("multipart/form-data"), PreferenceUtils.getPrefString(this,"hospitalId","")));
-        bodyMap.put("hospitalName",RequestBody.create(MediaType.parse("multipart/form-data"), PreferenceUtils.getPrefString(this,"hospitalName","")));
-        bodyMap.put("userIds",RequestBody.create(MediaType.parse("multipart/form-data"), builder.toString()));
+        bodyMap.put("content", RequestBody.create(MediaType.parse("multipart/form-data"), describe));
+        bodyMap.put("gmtStart", RequestBody.create(MediaType.parse("multipart/form-data"), dateFormat.format(meetingDate)));
+        bodyMap.put("address", RequestBody.create(MediaType.parse("multipart/form-data"), this.address.getName()));
+        bodyMap.put("gps", RequestBody.create(MediaType.parse("multipart/form-data"), point.getLongitude() + "," + point.getLatitude()));
+        bodyMap.put("noticeflag", RequestBody.create(MediaType.parse("multipart/form-data"), switchDuanxin.isChecked() ? "1" : "0"));
+        bodyMap.put("createrId", RequestBody.create(MediaType.parse("multipart/form-data"), APP.getUserId()));
+        bodyMap.put("hospitalId", RequestBody.create(MediaType.parse("multipart/form-data"), PreferenceUtils.getPrefString(this, "hospitalId", "")));
+        bodyMap.put("hospitalName", RequestBody.create(MediaType.parse("multipart/form-data"), PreferenceUtils.getPrefString(this, "hospitalName", "")));
+        bodyMap.put("userIds", RequestBody.create(MediaType.parse("multipart/form-data"), builder.toString()));
+        bodyMap.put("floor", RequestBody.create(MediaType.parse("multipart/form-data"), addressDetail));
 
 
-        if(!TextUtils.isEmpty(h5)){
-            bodyMap.put("h5Url",RequestBody.create(MediaType.parse("multipart/form-data"), APP.getUserId()));
+        if (!TextUtils.isEmpty(h5)) {
+            bodyMap.put("h5Url", RequestBody.create(MediaType.parse("multipart/form-data"), APP.getUserId()));
         }
 
 
@@ -207,18 +218,18 @@ public class CreateMeetingActivity extends BaseActivity implements CompoundButto
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         dialogInterface.dismiss();
-                        if(fileBean != null){
+                        if (fileBean != null) {
                             File file = new File(fileBean.getPath());
                             MultipartBody.Part body =
                                     MultipartBody.Part.createFormData("file", file.getName(), RequestBody.create(MediaType.parse("application/otcet-stream"), file));
-                            RequestUtil.createApi().publish(bodyMap,body).compose(RequestUtil.<String>handleResult())
+                            RequestUtil.createApi().publish(bodyMap, body).compose(RequestUtil.<String>handleResult())
                                     .subscribe(new CommonsSubscriber<String>() {
                                         @Override
                                         protected void onSuccess(String s) {
                                             finish();
                                         }
                                     });
-                        }else{
+                        } else {
                             RequestUtil.createApi().publish(bodyMap).compose(RequestUtil.<String>handleResult())
                                     .subscribe(new CommonsSubscriber<String>() {
                                         @Override
@@ -256,5 +267,12 @@ public class CreateMeetingActivity extends BaseActivity implements CompoundButto
             tvMeetingPerson.setText(chooseList.size() + "人");
 
         }
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

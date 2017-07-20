@@ -94,7 +94,7 @@ public class MyBookMainActivity extends BaseActivity {
             tvHospitalVideo.setTextColor(getColorResource(R.color.white));
             tvSysVideo.setTextColor(getColorResource(R.color.base_bg_gray));
             if(journalFragment == null) {
-                journalFragment = JournalFragment.newInstance(true,"");
+                journalFragment = JournalFragment.newInstance(true,subjectListBean);
             }
             currentFragment = journalFragment;
         } else {
@@ -106,7 +106,7 @@ public class MyBookMainActivity extends BaseActivity {
             tvSysVideo.setTextColor(getColorResource(R.color.white));
 
             if(booKFragment == null){
-                booKFragment = BooKFragment.newInstance("","");
+                booKFragment = BooKFragment.newInstance(true,subjectListBean);
             }
             currentFragment = booKFragment;
         }
