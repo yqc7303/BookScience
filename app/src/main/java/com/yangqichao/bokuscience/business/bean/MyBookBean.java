@@ -139,10 +139,18 @@ public class MyBookBean {
          * userId : 12
          * bookDTO : {"id":5,"title":"epub","subjectId":1,"subjectName":"内科","imgUrl":"1080_1101期刊书籍.png","fileUrl":"http://www.jianshu.com/","type":null}
          */
-
+        private int bookId;
         private int id;
         private int userId;
         private BookDTOBean bookDTO;
+
+        public int getBookId() {
+            return bookId;
+        }
+
+        public void setBookId(int bookId) {
+            this.bookId = bookId;
+        }
 
         public int getId() {
             return id;

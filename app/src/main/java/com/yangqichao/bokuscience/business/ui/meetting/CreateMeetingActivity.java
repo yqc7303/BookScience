@@ -14,7 +14,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.amap.api.services.core.LatLonPoint;
-import com.amap.api.services.help.Tip;
+import com.amap.api.services.core.PoiItem;
+import com.bigkoo.pickerview.OptionsPickerView;
 import com.bigkoo.pickerview.TimePickerView;
 import com.yangqichao.bokuscience.R;
 import com.yangqichao.bokuscience.business.bean.FileBean;
@@ -30,6 +31,7 @@ import com.yangqichao.commonlib.util.PreferenceUtils;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -37,7 +39,6 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -72,13 +73,22 @@ public class CreateMeetingActivity extends BaseActivity implements CompoundButto
     EditText tvMeetingAddressDetail;
     @BindView(R.id.tv_meeting_xuefeng)
     TextView tvMeetingXuefeng;
+    @BindView(R.id.huiyididian)
+    TextView huiyididian;
+    @BindView(R.id.textView10)
+    TextView textView10;
+    @BindView(R.id.tv_duanxin)
+    TextView tvDuanxin;
 
-    private Tip address;
+    private PoiItem address;
 
     private List<GetKeShiPerson.RecordsBean> chooseList;
     private FileBean fileBean;
     private SimpleDateFormat dateFormat;
     private Date meetingDate;
+    private List<Double> xuefen;
+    private OptionsPickerView pvCustomOptions;
+    private String xuefengStr;
 
     @Override
     protected int getLayoutResID() {
@@ -87,14 +97,16 @@ public class CreateMeetingActivity extends BaseActivity implements CompoundButto
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-        RxBus.getDefault().toObservable(Tip.class)
+        RxBus.getDefault().toObservable(PoiItem.class)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(new CommonsSubscriber<Tip>() {
+                .subscribe(new CommonsSubscriber<PoiItem>() {
                     @Override
-                    protected void onSuccess(Tip tip) {
-                        tvMeetingAddress.setText(tip.getName());
-                        address = tip;
+                    protected void onSuccess(PoiItem poiItem) {
+                        String str = poiItem.getProvinceName() + "-" + poiItem.getCityName() + "-"
+                                + poiItem.getAdName() + "," + poiItem.getTitle();
+                        tvMeetingAddress.setText(str);
+                        address = poiItem;
 
                     }
                 });
@@ -111,12 +123,28 @@ public class CreateMeetingActivity extends BaseActivity implements CompoundButto
                 });
         switchDuanxin.setOnCheckedChangeListener(this);
         dateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm");
+        xuefen = getXuefen();
+        pvCustomOptions = new OptionsPickerView.Builder(this, new OptionsPickerView.OnOptionsSelectListener() {
+            @Override
+            public void onOptionsSelect(int options1, int options2, int options3, View v) {
+                xuefengStr = xuefen.get(options1) + "";
+                tvMeetingXuefeng.setText(xuefengStr);
+            }
+        })
+                .setSubmitColor(ContextCompat.getColor(this, R.color.base_orange))//确定按钮文字颜色
+                .setCancelColor(ContextCompat.getColor(this, R.color.base_orange))//取消按钮文字颜色
+                .build();
+        pvCustomOptions.setPicker(xuefen);
     }
 
 
-    @OnClick({R.id.tv_meeting_time, R.id.tv_meeting_address, R.id.tv_meeting_person, R.id.tv_meeting_file, R.id.tv_meeting_xcc, R.id.switch_duanxin, R.id.tv_create})
+    @OnClick({R.id.tv_meeting_time, R.id.tv_meeting_address, R.id.tv_meeting_person,R.id.img_back,
+            R.id.tv_meeting_file, R.id.tv_meeting_xcc, R.id.switch_duanxin, R.id.tv_create})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.img_back:
+                finish();
+                break;
             case R.id.tv_meeting_time:
                 hideSoftInputView();
                 TimePickerView pickerView = new TimePickerView.Builder(this, new TimePickerView.OnTimeSelectListener() {
@@ -165,6 +193,9 @@ public class CreateMeetingActivity extends BaseActivity implements CompoundButto
             showToast("会议描述不能为空");
             return;
         }
+        if (TextUtils.isEmpty(xuefengStr)) {
+            showToast("请设置学分");
+        }
         if (TextUtils.isEmpty(time)) {
             showToast("会议时间不能为空");
             return;
@@ -192,11 +223,11 @@ public class CreateMeetingActivity extends BaseActivity implements CompoundButto
         }
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         final Map<String, RequestBody> bodyMap = new HashMap<>();
-        LatLonPoint point = this.address.getPoint();
+        LatLonPoint point = this.address.getLatLonPoint();
         bodyMap.put("title", RequestBody.create(MediaType.parse("multipart/form-data"), title));
         bodyMap.put("content", RequestBody.create(MediaType.parse("multipart/form-data"), describe));
         bodyMap.put("gmtStart", RequestBody.create(MediaType.parse("multipart/form-data"), dateFormat.format(meetingDate)));
-        bodyMap.put("address", RequestBody.create(MediaType.parse("multipart/form-data"), this.address.getName()));
+        bodyMap.put("address", RequestBody.create(MediaType.parse("multipart/form-data"), addressStr));
         bodyMap.put("gps", RequestBody.create(MediaType.parse("multipart/form-data"), point.getLongitude() + "," + point.getLatitude()));
         bodyMap.put("noticeflag", RequestBody.create(MediaType.parse("multipart/form-data"), switchDuanxin.isChecked() ? "1" : "0"));
         bodyMap.put("createrId", RequestBody.create(MediaType.parse("multipart/form-data"), APP.getUserId()));
@@ -204,10 +235,11 @@ public class CreateMeetingActivity extends BaseActivity implements CompoundButto
         bodyMap.put("hospitalName", RequestBody.create(MediaType.parse("multipart/form-data"), PreferenceUtils.getPrefString(this, "hospitalName", "")));
         bodyMap.put("userIds", RequestBody.create(MediaType.parse("multipart/form-data"), builder.toString()));
         bodyMap.put("floor", RequestBody.create(MediaType.parse("multipart/form-data"), addressDetail));
+        bodyMap.put("credit", RequestBody.create(MediaType.parse("multipart/form-data"), xuefengStr));
 
 
         if (!TextUtils.isEmpty(h5)) {
-            bodyMap.put("h5Url", RequestBody.create(MediaType.parse("multipart/form-data"), APP.getUserId()));
+            bodyMap.put("h5Url", RequestBody.create(MediaType.parse("multipart/form-data"), h5));
         }
 
 
@@ -269,10 +301,20 @@ public class CreateMeetingActivity extends BaseActivity implements CompoundButto
         }
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
+    @OnClick(R.id.tv_meeting_xuefeng)
+    public void onViewClicked() {
+        hideSoftInputView();
+        pvCustomOptions.show();
     }
+
+    private List<Double> getXuefen() {
+        List<Double> list = new ArrayList<>();
+        for (int i = 1; i <= 20; i++) {
+            list.add(i * 0.5);
+        }
+        return list;
+    }
+
+
+
 }

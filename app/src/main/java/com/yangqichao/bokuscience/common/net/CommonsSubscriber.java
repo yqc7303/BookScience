@@ -68,8 +68,9 @@ public abstract class CommonsSubscriber<T> extends Subscriber<T> {
             } else {
                 errorMsg = "请重试";
             }
+            onErrorShow(errorMsg);
         }
-        onErrorShow(errorMsg);
+
 
 
     }

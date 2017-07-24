@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.jaeger.library.StatusBarUtil;
 import com.yangqichao.bokuscience.R;
 import com.yangqichao.bokuscience.common.base.BaseActivity;
 import com.yangqichao.bokuscience.common.net.CommonsSubscriber;
@@ -56,6 +57,8 @@ public class RegisterActivity extends BaseActivity{
 
     @Override
     protected void initView(Bundle savedInstanceState) {
+        StatusBarUtil.setTransparent(this);
+
         timer = new MyCountTimer(60000,1000);
 
         etVerification.addTextChangedListener(new CleanTextWatcher(textInputLayoutVerification));

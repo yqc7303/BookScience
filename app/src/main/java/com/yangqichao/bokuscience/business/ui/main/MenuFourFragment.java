@@ -3,12 +3,14 @@ package com.yangqichao.bokuscience.business.ui.main;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.yangqichao.bokuscience.R;
 import com.yangqichao.bokuscience.business.bean.LoginBean;
 
@@ -76,14 +78,31 @@ public class MenuFourFragment extends Fragment {
         module2 = mParam1.getModuleDTOSUser().get(1);
         module3 = mParam1.getModuleDTOSUser().get(2);
         module4 = mParam1.getModuleDTOSUser().get(3);
-        imgFunction1.setImageResource(ShowMenuUtil.getImage(module1.getCode()));
         tvFunction1.setText(module1.getName());
-        imgFunction2.setImageResource(ShowMenuUtil.getImage(module2.getCode()));
         tvFunction2.setText(module2.getName());
-        imgFunction3.setImageResource(ShowMenuUtil.getImage(module3.getCode()));
         tvFunction3.setText(module3.getName());
-        imgFunction4.setImageResource(ShowMenuUtil.getImage(module4.getCode()));
         tvFunction4.setText(module4.getName());
+
+        if(!TextUtils.isEmpty(module1.getImgUrl())&&!ShowMenuUtil.isMainFuncation(module1.getCode())){
+            Glide.with(getActivity()).load(module1.getImgUrl()).into(imgFunction1);
+        }else{
+            imgFunction1.setImageResource(ShowMenuUtil.getImage(module1.getCode()));
+        }
+        if(!TextUtils.isEmpty(module2.getImgUrl())&&!ShowMenuUtil.isMainFuncation(module2.getCode())){
+            Glide.with(getActivity()).load(module2.getImgUrl()).into(imgFunction2);
+        }else{
+            imgFunction2.setImageResource(ShowMenuUtil.getImage(module2.getCode()));
+        }
+        if(!TextUtils.isEmpty(module3.getImgUrl())&&!ShowMenuUtil.isMainFuncation(module3.getCode())){
+            Glide.with(getActivity()).load(module3.getImgUrl()).into(imgFunction3);
+        }else{
+            imgFunction3.setImageResource(ShowMenuUtil.getImage(module3.getCode()));
+        }
+        if(!TextUtils.isEmpty(module4.getImgUrl())&&!ShowMenuUtil.isMainFuncation(module4.getCode())){
+            Glide.with(getActivity()).load(module4.getImgUrl()).into(imgFunction4);
+        }else{
+            imgFunction4.setImageResource(ShowMenuUtil.getImage(module4.getCode()));
+        }
     }
 
     @Override

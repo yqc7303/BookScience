@@ -1,6 +1,7 @@
 package com.yangqichao.bokuscience.common.net;
 
 
+import com.yangqichao.bokuscience.business.bean.BackGroundBean;
 import com.yangqichao.bokuscience.business.bean.BookBean;
 import com.yangqichao.bokuscience.business.bean.FeedBean;
 import com.yangqichao.bokuscience.business.bean.GetKeShiPerson;
@@ -156,5 +157,8 @@ public interface API {
 
     @GET("/app/notifications/get/{id}")
     Observable<Response<MessageDetail>> getMessageDetail(@Path("id") String id);
+
+    @GET("/app/background/get")
+    Observable<Response<BackGroundBean>> getBackGround();
 
 }

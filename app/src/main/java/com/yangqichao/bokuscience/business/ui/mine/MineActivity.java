@@ -8,9 +8,11 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
+import com.jaeger.library.StatusBarUtil;
 import com.yangqichao.bokuscience.R;
 import com.yangqichao.bokuscience.business.ui.login.LoginActivity;
 import com.yangqichao.bokuscience.common.base.BaseActivity;
+import com.yangqichao.commonlib.util.AppManager;
 import com.yangqichao.commonlib.util.PreferenceUtils;
 
 import butterknife.BindView;
@@ -42,11 +44,15 @@ public class MineActivity extends BaseActivity {
 
     @Override
     protected void initView(Bundle savedInstanceState) {
+        StatusBarUtil.setTransparent(this);
+
         tvHostipal.setText(PreferenceUtils.getPrefString(MineActivity.this, "hospitalName", ""));
         tvProvince.setText(PreferenceUtils.getPrefString(MineActivity.this, "provice", ""));
         tvPhone.setText(PreferenceUtils.getPrefString(MineActivity.this, "phone", ""));
         String deptName = PreferenceUtils.getPrefString(MineActivity.this, "deptName", "");
         tvName.setText(PreferenceUtils.getPrefString(MineActivity.this, "name", ""));
+        String credit = PreferenceUtils.getPrefString(MineActivity.this, "credit", "");
+        tvXuefen.setText(credit.equals("0.0")?"0分":credit+"分");
         if (TextUtils.isEmpty(deptName)) {
             tvKeshiShow.setVisibility(View.GONE);
             tvKeshi.setVisibility(View.GONE);
@@ -80,7 +86,7 @@ public class MineActivity extends BaseActivity {
                         .setPositiveButton("退出", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                finish();
+                                AppManager.getAppManager().finishAllActivity();
                                 startActivity(new Intent(MineActivity.this, LoginActivity.class));
                                 PreferenceUtils.setPrefString(MineActivity.this, "uId", "");
                                 PreferenceUtils.setPrefString(MineActivity.this, "pw", "");

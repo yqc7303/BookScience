@@ -72,14 +72,15 @@ public class FeedBackActivity extends BaseActivity {
 //                    "feedbackUserId": "string",
 //                    "feedtype": "string"
                 String content = etFeedback.getText().toString();
+                if(adapter.getIndex() == -1){
+                    showToast("请选择分类");
+                    return;
+                }
                 if (TextUtils.isEmpty(content)) {
                     showToast("请输入内容");
                     return;
                 }
-                if(adapter.getIndex() == -1){
-                    showToast("请输入内容");
-                    return;
-                }
+
                 RequestBody requestBody = new RequestBody();
                 requestBody.setFeedbackUserId(APP.getUserId());
                 requestBody.setFeedtype(feedBeenList.get(adapter.getIndex()).getFeedtype());

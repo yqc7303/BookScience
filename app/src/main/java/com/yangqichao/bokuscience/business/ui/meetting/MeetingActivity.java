@@ -2,7 +2,6 @@ package com.yangqichao.bokuscience.business.ui.meetting;
 
 import android.Manifest;
 import android.content.Intent;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -12,7 +11,6 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
@@ -31,15 +29,13 @@ import com.yangqichao.bokuscience.common.net.RequestBody;
 import com.yangqichao.bokuscience.common.net.RequestUtil;
 import com.yangqichao.commonlib.util.PreferenceUtils;
 
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.OnClick;
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.RuntimePermissions;
 
 @RuntimePermissions
-public class MeetingActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener,AMapLocationListener {
+public class MeetingActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener,AMapLocationListener,BaseQuickAdapter.RequestLoadMoreListener {
 
     @BindView(R.id.recycle_meetting)
     RecyclerView recycleMeetting;
@@ -52,7 +48,10 @@ public class MeetingActivity extends BaseActivity implements SwipeRefreshLayout.
     private String codeUrl;
 
     private BaseQuickAdapter<MyMeetingBean.RecordsBean,BaseViewHolder> adapter;
-    private List<MyMeetingBean.RecordsBean> records;
+
+
+    private int page = 1;
+    private int pageSize = 10;
 
     @Override
     protected int getLayoutResID() {
@@ -86,28 +85,28 @@ public class MeetingActivity extends BaseActivity implements SwipeRefreshLayout.
                         helper.setTextColor(R.id.tv_meeting_title,getColorResource(R.color.base_text_black));
                         helper.setTextColor(R.id.tv_meeting_date,getColorResource(R.color.base_text_black));
                         helper.setTextColor(R.id.tv_meeting_time,getColorResource(R.color.base_text_black));
-                        ((TextView)helper.getView(R.id.tv_meeting_title)).getPaint().setFlags(0);
+//                        ((TextView)helper.getView(R.id.tv_meeting_title)).getPaint().setFlags(0);
                         break;
                     case 1:
                         helper.setImageResource(R.id.img_meeting_status,R.drawable.icon_meet_2);
                         helper.setTextColor(R.id.tv_meeting_title,getColorResource(R.color.base_text_black));
                         helper.setTextColor(R.id.tv_meeting_date,getColorResource(R.color.base_text_black));
                         helper.setTextColor(R.id.tv_meeting_time,getColorResource(R.color.base_text_black));
-                        ((TextView)helper.getView(R.id.tv_meeting_title)).getPaint().setFlags(0);
+//                        ((TextView)helper.getView(R.id.tv_meeting_title)).getPaint().setFlags(0);
                         break;
                     case 2:
                         helper.setImageResource(R.id.img_meeting_status,R.drawable.icon_meet_3);
                         helper.setTextColor(R.id.tv_meeting_title,getColorResource(R.color.base_text_gray_dark));
                         helper.setTextColor(R.id.tv_meeting_date,getColorResource(R.color.gray_dark));
                         helper.setTextColor(R.id.tv_meeting_time,getColorResource(R.color.gray_dark));
-                        ((TextView)helper.getView(R.id.tv_meeting_title)).getPaint().setFlags(0);
+//                        ((TextView)helper.getView(R.id.tv_meeting_title)).getPaint().setFlags(0);
                         break;
                     case 3:
                         helper.setImageResource(R.id.img_meeting_status,R.drawable.icon_meet_4);
                         helper.setTextColor(R.id.tv_meeting_title,getColorResource(R.color.base_text_gray_dark));
                         helper.setTextColor(R.id.tv_meeting_date,getColorResource(R.color.gray_dark));
                         helper.setTextColor(R.id.tv_meeting_time,getColorResource(R.color.gray_dark));
-                        ((TextView)helper.getView(R.id.tv_meeting_title)).getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+//                        ((TextView)helper.getView(R.id.tv_meeting_title)).getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
 
                         break;
 
@@ -116,7 +115,7 @@ public class MeetingActivity extends BaseActivity implements SwipeRefreshLayout.
                     @Override
                     public void onClick(View view) {
                         if(APP.getUserId().equals(item.getCreaterid())&&item.getMeetingState()==0){
-                            RequestUtil.createApi().cancelMeeting(item.getId()+"").compose(RequestUtil.<String>handleResult())
+                            RequestUtil.createApi().cancelMeeting(item.getMeetingId()+"").compose(RequestUtil.<String>handleResult())
                                     .subscribe(new CommonsSubscriber<String>() {
                                         @Override
                                         protected void onSuccess(String s) {
@@ -126,22 +125,31 @@ public class MeetingActivity extends BaseActivity implements SwipeRefreshLayout.
                                         }
                                     });
                         }else{
-                            showToast("无法取消");
+                            if(!APP.getUserId().equals(item.getCreaterid())){
+                                showToast("您不是会议发布人无法取消");
+                                return;
+                            }
+                            if(item.getMeetingState()!=0){
+                                showToast("只有未开始会议，可以取消");
+                                return;
+                            }
                         }
                     }
                 });
 //                helper.setImageResource(R.id.img_meeting_status,R.drawable.icon_meet_1);
             }
         };
+        adapter.setOnLoadMoreListener(this,recycleMeetting);
         recycleMeetting.setLayoutManager(new LinearLayoutManager(this));
         recycleMeetting.setAdapter(adapter);
         recycleMeetting.addOnItemTouchListener(new OnItemClickListener() {
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                MyMeetingBean.RecordsBean recordsBean = records.get(position);
+                MyMeetingBean.RecordsBean recordsBean = (MyMeetingBean.RecordsBean) adapter.getData().get(position);
                 MeetingDetailActivity.startAction(MeetingActivity.this, recordsBean.getMeetingId(),recordsBean.getMeetingState());
             }
         });
+        adapter.setEmptyView(R.layout.empty_video_view,recycleMeetting);
 
 
 
@@ -151,14 +159,30 @@ public class MeetingActivity extends BaseActivity implements SwipeRefreshLayout.
     @Override
     protected void onResume() {
         super.onResume();
+        page = 1;
+        getdate();
+    }
+
+    private void getdate() {
         RequestBody requestBody = new RequestBody();
+        requestBody.setPage(page+"");
+        requestBody.setPageSize(pageSize+"");
         requestBody.setUserId(APP.getUserId());
         RequestUtil.createApi().select(requestBody).compose(RequestUtil.<MyMeetingBean>handleResult())
                 .subscribe(new CommonsSubscriber<MyMeetingBean>() {
                     @Override
                     protected void onSuccess(MyMeetingBean myMeetingBean) {
-                        records = myMeetingBean.getRecords();
-                        adapter.setNewData(records);
+                        swipeMeeting.setRefreshing(false);
+                        if(page == 1){
+                            adapter.setNewData(myMeetingBean.getRecords());
+                        }else{
+                            if(adapter.getData().size()==myMeetingBean.getTotal()){
+                                adapter.loadMoreEnd();
+                            }else{
+                                adapter.getData().addAll(myMeetingBean.getRecords());
+                                adapter.loadMoreComplete();
+                            }
+                        }
                     }
                 });
     }
@@ -185,19 +209,8 @@ public class MeetingActivity extends BaseActivity implements SwipeRefreshLayout.
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                RequestBody requestBody = new RequestBody();
-                requestBody.setUserId(APP.getUserId());
-                requestBody.setPageSize(100+"");
-                requestBody.setPage(1+"");
-                RequestUtil.createApi().select(requestBody).compose(RequestUtil.<MyMeetingBean>handleResult())
-                        .subscribe(new CommonsSubscriber<MyMeetingBean>() {
-                            @Override
-                            protected void onSuccess(MyMeetingBean myMeetingBean) {
-                                swipeMeeting.setRefreshing(false);
-                                records = myMeetingBean.getRecords();
-                                adapter.setNewData(records);
-                            }
-                        });
+                page = 1;
+                getdate();
             }
         },1000);
     }
@@ -283,5 +296,11 @@ public class MeetingActivity extends BaseActivity implements SwipeRefreshLayout.
             codeUrl = data.getExtras().getString("result");
             MeetingActivityPermissionsDispatcher.signWithCheck(this);
         }
+    }
+
+    @Override
+    public void onLoadMoreRequested() {
+        page++;
+        getdate();
     }
 }

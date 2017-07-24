@@ -5,7 +5,7 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/base_orange</item>
         <item name="colorPrimaryDark">@color/base_orange</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/base_orange</item>
     </style>
 
     <style name="customLineColor" parent="Theme.AppCompat.Light">
@@ -25,5 +25,10 @@
     <style name="MenuTextStyle">
         <item name="android:textColor">@android:color/white</item>
         <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="Theme.AppStartLoadTranslucent" parent="AppTheme">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
     </style>
 </resources>

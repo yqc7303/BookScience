@@ -1,6 +1,5 @@
 package com.yangqichao.bokuscience.business.ui.meetting;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -31,7 +30,8 @@ public class MeetingPersonChoseActivity extends BaseActivity {
     @BindView(R.id.recycle_keshi)
     RecyclerView recycleKeshi;
 
-    private String deptId,index;
+    private String deptId;
+    int index;
 
     BaseQuickAdapter<GetKeShiPerson.RecordsBean,BaseViewHolder> adapter;
     private List<GetKeShiPerson.RecordsBean> records;
@@ -46,7 +46,7 @@ public class MeetingPersonChoseActivity extends BaseActivity {
     @Override
     protected void initView(Bundle savedInstanceState) {
         deptId = getIntent().getStringExtra("detIp");
-        index = getIntent().getStringExtra("index");
+        index = getIntent().getIntExtra("index",0);
         tvKeshiName.setText(getIntent().getStringExtra("name"));
 
         adapter = new BaseQuickAdapter<GetKeShiPerson.RecordsBean, BaseViewHolder>(R.layout.item_keshi_person) {
@@ -105,10 +105,10 @@ public class MeetingPersonChoseActivity extends BaseActivity {
                         chooseList.add(recordsBean);
                     }
                 }
-                Intent intent = new Intent(this,MeetingActivity.class);
-                intent.putExtra("index",index);
-                intent.putExtra("choose", (Serializable) chooseList);
-                setResult(RESULT_OK,intent);
+
+                getIntent().putExtra("pos",index);
+                getIntent().putExtra("choose", (Serializable) chooseList);
+                setResult(RESULT_OK,getIntent());
                 finish();
                 break;
         }

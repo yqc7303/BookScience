@@ -6,10 +6,12 @@ import android.content.Intent;
 import com.yangqichao.bokuscience.R;
 import com.yangqichao.bokuscience.business.bean.LoginBean;
 import com.yangqichao.bokuscience.business.ui.CommonWebViewActivity;
+import com.yangqichao.bokuscience.business.ui.WWQKWebViewActivity;
 import com.yangqichao.bokuscience.business.ui.book.BookMainActivity;
 import com.yangqichao.bokuscience.business.ui.meetting.MeetingActivity;
 import com.yangqichao.bokuscience.business.ui.share.ShareActivity;
 import com.yangqichao.bokuscience.business.ui.video.VideoMainActivity;
+import com.yangqichao.commonlib.util.PreferenceUtils;
 
 /**
  * Created by yangqc on 2017/7/13.
@@ -58,6 +60,8 @@ public class ShowMenuUtil {
             return  R.drawable.icon_gjgx_big;
         }else if(code.equals("yxsp")){
             return   R.drawable.icon_yxsp_big;
+        }else if(code.equals("wwqk")){
+            return   R.drawable.icon_link_big;
         }else{
             return  R.drawable.icon_link_big;
         }
@@ -72,6 +76,8 @@ public class ShowMenuUtil {
             return  R.drawable.icon_gjgx_small;
         }else if(code.equals("yxsp")){
             return   R.drawable.icon_yxsp_small;
+        }else if(code.equals("wwqk")){
+            return   R.drawable.icon_link_small;
         }else{
             return  R.drawable.icon_link_small;
         }
@@ -87,6 +93,13 @@ public class ShowMenuUtil {
             return new Intent(context,ShareActivity.class);
         }else if(code.equals("yxsp")){
             return new Intent(context,VideoMainActivity.class);
+        }else if(code.equals("wwqk")){
+            Intent intent = new Intent(context,WWQKWebViewActivity.class);
+            intent.putExtra("url", bean.getContentUrl());
+            intent.putExtra("title", bean.getName());
+            intent.putExtra("phone", PreferenceUtils.getPrefString(context,"phone",""));
+            intent.putExtra("code", PreferenceUtils.getPrefString(context,"hospitalCode",""));
+            return intent;
         }else{
             Intent intent = new Intent(context,CommonWebViewActivity.class);
             intent.putExtra("url", bean.getContentUrl());
@@ -94,5 +107,13 @@ public class ShowMenuUtil {
             return intent;
         }
     }
+
+    public static boolean isMainFuncation(String code){
+        if("hygl".equals(code)||"qksj".equals(code)||"gjgx".equals(code)||"yxsp".equals(code)){
+            return true;
+        }else{
+            return false;
+        }
+    };
 
 }

@@ -23,7 +23,7 @@
             android:layout_height="wrap_content" />
 
         <TextView
-            android:text="会议详情"
+            android:text="会议管理"
             android:textSize="18sp"
             android:textColor="@color/white"
             android:layout_centerInParent="true"

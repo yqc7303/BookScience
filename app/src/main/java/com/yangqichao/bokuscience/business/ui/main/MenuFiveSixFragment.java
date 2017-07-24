@@ -5,10 +5,13 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.yangqichao.bokuscience.R;
@@ -66,13 +69,19 @@ public class MenuFiveSixFragment extends Fragment {
             @Override
             protected void convert(BaseViewHolder helper, final LoginBean.ModuleDTOSBean item) {
                 helper.setText(R.id.tv_function,item.getName());
-                helper.setImageResource(R.id.img_function,ShowMenuUtil.getImageSmall(item.getCode()));
-                helper.getView(R.id.img_function).setOnClickListener(new View.OnClickListener() {
+
+                ImageView img = helper.getView(R.id.img_function);
+                img.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         startActivity(ShowMenuUtil.getClass(getActivity(),item));
                     }
                 });
+                if(!TextUtils.isEmpty(item.getImgUrl())&&!ShowMenuUtil.isMainFuncation(item.getCode())){
+                    Glide.with(getActivity()).load(item.getImgUrl()).into(img);
+                }else{
+                    helper.setImageResource(R.id.img_function,ShowMenuUtil.getImageSmall(item.getCode()));
+                }
             }
         };
 

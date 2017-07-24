@@ -26,7 +26,7 @@ import com.yangqichao.bokuscience.common.net.RequestUtil;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class ShareActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener{
+public class ShareActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener,BaseQuickAdapter.RequestLoadMoreListener{
 
 
     @BindView(R.id.recycle_share)
@@ -35,6 +35,10 @@ public class ShareActivity extends BaseActivity implements SwipeRefreshLayout.On
     SwipeRefreshLayout swipe;
 
     BaseQuickAdapter<ShareItemBean.RecordsBean,BaseViewHolder> adapter;
+
+
+    private int page = 1;
+    private int pageSize = 8;
 
     @Override
     protected int getLayoutResID() {
@@ -86,7 +90,7 @@ public class ShareActivity extends BaseActivity implements SwipeRefreshLayout.On
                 }
             }
         };
-
+        adapter.setOnLoadMoreListener(this,recycleShare);
         recycleShare.setLayoutManager(new LinearLayoutManager(this));
         recycleShare.setAdapter(adapter);
 
@@ -95,13 +99,25 @@ public class ShareActivity extends BaseActivity implements SwipeRefreshLayout.On
     private void getdate() {
         RequestBody requestBody = new RequestBody();
         requestBody.setUserId(APP.getUserId());
-        requestBody.setPage(1+"");
-        requestBody.setPageSize(100+"");
+        requestBody.setPage(page+"");
+        requestBody.setPageSize(pageSize+"");
         RequestUtil.createApi().selectShare(requestBody).compose(RequestUtil.<ShareItemBean>handleResult()).subscribe(
                 new CommonsSubscriber<ShareItemBean>() {
                     @Override
                     protected void onSuccess(ShareItemBean shareItemBean) {
-                        adapter.setNewData(shareItemBean.getRecords());
+//                        adapter.setNewData(shareItemBean.getRecords());
+                        swipe.setRefreshing(false);
+                        if(page == 1){
+                            adapter.setNewData(shareItemBean.getRecords());
+                        }else{
+                            if(adapter.getData().size()==shareItemBean.getTotal()){
+                                adapter.loadMoreEnd();
+                            }else{
+                                adapter.getData().addAll(shareItemBean.getRecords());
+                                adapter.loadMoreComplete();
+                            }
+
+                        }
                     }
                 }
         );
@@ -130,19 +146,8 @@ public class ShareActivity extends BaseActivity implements SwipeRefreshLayout.On
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                RequestBody requestBody = new RequestBody();
-                requestBody.setUserId(APP.getUserId());
-                requestBody.setPage(1+"");
-                requestBody.setPageSize(100+"");
-                RequestUtil.createApi().selectShare(requestBody).compose(RequestUtil.<ShareItemBean>handleResult()).subscribe(
-                        new CommonsSubscriber<ShareItemBean>() {
-                            @Override
-                            protected void onSuccess(ShareItemBean shareItemBean) {
-                                swipe.setRefreshing(false);
-                                adapter.setNewData(shareItemBean.getRecords());
-                            }
-                        }
-                );
+                page = 1;
+                getdate();
             }
         },1000);
     }
@@ -153,5 +158,11 @@ public class ShareActivity extends BaseActivity implements SwipeRefreshLayout.On
         Uri content_url = Uri.parse(url);
         intent.setData(content_url);
         startActivity(intent);
+    }
+
+    @Override
+    public void onLoadMoreRequested() {
+        page++;
+        getdate();
     }
 }

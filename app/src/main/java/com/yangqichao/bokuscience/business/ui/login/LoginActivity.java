@@ -4,12 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.constraint.Guideline;
 import android.support.design.widget.TextInputLayout;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.jaeger.library.StatusBarUtil;
 import com.yangqichao.bokuscience.MainActivity;
 import com.yangqichao.bokuscience.R;
 import com.yangqichao.bokuscience.business.bean.LoginBean;
@@ -20,6 +22,9 @@ import com.yangqichao.bokuscience.common.net.RequestUtil;
 import com.yangqichao.commonlib.util.CheckUtils;
 import com.yangqichao.commonlib.util.PreferenceUtils;
 import com.yangqichao.commonlib.widget.CleanTextErrorWatcher;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -56,6 +61,8 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     protected void initView(Bundle savedInstanceState) {
+        StatusBarUtil.setTransparent(this);
+
         etAccount.addTextChangedListener(new CleanTextErrorWatcher(textInputLayoutAccount,tvError));
         etPassword.addTextChangedListener(new CleanTextErrorWatcher(textInputLayoutPassword,tvError));
     }
@@ -89,7 +96,34 @@ public class LoginActivity extends BaseActivity {
                         .subscribe(new CommonsSubscriber<LoginBean>() {
                             @Override
                             protected void onSuccess(LoginBean loginBean) {
-                                loginBean.setModuleDTOSUser(loginBean.getModuleDTOS());
+                                String mark = PreferenceUtils.getPrefString(LoginActivity.this,"mark","");
+                                if(!TextUtils.isEmpty(mark)){
+                                    String[] split = mark.split("-");
+                                    List<LoginBean.ModuleDTOSBean> beanList = new ArrayList<LoginBean.ModuleDTOSBean>();
+                                    for(LoginBean.ModuleDTOSBean dtosBean:loginBean.getModuleDTOS()){
+                                        dtosBean.setGone(false);
+                                        for(int i = 0;i<split.length;i++){
+                                            if(split[i].equals(dtosBean.getCode())){
+                                                dtosBean.setGone(true);
+                                            }
+                                        }
+                                    }
+                                    for(LoginBean.ModuleDTOSBean dtosBean:loginBean.getModuleDTOS()){
+                                        if(!dtosBean.isGone()){
+                                            beanList.add(dtosBean);
+                                        }
+                                    }
+                                    if(beanList.size()==0){
+                                        loginBean.setModuleDTOSUser(loginBean.getModuleDTOS());
+                                    }else{
+                                        loginBean.setModuleDTOSUser(beanList);
+                                    }
+
+                                }else {
+                                    loginBean.setModuleDTOSUser(loginBean.getModuleDTOS());
+                                }
+
+
                                 MainActivity.startAction(LoginActivity.this,loginBean);
                                 PreferenceUtils.setPrefString(LoginActivity.this,"uId",loginBean.getId());
                                 PreferenceUtils.setPrefString(LoginActivity.this,"pw",pw);
@@ -101,6 +135,8 @@ public class LoginActivity extends BaseActivity {
                                 PreferenceUtils.setPrefString(LoginActivity.this,"deptName",loginBean.getDeptName());
                                 PreferenceUtils.setPrefString(LoginActivity.this,"provice",loginBean.getProvice());
                                 PreferenceUtils.setPrefString(LoginActivity.this,"name",loginBean.getName());
+                                PreferenceUtils.setPrefString(LoginActivity.this,"hospitalCode",loginBean.getHospitalCode());
+                                PreferenceUtils.setPrefString(LoginActivity.this,"credit",loginBean.getCredit());
                                 finish();
                             }
 

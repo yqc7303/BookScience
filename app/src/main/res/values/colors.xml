@@ -8,9 +8,9 @@
     <color name="drawerTextColor">#fff</color>
     <color name="base_text_gray">#b3ffffff</color>
 
-    <color name="base_orange">#CAA881</color>
-    <color name="base_orange_dark">#A57961</color>
-    <color name="base_orange_dark_2">#805732</color>
+    <color name="base_orange">#36ADE9</color>
+    <color name="base_orange_dark">#99DEFF</color>
+    <color name="base_orange_dark_2">#99DEFF</color>
 
 
     <color name="transparent">#00000000</color>

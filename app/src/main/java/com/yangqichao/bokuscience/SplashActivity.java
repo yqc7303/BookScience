@@ -1,14 +1,16 @@
 package com.yangqichao.bokuscience;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.view.Window;
 import android.view.WindowManager;
 
 import com.yangqichao.bokuscience.business.bean.LoginBean;
 import com.yangqichao.bokuscience.business.ui.login.LoginActivity;
-import com.yangqichao.bokuscience.common.base.BaseActivity;
 import com.yangqichao.bokuscience.common.net.CommonsSubscriber;
 import com.yangqichao.bokuscience.common.net.RequestBody;
 import com.yangqichao.bokuscience.common.net.RequestUtil;
@@ -17,18 +19,18 @@ import com.yangqichao.commonlib.util.PreferenceUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SplashActivity extends BaseActivity {
-
+public class SplashActivity extends Activity {
 
     @Override
-    protected int getLayoutResID() {
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        return R.layout.activity_splash;
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        setContentView(R.layout.activity_splash);
+        initView();
     }
 
-    @Override
-    protected void initView(Bundle savedInstanceState) {
+    protected void initView() {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -37,6 +39,7 @@ public class SplashActivity extends BaseActivity {
                 String pw = PreferenceUtils.getPrefString(SplashActivity.this, "pw", "");
                 if(TextUtils.isEmpty(uId)){
                     startActivity(new Intent(SplashActivity.this, LoginActivity.class));
+                    finish();
                 }else{
                     // TODO: 2017/6/24 是否重新获取用户信息
                     RequestBody requestBody = new RequestBody();
@@ -83,15 +86,21 @@ public class SplashActivity extends BaseActivity {
                                     PreferenceUtils.setPrefString(SplashActivity.this,"hospitalName",loginBean.getHospitalName()+"");
                                     PreferenceUtils.setPrefString(SplashActivity.this,"deptId",loginBean.getDeptId()+"");
                                     PreferenceUtils.setPrefInt(SplashActivity.this,"publish",loginBean.getPublishFlag());
+                                    PreferenceUtils.setPrefString(SplashActivity.this,"credit",loginBean.getCredit());
+                                    PreferenceUtils.setPrefString(SplashActivity.this,"hospitalCode",loginBean.getHospitalCode());
                                     finish();
                                 }
 
                                 @Override
                                 public void onFail(String errorCode, String message) {
                                     super.onFail(errorCode, message);
-                                    showToast(message);
                                     startActivity(new Intent(SplashActivity.this,LoginActivity.class));
                                     finish();
+                                }
+
+                                @Override
+                                protected void onErrorShow(String errorMsg) {
+                                    super.onErrorShow(errorMsg);
                                 }
                             });
 

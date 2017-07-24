@@ -1,11 +1,13 @@
 package com.yangqichao.bokuscience.business.service;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 
 import com.igexin.sdk.GTIntentService;
 import com.igexin.sdk.message.GTCmdMessage;
 import com.igexin.sdk.message.GTTransmitMessage;
+import com.yangqichao.bokuscience.business.ui.meetting.MeetingActivity;
 import com.yangqichao.commonlib.util.PreferenceUtils;
 
 /**
@@ -27,6 +29,7 @@ public class GetuiIntentService extends GTIntentService {
 
     @Override
     public void onReceiveMessageData(Context context, GTTransmitMessage msg) {
+        startActivity(new Intent(context, MeetingActivity.class));
     }
 
     @Override

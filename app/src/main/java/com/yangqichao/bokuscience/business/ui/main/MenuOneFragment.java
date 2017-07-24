@@ -3,12 +3,14 @@ package com.yangqichao.bokuscience.business.ui.main;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.yangqichao.bokuscience.R;
 import com.yangqichao.bokuscience.business.bean.LoginBean;
 
@@ -62,7 +64,11 @@ public class MenuOneFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         moduleDTOSBean = mParam1.getModuleDTOSUser().get(0);
-        imageView.setImageResource(ShowMenuUtil.getImage(moduleDTOSBean.getCode()));
+        if(!TextUtils.isEmpty(moduleDTOSBean.getImgUrl())&&!ShowMenuUtil.isMainFuncation(moduleDTOSBean.getCode())){
+            Glide.with(getActivity()).load(moduleDTOSBean.getImgUrl()).into(imageView);
+        }else{
+            imageView.setImageResource(ShowMenuUtil.getImage(moduleDTOSBean.getCode()));
+        }
         tvFunction.setText(moduleDTOSBean.getName());
     }
 

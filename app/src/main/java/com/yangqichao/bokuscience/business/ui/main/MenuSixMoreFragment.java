@@ -8,6 +8,8 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.yangqichao.bokuscience.R;
 import com.yangqichao.bokuscience.business.bean.LoginBean;
@@ -20,15 +22,18 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 
-public class MenuSixMoreFragment extends Fragment {
+public class MenuSixMoreFragment extends Fragment implements ViewPager.OnPageChangeListener{
     private static final String ARG_PARAM1 = "param1";
     @BindView(R.id.viewPager)
     ViewPager viewPager;
     Unbinder unbinder;
+    @BindView(R.id.ll_dot)
+    LinearLayout llDot;
 
     private LoginBean mParam1;
     private List<LoginBean.ModuleDTOSBean> moduleDTOS;
     private List<MenuFiveSixFragment> fragments;
+    private List<ImageView> dotViews;
 
     public MenuSixMoreFragment() {
         // Required empty public constructor
@@ -63,15 +68,23 @@ public class MenuSixMoreFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         moduleDTOS = mParam1.getModuleDTOSUser();
         fragments = new ArrayList<>();
-        for(int i = 0; i< moduleDTOS.size()/6+1; i++){
-            int size = i < (moduleDTOS.size()/6)?6:moduleDTOS.size()%6;
+        dotViews = new ArrayList<>();
+        for (int i = 0; i < moduleDTOS.size() / 6 + 1; i++) {
+            int size = i < (moduleDTOS.size() / 6) ? 6 : moduleDTOS.size() % 6;
             LoginBean loginBean = new LoginBean();
             List<LoginBean.ModuleDTOSBean> beanList = new ArrayList<>();
-            for(int j = 0;j<size;j++){
-                beanList.add(moduleDTOS.get(6*i+j));
+            for (int j = 0; j < size; j++) {
+                beanList.add(moduleDTOS.get(6 * i + j));
             }
-            loginBean.setModuleDTOS(beanList);
+            loginBean.setModuleDTOSUser(beanList);
             fragments.add(MenuFiveSixFragment.newInstance(loginBean));
+            ImageView imageView = new ImageView(getActivity());
+            imageView.setImageResource(i==0?R.drawable.ovel:R.drawable.ovel_gray);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT);
+            params.leftMargin = 5;
+            params.rightMargin = 5;
+            llDot.addView(imageView,params);
+            dotViews.add(imageView);
         }
 
         viewPager.setAdapter(new FragmentPagerAdapter(getChildFragmentManager()) {
@@ -85,11 +98,33 @@ public class MenuSixMoreFragment extends Fragment {
                 return fragments.size();
             }
         });
+        viewPager.addOnPageChangeListener(this);
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        for(int i=0;i < dotViews.size();i++){
+            if(i == position){
+                dotViews.get(i).setImageResource(R.drawable.ovel);
+            }else {
+                dotViews.get(i).setImageResource(R.drawable.ovel_gray);
+            }
+        }
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
     }
 }

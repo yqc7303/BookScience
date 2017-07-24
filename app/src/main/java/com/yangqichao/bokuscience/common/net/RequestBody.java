@@ -68,7 +68,7 @@ public class RequestBody {
     private String shareUrl;
     private String userId;
     private String bookId;
-
+    private String userid;
     private String subjectId;
     private String videoType;
 
@@ -79,6 +79,15 @@ public class RequestBody {
     private String oldPassWord;
 
     private String newPassWord;
+
+
+    public String getUserid() {
+        return userid;
+    }
+
+    public void setUserid(String userid) {
+        this.userid = userid;
+    }
 
     public String getOldPassWord() {
         return oldPassWord;

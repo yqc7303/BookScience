@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
         app:srcCompat="@drawable/icon_gjgx_big"
         android:layout_marginRight="0dp"
         app:layout_constraintRight_toRightOf="parent"

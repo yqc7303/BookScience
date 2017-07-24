@@ -40,7 +40,7 @@ public class DynamicListActivity extends BaseActivity {
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-        swichType(true);
+        swichType(getIntent().getBooleanExtra("isHospital",true));
     }
 
     private void swichType(boolean isHospitalVideo) {

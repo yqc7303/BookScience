@@ -142,8 +142,8 @@ public class BooKFragment extends Fragment {
                                 intent.putExtra(FolioActivity.INTENT_EPUB_SOURCE_TYPE,FolioActivity.EpubSourceType.SD_CARD);
                                 intent.putExtra(FolioActivity.INTENT_EPUB_SOURCE_PATH, path+File.separator+fileName);
                                 intent.putExtra("title",fileName);
-                                intent.putExtra("isAdd",1);
-                                startActivityForResult(intent,item.getId());
+                                intent.putExtra("isAdd",true);
+                                startActivityForResult(intent,item.getBookId());
                             }
                         });
                         helper.setVisible(R.id.tv_download, false);
@@ -158,6 +158,9 @@ public class BooKFragment extends Fragment {
                                     new File(path).mkdirs();
                                 }
                                 download(path+File.separator+fileName, item.getBookDTO().getFileUrl(),item.getId(),(TextView) helper.getView(R.id.tv_download),fileName,1);
+
+//                                basePath + item.getId()+File.separator+ fileName,
+//                                        fileUrl,item.getId()
                             }
                         });
                     }
@@ -194,7 +197,7 @@ public class BooKFragment extends Fragment {
                                 intent.putExtra(FolioActivity.INTENT_EPUB_SOURCE_TYPE,FolioActivity.EpubSourceType.SD_CARD);
                                 intent.putExtra(FolioActivity.INTENT_EPUB_SOURCE_PATH, path+File.separator+fileName);
                                 intent.putExtra("title",fileName);
-                                intent.putExtra("isAdd",item.getIsAdd());
+                                intent.putExtra("isAdd",item.getIsAdd()==1);
                                 startActivityForResult(intent,item.getId());
                             }
                         });
@@ -400,7 +403,7 @@ public class BooKFragment extends Fragment {
         String key = etSearch.getText().toString();
         RequestBody requestBody = new RequestBody();
         requestBody.setPage(1 + "");
-        requestBody.setUserId(APP.getUserId());
+
         requestBody.setPageSize(100 + "");
         requestBody.setSearch(key);
         requestBody.setType("1");
@@ -408,6 +411,7 @@ public class BooKFragment extends Fragment {
             requestBody.setSubjectId(bean.getId() + "");
         }
         if (isMine) {
+            requestBody.setUserId(APP.getUserId());
             RequestUtil.createApi().selectMyBook(requestBody).compose(RequestUtil.<MyBookBean>handleResult())
                     .subscribe(new CommonsSubscriber<MyBookBean>() {
                         @Override
@@ -416,7 +420,7 @@ public class BooKFragment extends Fragment {
                         }
                     });
         } else {
-
+            requestBody.setUserid(APP.getUserId());
             RequestUtil.createApi().selectBook(requestBody).compose(RequestUtil.<BookBean>handleResult())
                     .subscribe(new CommonsSubscriber<BookBean>() {
                         @Override

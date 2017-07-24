@@ -23,7 +23,7 @@
             android:layout_height="wrap_content" />
 
         <TextView
-            android:text="会议管理"
+            android:text="会议详情"
             android:textSize="18sp"
             android:textColor="@color/white"
             android:layout_centerInParent="true"
@@ -35,7 +35,10 @@
         <LinearLayout
             android:id="@+id/img_create"
             android:orientation="horizontal"
-            android:layout_marginRight="5dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="5dp"
             android:layout_width="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
@@ -72,7 +75,7 @@
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:layout_width="match_parent"
-            android:minHeight="45dp"
+            android:minHeight="40dp"
             android:layout_height="wrap_content">
 
             <TextView
@@ -108,30 +111,37 @@
         <RelativeLayout
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
             android:layout_width="match_parent"
-            android:minHeight="45dp"
+            android:minHeight="40dp"
             android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/huiyi_miaoshu"
                 android:text="会议描述"
-                android:layout_centerVertical="true"
                 android:textSize="16sp"
                 android:layout_marginRight="20dp"
                 android:textColor="@color/base_text_black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <TextView
+            <ScrollView
                 android:layout_toRightOf="@id/huiyi_miaoshu"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
-                android:id="@+id/tv_meeting_describe"
-                android:background="@null"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+
+                <TextView
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:id="@+id/tv_meeting_describe"
+                    android:background="@null"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </ScrollView>
+
         </RelativeLayout>
 
         <View
@@ -166,7 +176,33 @@
                 android:textSize="16sp" />
         </RelativeLayout>
     </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:text="学分"
+            android:textColor="@color/base_text_black"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_meeting_xuefeng"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -197,13 +233,16 @@
     </RelativeLayout>
 
 
+
+
     <RelativeLayout
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:layout_marginTop="10dp"
         android:background="@color/white"
         android:layout_width="match_parent"
-        android:layout_height="40dp">
+        android:minHeight="40dp"
+        android:layout_height="wrap_content">
 
         <TextView
             android:text="会议地点"
@@ -214,20 +253,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-        <RelativeLayout
-            android:layout_toRightOf="@id/huiyididian"
-            android:layout_width="match_parent"
-            android:layout_marginLeft="5dp"
-            android:layout_height="match_parent">
+
             <TextView
+                android:layout_toRightOf="@id/huiyididian"
+                android:layout_marginLeft="10dp"
                 android:id="@+id/tv_meeting_address"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
+                android:gravity="right"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
-        </RelativeLayout>
 
     </RelativeLayout>
 
@@ -272,9 +309,10 @@
             android:paddingLeft="10dp"
             android:background="@color/white"
             android:paddingRight="10dp"
-            android:visibility="gone"
             android:layout_width="match_parent"
-            android:layout_height="40dp">
+            android:minHeight="40dp"
+            android:visibility="gone"
+            android:layout_height="wrap_content">
 
             <TextView
                 android:text="会议附件"
@@ -285,28 +323,38 @@
                 android:layout_centerVertical="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:id="@+id/textView10" />
+                android:id="@+id/tv_huiyifujian"
+                 />
 
 
-            <ImageView
-                android:src="@drawable/icon_arrow_right_gray"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
+            <TextView
+                android:id="@+id/textView10"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:drawablePadding="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/tv_huiyifujian"
+                android:drawableRight="@drawable/icon_arrow_right_gray"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
         </RelativeLayout>
 
 
         <RelativeLayout
             android:layout_marginTop="1dp"
             android:id="@+id/rl_meeting_h5"
-            android:visibility="gone"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
+            android:minHeight="40dp"
+            android:visibility="gone"
             android:paddingLeft="10dp"
+            android:background="@color/white"
             android:paddingRight="10dp">
 
             <TextView
+                android:id="@+id/tv_xuanchuangce"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -316,10 +364,12 @@
 
             <TextView
                 android:id="@+id/tv_meeting_h5"
-                android:layout_width="wrap_content"
+                android:layout_toRightOf="@id/tv_xuanchuangce"
+                android:layout_marginLeft="10dp"
+                android:layout_width="match_parent"
+                android:gravity="right"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
                 android:textColor="@color/blue"
                 android:textSize="16sp" />
         </RelativeLayout>

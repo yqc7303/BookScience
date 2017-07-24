@@ -20,6 +20,7 @@ import com.bigkoo.pickerview.TimePickerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
+import com.jaeger.library.StatusBarUtil;
 import com.yangqichao.bokuscience.R;
 import com.yangqichao.bokuscience.business.bean.LevelBean;
 import com.yangqichao.bokuscience.business.bean.RegisteBean;
@@ -77,6 +78,8 @@ public class RegisterCompleActivity extends BaseActivity {
 
     @Override
     protected void initView(Bundle savedInstanceState) {
+        StatusBarUtil.setTransparent(this);
+
         phone = getIntent().getStringExtra("phone");
         code = getIntent().getStringExtra("code");
         pw = getIntent().getStringExtra("pw");

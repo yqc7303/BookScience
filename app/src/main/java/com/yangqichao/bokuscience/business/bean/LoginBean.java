@@ -48,6 +48,8 @@ public class LoginBean implements Serializable{
     private List<ModuleDTOSBean> moduleDTOS;
     private String hospitalLogo;
     private String provice;
+    private String credit;
+    private String hospitalCode;
 
     private List<ModuleDTOSBean> moduleDTOSUser;
 
@@ -57,6 +59,22 @@ public class LoginBean implements Serializable{
 
     public void setModuleDTOSUser(List<ModuleDTOSBean> moduleDTOSUser) {
         this.moduleDTOSUser = moduleDTOSUser;
+    }
+
+    public String getHospitalCode() {
+        return hospitalCode;
+    }
+
+    public void setHospitalCode(String hospitalCode) {
+        this.hospitalCode = hospitalCode;
+    }
+
+    public String getCredit() {
+        return credit;
+    }
+
+    public void setCredit(String credit) {
+        this.credit = credit;
     }
 
     public String getProvice() {

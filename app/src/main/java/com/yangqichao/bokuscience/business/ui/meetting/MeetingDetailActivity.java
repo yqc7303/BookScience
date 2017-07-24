@@ -2,14 +2,15 @@ package com.yangqichao.bokuscience.business.ui.meetting;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.SwitchCompat;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -29,12 +30,14 @@ import com.xys.libzxing.zxing.activity.CaptureActivity;
 import com.yangqichao.bokuscience.R;
 import com.yangqichao.bokuscience.business.bean.MeetingDetailBean;
 import com.yangqichao.bokuscience.business.bean.ShowPersonBean;
+import com.yangqichao.bokuscience.business.ui.CommonWebViewActivity;
 import com.yangqichao.bokuscience.common.APP;
 import com.yangqichao.bokuscience.common.base.BaseActivity;
 import com.yangqichao.bokuscience.common.net.CommonsSubscriber;
 import com.yangqichao.bokuscience.common.net.RequestUtil;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.RuntimePermissions;
@@ -77,6 +80,10 @@ public class MeetingDetailActivity extends BaseActivity implements
     LinearLayout llMeetingCreate;
     @BindView(R.id.img_create)
     LinearLayout imgCreate;
+    @BindView(R.id.tv_meeting_xuefeng)
+    TextView tvMeetingXuefeng;
+    @BindView(R.id.textView10)
+    TextView textView10;
     private int meetingId;
     MeetingDetailBean meetingDetail;
     int meetingStatus;
@@ -92,7 +99,7 @@ public class MeetingDetailActivity extends BaseActivity implements
     @Override
     protected void initView(Bundle savedInstanceState) {
         meetingId = getIntent().getIntExtra("id", -1);
-        meetingStatus = getIntent().getIntExtra("meetingStatus",-1);
+        meetingStatus = getIntent().getIntExtra("meetingStatus", -1);
 
         RequestUtil.createApi().meetingDetail(meetingId).compose(RequestUtil.<MeetingDetailBean>handleResult())
                 .subscribe(new CommonsSubscriber<MeetingDetailBean>() {
@@ -102,8 +109,6 @@ public class MeetingDetailActivity extends BaseActivity implements
                         initPage();
                     }
                 });
-
-
     }
 
     private void initPage() {
@@ -115,6 +120,8 @@ public class MeetingDetailActivity extends BaseActivity implements
         tvMeetingCreateTime.setText(String.format(getString(R.string.meeting_create_time), meetingDetail.getGmtCreate()));
         tvMeetingPerson.setText(meetingDetail.getMeetingjoinNum() + "人");
         tvMeetingH5.setText(meetingDetail.getH5Url());
+        textView10.setText(meetingDetail.getFileUrl().substring(meetingDetail.getFileUrl().lastIndexOf("/")+1));
+        tvMeetingXuefeng.setText(meetingDetail.getCredit());
         if (!TextUtils.isEmpty(meetingDetail.getFileUrl())) {
             rlMeetingFile.setVisibility(View.VISIBLE);
         }
@@ -140,23 +147,23 @@ public class MeetingDetailActivity extends BaseActivity implements
             }
 
         }
-        if(meetingDetail.getSignflag()==1){
+        if (meetingDetail.getSignflag() == 1) {
             switchSao.setChecked(true);
-        }else{
+        } else {
             switchSao.setChecked(false);
         }
 
 
         // TODO: 2017/7/1 取消会议显示
-        if(meetingStatus == 0 && createId.equals(APP.getUserId())){
+        if (meetingStatus == 0 && createId.equals(APP.getUserId())) {
             imgCreate.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             imgCreate.setVisibility(View.GONE);
         }
     }
 
     private void setStatus(final boolean status) {
-        RequestUtil.createApi().signflag(meetingId,status?1:0).compose(RequestUtil.<ShowPersonBean>handleResult())
+        RequestUtil.createApi().signflag(meetingId, status ? 1 : 0).compose(RequestUtil.<ShowPersonBean>handleResult())
                 .subscribe(new CommonsSubscriber<ShowPersonBean>() {
                     @Override
                     protected void onSuccess(ShowPersonBean showPersonBean) {
@@ -178,7 +185,7 @@ public class MeetingDetailActivity extends BaseActivity implements
         }
     }
 
-    public static void startAction(Context context, int meetingId,int meetingStatus) {
+    public static void startAction(Context context, int meetingId, int meetingStatus) {
         Intent intent = new Intent(context, MeetingDetailActivity.class);
         intent.putExtra("id", meetingId);
         intent.putExtra("meetingStatus", meetingStatus);
@@ -186,20 +193,22 @@ public class MeetingDetailActivity extends BaseActivity implements
     }
 
 
-    @OnClick({R.id.img_back, R.id.tv_meeting_person, R.id.rl_meeting_file, R.id.tv_meeting_h5, R.id.rl_normal_open, R.id.rl_create_open})
+    @OnClick({R.id.img_back, R.id.tv_meeting_person, R.id.rl_meeting_file,
+            R.id.img_create,R.id.rl_meeting_h5, R.id.rl_normal_open, R.id.rl_create_open})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.img_back:
                 finish();
                 break;
             case R.id.tv_meeting_person:
-                MeetingPersonShowActivity.startAction(this,meetingId+"");
+                MeetingPersonShowActivity.startAction(this, meetingId + "");
                 break;
             case R.id.rl_meeting_file:
                 openFile(meetingDetail.getFileUrl());
                 break;
             case R.id.rl_meeting_h5:
-                openFile(meetingDetail.getH5Url());
+                CommonWebViewActivity.starAction(this, meetingDetail.getH5Url(),
+                        meetingDetail.getH5Url().substring(meetingDetail.getH5Url().lastIndexOf("/") + 1));
                 break;
             case R.id.rl_normal_open:
                 MeetingDetailActivityPermissionsDispatcher.saomaWithCheck(this);
@@ -208,16 +217,23 @@ public class MeetingDetailActivity extends BaseActivity implements
                 MeetingDetailActivityPermissionsDispatcher.saomaWithCheck(this);
                 break;
             case R.id.img_create:
-                View dismissView = LayoutInflater.from(this).inflate(R.layout.popwindow_dismiss_meeting,null);
+                View dismissView = LayoutInflater.from(this).inflate(R.layout.popwindow_dismiss_meeting, null);
                 ImageView imageView = (ImageView) dismissView.findViewById(R.id.img_cancel);
                 imageView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
+                        RequestUtil.createApi().cancelMeeting(meetingId + "").compose(RequestUtil.<String>handleResult())
+                                .subscribe(new CommonsSubscriber<String>() {
+                                    @Override
+                                    protected void onSuccess(String s) {
+                                        showToast("会议已取消");
+                                        finish();
+                                    }
+                                });
                     }
                 });
                 final PopupWindow popupWindow = new PopupWindow(dismissView, ViewGroup.LayoutParams.WRAP_CONTENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT,true);
+                        ViewGroup.LayoutParams.WRAP_CONTENT, true);
                 popupWindow.setTouchable(true);
                 popupWindow.setTouchInterceptor(new View.OnTouchListener() {
                     @Override
@@ -235,11 +251,10 @@ public class MeetingDetailActivity extends BaseActivity implements
                         backgroundAlpha(1f);
                     }
                 });
-                popupWindow.showAtLocation(view, Gravity.BOTTOM, 0, 0);
+                popupWindow.showAsDropDown(imgCreate);
                 break;
         }
     }
-
 
 
     private void openFile(String url) {
@@ -263,8 +278,9 @@ public class MeetingDetailActivity extends BaseActivity implements
     @NeedsPermission(Manifest.permission.CAMERA)
     public void saoma() {
         Intent intent = new Intent(this, CaptureActivity.class);
-        startActivityForResult(intent,REQUESTCODE);
+        startActivityForResult(intent, REQUESTCODE);
     }
+
     @NeedsPermission(Manifest.permission.ACCESS_COARSE_LOCATION)
     public void sign() {
         //初始化AMapLocationClientOption对象
@@ -297,11 +313,32 @@ public class MeetingDetailActivity extends BaseActivity implements
             if (amapLocation.getErrorCode() == 0) {
                 //可在其中解析amapLocation获取相应内容。
                 String location = amapLocation.getLongitude() + "," + amapLocation.getLatitude();
-                RequestUtil.createApi().sign(codeUrl+"/"+APP.getUserId()+"/"+location).compose(RequestUtil.<String>handleResult())
+                RequestUtil.createApi().sign(codeUrl + "/" + APP.getUserId() + "/" + location).compose(RequestUtil.<String>handleResult())
                         .subscribe(new CommonsSubscriber<String>() {
                             @Override
                             protected void onSuccess(String s) {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(MeetingDetailActivity.this)
+                                        .setMessage("恭喜您会议签到成功")
+                                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialogInterface, int i) {
+                                                dialogInterface.dismiss();
+                                            }
+                                        });
+                                builder.show();
+                            }
 
+                            @Override
+                            public void onFail(String errorCode, String message) {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(MeetingDetailActivity.this)
+                                        .setMessage(message)
+                                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialogInterface, int i) {
+                                                dialogInterface.dismiss();
+                                            }
+                                        });
+                                builder.show();
                             }
                         });
             } else {
@@ -322,7 +359,7 @@ public class MeetingDetailActivity extends BaseActivity implements
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(mLocationClient!=null){
+        if (mLocationClient != null) {
             mLocationClient.onDestroy();//销毁定位客户端，同时销毁本地定位服务。
         }
     }
@@ -334,5 +371,12 @@ public class MeetingDetailActivity extends BaseActivity implements
             codeUrl = data.getExtras().getString("result");
             MeetingDetailActivityPermissionsDispatcher.signWithCheck(this);
         }
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

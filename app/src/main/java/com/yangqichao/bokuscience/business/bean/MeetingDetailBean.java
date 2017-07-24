@@ -44,6 +44,15 @@ public class MeetingDetailBean {
     private String createrName;
     private String hospitalName;
     private int state;
+    private String credit;
+
+    public String getCredit() {
+        return credit;
+    }
+
+    public void setCredit(String credit) {
+        this.credit = credit;
+    }
 
     private String meetingjoinNum;
 

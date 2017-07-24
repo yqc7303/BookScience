@@ -32,7 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="会议管理"
+                android:text="会议发布"
                 android:textColor="@color/white"
                 android:textSize="18sp" />
 
@@ -201,7 +201,8 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="wrap_content"
+            android:minHeight="45dp"
             android:layout_marginTop="10dp"
             android:background="@color/white"
             android:paddingLeft="10dp">
@@ -215,19 +216,16 @@
                 android:textColor="@color/base_text_black"
                 android:textSize="16sp" />
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="5dp"
-                android:layout_toRightOf="@id/huiyididian">
+
 
                 <TextView
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/huiyididian"
                     android:id="@+id/tv_meeting_address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="80dp"
                     android:background="@null"
                     android:drawablePadding="3dp"
                     android:drawableRight="@drawable/icon_arrow_right_gray"
@@ -237,7 +235,6 @@
                     android:textColor="@color/base_text_black"
                     android:textColorHint="@color/base_text_gray_dark"
                     android:textSize="16sp" />
-            </RelativeLayout>
 
 
         </RelativeLayout>
@@ -310,7 +307,8 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="wrap_content"
+            android:minHeight="45dp"
             android:layout_marginTop="10dp"
             android:background="@color/white"
             android:paddingLeft="10dp">
@@ -326,16 +324,18 @@
                 android:textColor="@color/base_text_black"
                 android:textSize="16sp" />
 
+
             <TextView
                 android:id="@+id/tv_meeting_file"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/textView10"
-                android:layout_alignBottom="@+id/textView10"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/textView10"
                 android:background="@null"
                 android:drawablePadding="3dp"
+                android:layout_marginLeft="10dp"
                 android:drawableRight="@drawable/icon_arrow_right_gray"
                 android:gravity="right"
                 android:hint="请添加"
@@ -343,6 +343,7 @@
                 android:textColor="@color/base_text_black"
                 android:textColorHint="@color/base_text_gray_dark"
                 android:textSize="16sp" />
+
         </RelativeLayout>
 
         <View
@@ -359,6 +360,7 @@
             android:paddingRight="10dp">
 
             <TextView
+                android:id="@+id/tv_xuanchuangce"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -366,12 +368,15 @@
                 android:textColor="@color/base_text_black"
                 android:textSize="16sp" />
 
+
             <EditText
                 android:id="@+id/tv_meeting_xcc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
+                android:layout_marginRight="5dp"
+                android:layout_toRightOf="@id/tv_xuanchuangce"
                 android:background="@null"
                 android:gravity="right"
                 android:hint="请输入网址，例如：www.xxxx.com"

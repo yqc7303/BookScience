@@ -106,7 +106,7 @@ public class JournalFragment extends Fragment {
                         public void onClick(View view) {
                             BookBean.RecordsBean recordsBean = new BookBean.RecordsBean();
                             recordsBean.setTitle(item.getBookDTO().getTitle());
-                            recordsBean.setId(item.getBookDTO().getId());
+                            recordsBean.setId(item.getBookId());
                             recordsBean.setFileUrl(item.getBookDTO().getFileUrl());
                             recordsBean.setIsAdd(1);
                             JournalActivity.starAction(getActivity(), recordsBean);
@@ -186,7 +186,7 @@ public class JournalFragment extends Fragment {
         String key = etSearch.getText().toString();
         RequestBody requestBody = new RequestBody();
         requestBody.setPage(1 + "");
-        requestBody.setUserId(APP.getUserId());
+
         requestBody.setPageSize(100 + "");
         requestBody.setSearch(key);
         requestBody.setType("0");
@@ -194,6 +194,7 @@ public class JournalFragment extends Fragment {
             requestBody.setSubjectId(bean.getId() + "");
         }
         if (isMine) {
+            requestBody.setUserId(APP.getUserId());
             RequestUtil.createApi().selectMyBook(requestBody).compose(RequestUtil.<MyBookBean>handleResult())
                     .subscribe(new CommonsSubscriber<MyBookBean>() {
                         @Override
@@ -202,7 +203,7 @@ public class JournalFragment extends Fragment {
                         }
                     });
         } else {
-
+            requestBody.setUserid(APP.getUserId());
             RequestUtil.createApi().selectBook(requestBody).compose(RequestUtil.<BookBean>handleResult())
                     .subscribe(new CommonsSubscriber<BookBean>() {
                         @Override

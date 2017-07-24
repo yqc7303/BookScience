@@ -84,7 +84,8 @@
         <activity android:name=".business.ui.login.ForgetPWActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".business.ui.login.RegisterCompleActivity" />
-        <activity android:name=".SplashActivity">
+        <activity android:name=".SplashActivity"
+            android:theme="@style/Theme.AppStartLoadTranslucent">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -114,10 +115,11 @@
         <activity android:name=".business.ui.book.JournalActivity" />
         <activity android:name=".business.ui.mine.MineActivity" />
         <activity android:name=".business.ui.mine.VersionActivity" />
-        <activity android:name=".business.ui.mine.FeedBackActivity" />
+        <activity android:name=".business.ui.mine.FeedBackActivity"
+            />
         <activity android:name=".business.ui.mine.ChangePWActivity" />
         <activity android:name=".business.ui.main.SetFuncationActivity"></activity>
-
+        <activity android:name=".business.ui.WWQKWebViewActivity"/>
     </application>
 
 </manifest>

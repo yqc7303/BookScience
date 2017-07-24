@@ -27,6 +27,7 @@ import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jaeger.library.StatusBarUtil;
+import com.yangqichao.bokuscience.business.bean.BackGroundBean;
 import com.yangqichao.bokuscience.business.bean.LoginBean;
 import com.yangqichao.bokuscience.business.bean.SampleBean;
 import com.yangqichao.bokuscience.business.bean.ScienceDynamicBean;
@@ -80,6 +81,8 @@ public class MainActivity extends BaseActivity {
     FrameLayout fragmentMain;
     @BindView(R.id.main)
     ConstraintLayout main;
+    @BindView(R.id.img_background)
+    ImageView imgBackground;
     private BaseQuickAdapter<SampleBean, BaseViewHolder> adapter;
     private List<SampleBean> sampleBeanList;
 
@@ -107,7 +110,17 @@ public class MainActivity extends BaseActivity {
             startActivity(new Intent(this, LoginActivity.class));
         }
 
-
+        //背景
+        RequestUtil.createApi().getBackGround().compose(RequestUtil.<BackGroundBean>handleResult())
+                .subscribe(new CommonsSubscriber<BackGroundBean>() {
+                    @Override
+                    protected void onSuccess(BackGroundBean backGroundBean) {
+                        if(backGroundBean!=null){
+                            Glide.with(MainActivity.this).load(backGroundBean.getImgUrl())
+                                    .into(imgBackground);
+                        }
+                    }
+                });
 
 
         setSupportActionBar(toolbar);
@@ -267,12 +280,14 @@ public class MainActivity extends BaseActivity {
                     protected void onSuccess(final List<ScienceDynamicBean> scienceDynamicBeanList) {
                         verticalTextview.setTextList(scienceDynamicBeanList);
                         verticalTextview.setText(16, 0, ContextCompat.getColor(MainActivity.this, R.color.white));//设置属性
-                        verticalTextview.setTextStillTime(2500);//设置停留时长间隔
-                        verticalTextview.setAnimTime(300);//设置进入和退出的时间间隔
+                        verticalTextview.setTextStillTime(3500);//设置停留时长间隔
+                        verticalTextview.setAnimTime(600);//设置进入和退出的时间间隔
                         verticalTextview.setOnItemClickListener(new VerticalTextview.OnItemClickListener() {
                             @Override
                             public void onItemClick(int position) {
-                                startActivity(new Intent(MainActivity.this, DynamicListActivity.class));
+                                Intent intent = new Intent(MainActivity.this, DynamicListActivity.class);
+                                intent.putExtra("isHospital", scienceDynamicBeanList.get(position).getType() == 1);
+                                startActivity(intent);
                             }
                         });
                         verticalTextview.startAutoScroll();

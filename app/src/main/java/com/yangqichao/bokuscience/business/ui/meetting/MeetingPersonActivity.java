@@ -77,7 +77,7 @@ public class MeetingPersonActivity extends BaseActivity {
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Intent intent = new Intent(MeetingPersonActivity.this, MeetingPersonChoseActivity.class);
-                intent.putExtra("index", position + "");
+                intent.putExtra("index", position);
                 intent.putExtra("detIp", list.get(position).getId());
                 intent.putExtra("name", list.get(position).getOrgName());
                 startActivityForResult(intent, 100);
@@ -90,9 +90,9 @@ public class MeetingPersonActivity extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
-            int index = data.getIntExtra("index", 0);
+            int pos = data.getIntExtra("pos", 0);
             List<GetKeShiPerson.RecordsBean> recordsBean = (List<GetKeShiPerson.RecordsBean>) data.getSerializableExtra("choose");
-            list.get(index).setKeShiPerson(recordsBean);
+            list.get(pos).setKeShiPerson(recordsBean);
             adapter.notifyDataSetChanged();
         }
     }

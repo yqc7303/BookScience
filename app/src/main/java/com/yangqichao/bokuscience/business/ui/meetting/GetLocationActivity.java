@@ -5,13 +5,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
-import com.amap.api.services.help.Inputtips;
-import com.amap.api.services.help.InputtipsQuery;
-import com.amap.api.services.help.Tip;
+import com.amap.api.services.core.PoiItem;
+import com.amap.api.services.poisearch.PoiResult;
+import com.amap.api.services.poisearch.PoiSearch;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
@@ -19,13 +18,11 @@ import com.yangqichao.bokuscience.R;
 import com.yangqichao.bokuscience.common.base.BaseActivity;
 import com.yangqichao.commonlib.event.RxBus;
 
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.OnClick;
 
 
-public class GetLocationActivity extends BaseActivity implements Inputtips.InputtipsListener,TextWatcher{
+public class GetLocationActivity extends BaseActivity implements PoiSearch.OnPoiSearchListener,TextWatcher{
 
 
     @BindView(R.id.et_input)
@@ -33,7 +30,7 @@ public class GetLocationActivity extends BaseActivity implements Inputtips.Input
     @BindView(R.id.recycle_share)
     RecyclerView recycleShare;
 
-    private BaseQuickAdapter<Tip,BaseViewHolder> adapter;
+    private BaseQuickAdapter<PoiItem,BaseViewHolder> adapter;
 
     @Override
     protected int getLayoutResID() {
@@ -45,11 +42,11 @@ public class GetLocationActivity extends BaseActivity implements Inputtips.Input
 
         etInput.addTextChangedListener(this);
 
-        adapter = new BaseQuickAdapter<Tip, BaseViewHolder>(R.layout.item_location) {
+        adapter = new BaseQuickAdapter<PoiItem, BaseViewHolder>(R.layout.item_location) {
             @Override
-            protected void convert(BaseViewHolder helper, Tip item) {
-                helper.setText(R.id.tv_location_name,item.getName());
-                helper.setText(R.id.tv_location_address,item.getAddress());
+            protected void convert(BaseViewHolder helper, PoiItem item) {
+                helper.setText(R.id.tv_location_name,item.getTitle());
+                helper.setText(R.id.tv_location_address,item.getSnippet());
 
             }
         };
@@ -62,6 +59,7 @@ public class GetLocationActivity extends BaseActivity implements Inputtips.Input
                 finish();
             }
         });
+
     }
 
     @OnClick(R.id.img_back)
@@ -69,13 +67,6 @@ public class GetLocationActivity extends BaseActivity implements Inputtips.Input
         finish();
     }
 
-    @Override
-    public void onGetInputtips(List<Tip> list, int i) {
-        if(i == 1000){
-            adapter.setNewData(list);
-            Log.e("GetLocationActivity",list.toString());
-        }
-    }
 
     @Override
     public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -89,9 +80,21 @@ public class GetLocationActivity extends BaseActivity implements Inputtips.Input
 
     @Override
     public void afterTextChanged(Editable editable) {
-        InputtipsQuery inputquery = new InputtipsQuery(editable.toString(), "");
-        Inputtips inputTips = new Inputtips(this, inputquery);
-        inputTips.setInputtipsListener(this);
-        inputTips.requestInputtipsAsyn();
+        PoiSearch.Query query = new PoiSearch.Query(editable.toString(),"");
+        query.setPageSize(20);// 设置每页最多返回多少条poiitem
+        query.setPageNum(1);
+        PoiSearch poiSearch = new PoiSearch(this, query);
+        poiSearch.setOnPoiSearchListener(this);
+        poiSearch.searchPOIAsyn();
+    }
+
+    @Override
+    public void onPoiSearched(PoiResult poiResult, int i) {
+        adapter.setNewData(poiResult.getPois());
+    }
+
+    @Override
+    public void onPoiItemSearched(PoiItem poiItem, int i) {
+
     }
 }

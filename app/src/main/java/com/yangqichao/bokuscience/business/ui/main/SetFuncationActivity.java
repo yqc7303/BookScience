@@ -10,6 +10,7 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.jaeger.library.StatusBarUtil;
 import com.yangqichao.bokuscience.R;
 import com.yangqichao.bokuscience.business.bean.LoginBean;
 import com.yangqichao.bokuscience.common.base.BaseActivity;
@@ -46,6 +47,8 @@ public class SetFuncationActivity extends BaseActivity {
 
     @Override
     protected void initView(Bundle savedInstanceState) {
+        StatusBarUtil.setTransparent(this);
+
         dtosBeanList = ((LoginBean) getIntent().getSerializableExtra("bean")).getModuleDTOS();
 
         mark = PreferenceUtils.getPrefString(this,"mark","");

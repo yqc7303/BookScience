@@ -60,6 +60,7 @@ public class FileListActivity extends BaseActivity {
                 finish();
             }
         });
+        adapter.setEmptyView(R.layout.empty_file,recycleFile);
         FileListActivityPermissionsDispatcher.showFileChooserWithCheck(this);
     }
 
@@ -72,11 +73,7 @@ public class FileListActivity extends BaseActivity {
     @NeedsPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
     public void showFileChooser() {
         beanList = FileUtils.getSpecificTypeOfFile(this, new String[]{".doc",".pdf"});
-        if(beanList != null && beanList.size()>0){
-            adapter.setNewData(beanList);
-        }else{
-            adapter.setEmptyView(R.layout.empty_file);
-        }
+        adapter.setNewData(beanList);
     }
 
     @Override
