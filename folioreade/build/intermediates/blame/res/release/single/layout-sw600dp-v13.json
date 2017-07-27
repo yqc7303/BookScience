@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "/Work/BookScience/folioreade/build/intermediates/res/merged/release/layout-sw600dp-v13/design_layout_snackbar.xml",
+        "source": "/Users/yangqichao/.android/build-cache/f06e4b363254f2ceb86ece8fb42cd13588b70e83/output/res/layout-sw600dp-v13/design_layout_snackbar.xml"
+    },
+    {
+        "merged": "/Users/yangqichao/GitBub/FolioReader-Android/folioreader/build/intermediates/res/merged/release/layout-sw600dp-v13/design_layout_snackbar.xml",
+        "source": "/Users/yangqichao/GitBub/FolioReader-Android/folioreader/build/intermediates/exploded-aar/com.android.support/design/25.0.1/res/layout-sw600dp-v13/design_layout_snackbar.xml"
+    }
+]

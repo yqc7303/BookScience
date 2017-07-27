@@ -80,6 +80,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:lines="1"
+            android:ellipsize="end"
             app:layout_constraintGuide_percent="0.45"
             tools:layout_editor_absoluteX="0dp"
             tools:layout_editor_absoluteY="263dp" />

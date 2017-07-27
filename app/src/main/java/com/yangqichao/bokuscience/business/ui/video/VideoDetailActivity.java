@@ -4,12 +4,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.text.format.DateFormat;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.jaeger.library.StatusBarUtil;
 import com.yangqichao.bokuscience.R;
 import com.yangqichao.bokuscience.business.bean.VideoListBean;
 import com.yangqichao.bokuscience.common.base.BaseActivity;
+import com.yangqichao.commonlib.util.UrlUtils;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -45,10 +48,11 @@ public class VideoDetailActivity extends BaseActivity {
         tvVideoContent.setText(bean.getContent());
         tvVideoTitle.setText(bean.getTitle());
         tvSubjectName.setText(bean.getSubjectName());
-        tvVideoTime.setText(bean.getGmtCreate()+"");
+        tvVideoTime.setText(DateFormat.format("yyyy-MM-dd HH:mm", bean.getGmtCreate()));
         tvHospitalName.setText(bean.getHospitalName());
 
         jcPlayer.setUp( bean.getVideoUrl(), JCVideoPlayerStandard.SCREEN_LAYOUT_NORMAL,"");
+        Glide.with(this).load(UrlUtils.getpath(bean.getVideoUrl())).into(jcPlayer.thumbImageView);
     }
 
     public static void startAction(Context context, VideoListBean.RecordsBean recordsBean) {

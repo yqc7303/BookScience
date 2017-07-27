@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/../FolioReader-Android.iml" filepath="$PROJECT_DIR$/../FolioReader-Android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/folioreader.iml" filepath="$PROJECT_DIR$/folioreader.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../sample/sample.iml" filepath="$PROJECT_DIR$/../sample/sample.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../webViewMarker/webViewMarker.iml" filepath="$PROJECT_DIR$/../webViewMarker/webViewMarker.iml" />
+    </modules>
+  </component>
+</project>

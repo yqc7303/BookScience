@@ -202,9 +202,9 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="45dp"
             android:layout_marginTop="10dp"
             android:background="@color/white"
+            android:minHeight="45dp"
             android:paddingLeft="10dp">
 
             <TextView
@@ -217,24 +217,23 @@
                 android:textSize="16sp" />
 
 
-
-                <TextView
-                    android:layout_marginLeft="10dp"
-                    android:layout_toRightOf="@id/huiyididian"
-                    android:id="@+id/tv_meeting_address"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:background="@null"
-                    android:drawablePadding="3dp"
-                    android:drawableRight="@drawable/icon_arrow_right_gray"
-                    android:gravity="right"
-                    android:hint="请选择"
-                    android:padding="10dp"
-                    android:textColor="@color/base_text_black"
-                    android:textColorHint="@color/base_text_gray_dark"
-                    android:textSize="16sp" />
+            <TextView
+                android:id="@+id/tv_meeting_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/huiyididian"
+                android:background="@null"
+                android:drawablePadding="3dp"
+                android:drawableRight="@drawable/icon_arrow_right_gray"
+                android:gravity="right"
+                android:hint="请选择"
+                android:padding="10dp"
+                android:textColor="@color/base_text_black"
+                android:textColorHint="@color/base_text_gray_dark"
+                android:textSize="16sp" />
 
 
         </RelativeLayout>
@@ -308,9 +307,9 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="45dp"
             android:layout_marginTop="10dp"
             android:background="@color/white"
+            android:minHeight="45dp"
             android:paddingLeft="10dp">
 
             <TextView
@@ -332,10 +331,10 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
                 android:layout_toRightOf="@id/textView10"
                 android:background="@null"
                 android:drawablePadding="3dp"
-                android:layout_marginLeft="10dp"
                 android:drawableRight="@drawable/icon_arrow_right_gray"
                 android:gravity="right"
                 android:hint="请添加"
@@ -346,9 +345,55 @@
 
         </RelativeLayout>
 
+        <LinearLayout
+            android:id="@+id/ll_file_show"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp"
+            android:visibility="gone"
+            android:paddingTop="10dp">
+
+            <TextView
+                android:id="@+id/tv_file_type"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_vertical"
+                android:background="#ca4546"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+
+            <TextView
+                android:id="@+id/tv_file_content"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:lines="1"
+                android:textColor="@color/base_text_black"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:id="@+id/img_file_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:padding="10dp"
+                android:src="@drawable/btn_meet_delet" />
+
+
+        </LinearLayout>
+
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="10dp"
             android:layout_marginLeft="10dp"
             android:background="#f5f5f5" />
 

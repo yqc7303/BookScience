@@ -2,6 +2,7 @@ package com.yangqichao.bokuscience.common;
 
 import android.app.Application;
 import android.content.Context;
+import android.os.Environment;
 import android.support.multidex.MultiDex;
 
 import com.igexin.sdk.PushManager;
@@ -10,6 +11,8 @@ import com.tencent.bugly.beta.Beta;
 import com.yangqichao.bokuscience.business.service.GetuiIntentService;
 import com.yangqichao.bokuscience.business.service.GetuiPushService;
 import com.yangqichao.commonlib.util.PreferenceUtils;
+
+import java.io.File;
 
 /**
  * Created by yangqc on 2017/3/23.
@@ -45,5 +48,11 @@ public class APP extends Application{
 
     public static String getUserId(){
         return PreferenceUtils.getPrefString(getInstance(),"uId","");
+    }
+
+    public static String getPathImg(){
+
+        return Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "img"
+                +File.separator;
     }
 }

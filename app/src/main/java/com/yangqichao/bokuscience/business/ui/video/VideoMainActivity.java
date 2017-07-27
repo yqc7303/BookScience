@@ -52,7 +52,7 @@ public class VideoMainActivity extends BaseActivity {
                     @Override
                     protected void onSuccess(InitVideoBean initVideoBean) {
                         subjectListBean = initVideoBean.getSubjectList();
-                        swichType(true);
+                        swichType(false);
                     }
                 });
 

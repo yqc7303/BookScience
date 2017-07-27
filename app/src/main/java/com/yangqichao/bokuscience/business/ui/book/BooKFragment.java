@@ -2,6 +2,7 @@ package com.yangqichao.bokuscience.business.ui.book;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
@@ -9,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,12 +48,15 @@ import java.io.File;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.text.DecimalFormat;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+
+import static com.yangqichao.bokuscience.common.net.CommonsSubscriber.TAG;
 
 
 public class BooKFragment extends Fragment {
@@ -253,9 +258,14 @@ public class BooKFragment extends Fragment {
     }
 
     private void initType() {
-        bean = new InitBookBean.SubjectsBean();
-        bean.setSubName("全部");
-        subjectListBean.add(0, bean);
+        if(!subjectListBean.get(0).getSubName().equals("全部")){
+            bean = new InitBookBean.SubjectsBean();
+            bean.setSubName("全部");
+            subjectListBean.add(0, bean);
+        }else{
+            bean = subjectListBean.get(0);
+        }
+
         adapterType = new BaseQuickAdapter<InitBookBean.SubjectsBean, BaseViewHolder>(R.layout.item_param_search) {
             @Override
             protected void convert(BaseViewHolder helper, InitBookBean.SubjectsBean item) {
@@ -283,6 +293,8 @@ public class BooKFragment extends Fragment {
                 getdata();
             }
         });
+        popupWindow.setBackgroundDrawable(new ColorDrawable(0x00000000));
+        popupWindow.setOutsideTouchable(true);
     }
 
     boolean downAble = true;
@@ -302,9 +314,11 @@ public class BooKFragment extends Fragment {
         try {
 
             encodeUrl = URLEncoder.encode(fileName, "UTF-8");
+            encodeUrl = encodeUrl.replaceAll("\\+", "%20");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
+        final DecimalFormat df = new DecimalFormat("0.00");
         FileDownloader.getImpl().create(url+encodeUrl)
                 .setPath(path)
                 .setListener(new FileDownloadListener() {
@@ -323,7 +337,10 @@ public class BooKFragment extends Fragment {
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                textview.setText(soFarBytes/totalBytes+" %");
+                                float precent = (float) soFarBytes / (float) totalBytes;
+                                textview.setText((int)(precent*100%100)+" %");
+//                                textview.setText((soFarBytes*100)/totalBytes+" %");
+                                Log.e(TAG, "soFarBytes: "+soFarBytes+"   totalBytes: "+totalBytes +"/n  " + precent);
                             }
                         });
 

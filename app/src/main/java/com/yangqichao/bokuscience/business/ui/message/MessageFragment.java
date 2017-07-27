@@ -74,7 +74,6 @@ public class MessageFragment extends Fragment {
             @Override
             protected void convert(BaseViewHolder helper, MessageBean.RecordsBean item) {
                 helper.setText(R.id.tv_message_title,item.getTitle());
-                helper.setText(R.id.tv_meaage_time,item.getGmtCreate());
             }
         };
         recycleMessage.setAdapter(adapter);

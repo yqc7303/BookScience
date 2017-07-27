@@ -1,6 +1,7 @@
 package com.yangqichao.bokuscience.business.ui.book;
 
 import android.app.Activity;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -174,6 +175,8 @@ public class JournalFragment extends Fragment {
                 getdata();
             }
         });
+        popupWindow.setBackgroundDrawable(new ColorDrawable(0x00000000));
+        popupWindow.setOutsideTouchable(true);
     }
 
     @Override

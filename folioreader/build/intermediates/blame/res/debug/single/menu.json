@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "/Work/BookScience/folioreader/build/intermediates/res/merged/debug/menu/menu_on_highlight.xml",
+        "source": "/Work/BookScience/folioreader/res/menu/menu_on_highlight.xml"
+    },
+    {
+        "merged": "/Work/BookScience/folioreader/build/intermediates/res/merged/debug/menu/context_menu.xml",
+        "source": "/Work/BookScience/folioreader/res/menu/context_menu.xml"
+    },
+    {
+        "merged": "/Work/BookScience/folioreader/build/intermediates/res/merged/debug/menu/menu_text_selection.xml",
+        "source": "/Work/BookScience/folioreader/res/menu/menu_text_selection.xml"
+    }
+]

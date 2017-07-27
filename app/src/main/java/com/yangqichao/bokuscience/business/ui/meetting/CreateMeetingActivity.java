@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.amap.api.services.core.LatLonPoint;
@@ -79,6 +80,14 @@ public class CreateMeetingActivity extends BaseActivity implements CompoundButto
     TextView textView10;
     @BindView(R.id.tv_duanxin)
     TextView tvDuanxin;
+    @BindView(R.id.tv_file_type)
+    TextView tvFileType;
+    @BindView(R.id.tv_file_content)
+    TextView tvFileContent;
+    @BindView(R.id.img_file_delete)
+    ImageView imgFileDelete;
+    @BindView(R.id.ll_file_show)
+    LinearLayout llFileShow;
 
     private PoiItem address;
 
@@ -118,7 +127,11 @@ public class CreateMeetingActivity extends BaseActivity implements CompoundButto
                     @Override
                     public void onNextDo(FileBean file) {
                         fileBean = file;
-                        tvMeetingFile.setText(file.getName());
+                        tvFileType.setText(file.getName().substring(file.getName().lastIndexOf(".")+1).toUpperCase());
+                        tvFileContent.setText(file.getName());
+                        tvMeetingFile.setVisibility(View.GONE);
+                        llFileShow.setVisibility(View.VISIBLE);
+//                        tvMeetingFile.setText(file.getName());
                     }
                 });
         switchDuanxin.setOnCheckedChangeListener(this);
@@ -138,8 +151,8 @@ public class CreateMeetingActivity extends BaseActivity implements CompoundButto
     }
 
 
-    @OnClick({R.id.tv_meeting_time, R.id.tv_meeting_address, R.id.tv_meeting_person,R.id.img_back,
-            R.id.tv_meeting_file, R.id.tv_meeting_xcc, R.id.switch_duanxin, R.id.tv_create})
+    @OnClick({R.id.tv_meeting_time, R.id.tv_meeting_address, R.id.tv_meeting_person, R.id.img_back,
+            R.id.tv_meeting_file, R.id.tv_meeting_xcc, R.id.switch_duanxin, R.id.tv_create, R.id.img_file_delete})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.img_back:
@@ -172,6 +185,11 @@ public class CreateMeetingActivity extends BaseActivity implements CompoundButto
                 break;
             case R.id.tv_create:
                 createMeeting();
+                break;
+            case R.id.img_file_delete:
+                fileBean = null;
+                tvMeetingFile.setVisibility(View.VISIBLE);
+                llFileShow.setVisibility(View.GONE);
                 break;
         }
     }
@@ -314,6 +332,7 @@ public class CreateMeetingActivity extends BaseActivity implements CompoundButto
         }
         return list;
     }
+
 
 
 

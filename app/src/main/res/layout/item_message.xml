@@ -10,29 +10,23 @@
 
     <TextView
         android:id="@+id/tv_message_title"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="8dp"
         android:text="TextView"
         android:textColor="@color/base_text_black"
         android:textSize="16sp"
+        android:lines="1"
+        android:ellipsize="end"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tv_meaage_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="8dp"
-        android:text="TextView"
-        android:textColor="@color/base_text_gray_dark"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/imageView10"
+        android:layout_marginRight="8dp"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_message_title"
-        app:layout_constraintVertical_bias="0.35000002" />
+        android:layout_marginBottom="8dp" />
+
 
     <ImageView
         android:id="@+id/imageView10"

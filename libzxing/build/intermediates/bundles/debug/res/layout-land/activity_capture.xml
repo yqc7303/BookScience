@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#fff"
+        android:visibility="gone"
+        >
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="扫一扫"
+            android:textColor="#333333"
+            android:textSize="18sp"/>
+
+        <TextView
+            android:id="@+id/tv_right"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:gravity="center_vertical"
+            android:paddingLeft="40px"
+            android:paddingRight="40px"
+            android:text="相册"
+            android:textColor="#50cbff"
+            android:textSize="14sp"
+            android:visibility="gone"/>
+
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent">
+
+        <SurfaceView
+            android:id="@+id/capture_preview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <LinearLayout
+            android:id="@+id/capture_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+
+            <RelativeLayout
+                android:id="@+id/capture_crop_view"
+                android:layout_width="240dp"
+                android:layout_height="240dp"
+                android:layout_marginTop="50dp"
+                android:background="@drawable/twoweima">
+
+                <ImageView
+                    android:id="@+id/capture_scan_line"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
+                    android:src="@drawable/scanline_blue"/>
+
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/txtv_tips"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:gravity="center"
+                android:text="将二维码放入框内，即可自动扫描\n(扫描看解析将进入横屏)"
+                android:textColor="#fff"
+                android:textSize="14sp"/>
+
+
+            <TextView
+                android:id="@+id/txtv_bindCode"
+                android:layout_width="126.66dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="35dp"
+                android:background="@drawable/shape_btn_bg_qrcode"
+                android:gravity="center"
+                android:text="输入推荐人编码"
+                android:textColor="#ffffff"
+                android:textSize="12sp"
+                android:visibility="gone"
+                />
+
+            <TextView
+                android:id="@+id/txtv_tips2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:text="我的二维码"
+                android:textColor="#50cbff"
+                android:textSize="14sp"
+                android:visibility="gone"/>
+
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/imgbtn_id"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:layout_margin="8dp"
+            android:background="@drawable/light"
+            />
+
+        <ImageView
+            android:id="@+id/img_back"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/btn_fh"/>
+    </RelativeLayout>
+
+</LinearLayout>
