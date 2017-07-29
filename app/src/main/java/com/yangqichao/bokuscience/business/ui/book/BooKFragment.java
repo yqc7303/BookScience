@@ -1,12 +1,14 @@
 package com.yangqichao.bokuscience.business.ui.book;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -399,6 +401,15 @@ public class BooKFragment extends Fragment {
                     protected void error(BaseDownloadTask task, Throwable e) {
                         downAble = true;
                         Toast.makeText(getActivity(),e.toString(),Toast.LENGTH_SHORT).show();
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity())
+                                .setMessage("书籍有误，请联系管理员")
+                                .setPositiveButton("确实能够", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        dialogInterface.dismiss();
+                                    }
+                                });
+                        builder.show();
                     }
 
                     @Override

@@ -1,9 +1,5 @@
 [
     {
-        "merged": "/Users/yangqichao/GitBub/FolioReader-Android/webViewMarker/build/intermediates/res/merged/androidTest/debug/layout/selection_drag_layer.xml",
-        "source": "/Users/yangqichao/GitBub/FolioReader-Android/webViewMarker/build/intermediates/bundles/debug/res/layout/selection_drag_layer.xml"
-    },
-    {
         "merged": "/Work/BookScience/webViewMarker/build/intermediates/res/merged/androidTest/debug/layout/selection_drag_layer.xml",
         "source": "/Work/BookScience/webViewMarker/build/intermediates/bundles/debug/res/layout/selection_drag_layer.xml"
     }

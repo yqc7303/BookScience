@@ -137,6 +137,7 @@ public class LoginActivity extends BaseActivity {
                                 PreferenceUtils.setPrefString(LoginActivity.this,"name",loginBean.getName());
                                 PreferenceUtils.setPrefString(LoginActivity.this,"hospitalCode",loginBean.getHospitalCode());
                                 PreferenceUtils.setPrefString(LoginActivity.this,"credit",loginBean.getCredit());
+                                PreferenceUtils.setPrefInt(LoginActivity.this,"isPwd",loginBean.getIsPwd());
                                 finish();
                             }
 

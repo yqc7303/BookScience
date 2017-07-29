@@ -4,14 +4,6 @@
         "source": "/Users/yangqichao/.android/build-cache/198536c2dd2e7a39b9519fbd8b868dd292d546af/output/res/layout-v21/notification_template_custom_big.xml"
     },
     {
-        "merged": "/Users/yangqichao/GitBub/FolioReader-Android/folioreader/build/intermediates/res/merged/debug/layout-v21/notification_template_custom_big.xml",
-        "source": "/Users/yangqichao/GitBub/FolioReader-Android/folioreader/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.1/res/layout-v21/notification_template_custom_big.xml"
-    },
-    {
-        "merged": "/Users/yangqichao/GitBub/FolioReader-Android/folioreader/build/intermediates/res/merged/debug/layout-v21/notification_template_icon_group.xml",
-        "source": "/Users/yangqichao/GitBub/FolioReader-Android/folioreader/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.1/res/layout-v21/notification_template_icon_group.xml"
-    },
-    {
         "merged": "/Work/BookScience/folioreade/build/intermediates/res/merged/debug/layout-v21/notification_action_tombstone.xml",
         "source": "/Users/yangqichao/.android/build-cache/198536c2dd2e7a39b9519fbd8b868dd292d546af/output/res/layout-v21/notification_action_tombstone.xml"
     },
@@ -22,13 +14,5 @@
     {
         "merged": "/Work/BookScience/folioreade/build/intermediates/res/merged/debug/layout-v21/notification_template_icon_group.xml",
         "source": "/Users/yangqichao/.android/build-cache/198536c2dd2e7a39b9519fbd8b868dd292d546af/output/res/layout-v21/notification_template_icon_group.xml"
-    },
-    {
-        "merged": "/Users/yangqichao/GitBub/FolioReader-Android/folioreader/build/intermediates/res/merged/debug/layout-v21/notification_action_tombstone.xml",
-        "source": "/Users/yangqichao/GitBub/FolioReader-Android/folioreader/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.1/res/layout-v21/notification_action_tombstone.xml"
-    },
-    {
-        "merged": "/Users/yangqichao/GitBub/FolioReader-Android/folioreader/build/intermediates/res/merged/debug/layout-v21/notification_action.xml",
-        "source": "/Users/yangqichao/GitBub/FolioReader-Android/folioreader/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.1/res/layout-v21/notification_action.xml"
     }
 ]

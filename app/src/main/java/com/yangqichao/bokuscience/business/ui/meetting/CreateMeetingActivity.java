@@ -179,6 +179,9 @@ public class CreateMeetingActivity extends BaseActivity implements CompoundButto
             case R.id.tv_meeting_person:
                 Intent intent = new Intent(CreateMeetingActivity.this, MeetingPersonActivity.class);
                 startActivityForResult(intent, 100);
+                if(chooseList!=null){
+                    chooseList.clear();
+                }
                 break;
             case R.id.tv_meeting_file:
                 startActivity(new Intent(this, FileListActivity.class));
@@ -211,9 +214,7 @@ public class CreateMeetingActivity extends BaseActivity implements CompoundButto
             showToast("会议描述不能为空");
             return;
         }
-        if (TextUtils.isEmpty(xuefengStr)) {
-            showToast("请设置学分");
-        }
+
         if (TextUtils.isEmpty(time)) {
             showToast("会议时间不能为空");
             return;
@@ -253,7 +254,7 @@ public class CreateMeetingActivity extends BaseActivity implements CompoundButto
         bodyMap.put("hospitalName", RequestBody.create(MediaType.parse("multipart/form-data"), PreferenceUtils.getPrefString(this, "hospitalName", "")));
         bodyMap.put("userIds", RequestBody.create(MediaType.parse("multipart/form-data"), builder.toString()));
         bodyMap.put("floor", RequestBody.create(MediaType.parse("multipart/form-data"), addressDetail));
-        bodyMap.put("credit", RequestBody.create(MediaType.parse("multipart/form-data"), xuefengStr));
+        bodyMap.put("credit", RequestBody.create(MediaType.parse("multipart/form-data"), TextUtils.isEmpty(xuefengStr)?"0.0":xuefengStr));
 
 
         if (!TextUtils.isEmpty(h5)) {
@@ -327,6 +328,7 @@ public class CreateMeetingActivity extends BaseActivity implements CompoundButto
 
     private List<Double> getXuefen() {
         List<Double> list = new ArrayList<>();
+        list.add(0.0);
         for (int i = 1; i <= 20; i++) {
             list.add(i * 0.5);
         }

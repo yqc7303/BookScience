@@ -6,19 +6,25 @@ import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.yangqichao.bokuscience.R;
 import com.yangqichao.bokuscience.business.bean.InitVideoBean;
+import com.yangqichao.bokuscience.business.bean.ShowDialogEvent;
 import com.yangqichao.bokuscience.common.APP;
 import com.yangqichao.bokuscience.common.base.BaseActivity;
 import com.yangqichao.bokuscience.common.net.CommonsSubscriber;
 import com.yangqichao.bokuscience.common.net.RequestUtil;
+import com.yangqichao.commonlib.event.EventSubscriber;
+import com.yangqichao.commonlib.event.RxBus;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 public class VideoMainActivity extends BaseActivity {
     @BindView(R.id.img_back)
@@ -33,9 +39,12 @@ public class VideoMainActivity extends BaseActivity {
     View viewBttomHopital;
     @BindView(R.id.view_bttom_sys)
     View viewBttomSys;
+    @BindView(R.id.loading)
+    ProgressBar loading;
 
     VideoFragment hospitalFragment, sysFragment;
     private Fragment currentFragment;
+    private int type;
 
     private List<InitVideoBean.SubjectListBean> subjectListBean;
     @Override
@@ -52,10 +61,23 @@ public class VideoMainActivity extends BaseActivity {
                     @Override
                     protected void onSuccess(InitVideoBean initVideoBean) {
                         subjectListBean = initVideoBean.getSubjectList();
+                        type = 0;
                         swichType(false);
                     }
                 });
-
+        RxBus.getDefault().toObservable(ShowDialogEvent.class)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new EventSubscriber<ShowDialogEvent>() {
+                    @Override
+                    public void onNextDo(ShowDialogEvent dialogEvent) {
+                        if(dialogEvent.isshow()){
+                            loading.setVisibility(View.VISIBLE);
+                        }else{
+                            loading.setVisibility(View.GONE);
+                        }
+                    }
+                });
 
     }
 
@@ -70,7 +92,7 @@ public class VideoMainActivity extends BaseActivity {
                 swichType(false);
                 break;
             case R.id.img_video_search:
-                SearchVideoActivity.startAction(this,subjectListBean);
+                SearchVideoActivity.startAction(this,subjectListBean,type);
                 break;
         }
     }
@@ -83,6 +105,7 @@ public class VideoMainActivity extends BaseActivity {
             getSupportFragmentManager().beginTransaction().hide(sysFragment).commitAllowingStateLoss();
         }
         if (isHospitalVideo) {
+            type = 1;
             viewBttomSys.setVisibility(View.GONE);
             viewBttomHopital.setVisibility(View.VISIBLE);
             tvHospitalVideo.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
@@ -94,6 +117,7 @@ public class VideoMainActivity extends BaseActivity {
             }
             currentFragment = hospitalFragment;
         } else {
+            type = 0;
             viewBttomSys.setVisibility(View.VISIBLE);
             viewBttomHopital.setVisibility(View.GONE);
             tvHospitalVideo.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));

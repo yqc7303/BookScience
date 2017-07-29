@@ -8,12 +8,12 @@
         "source": "/Work/BookScience/libzxing/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/scanline_blue.png"
     },
     {
-        "merged": "/Work/BookScience/libzxing/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/light.png",
-        "source": "/Work/BookScience/libzxing/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/light.png"
-    },
-    {
         "merged": "/Work/BookScience/libzxing/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/icon_shoudian.png",
         "source": "/Work/BookScience/libzxing/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/icon_shoudian.png"
+    },
+    {
+        "merged": "/Work/BookScience/libzxing/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/light.png",
+        "source": "/Work/BookScience/libzxing/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/light.png"
     },
     {
         "merged": "/Work/BookScience/libzxing/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/scan_line.png",

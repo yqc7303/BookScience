@@ -1,23 +1,7 @@
 [
     {
-        "merged": "/Users/yangqichao/GitBub/FolioReader-Android/folioreader/build/intermediates/res/merged/debug/drawable-v21/abc_action_bar_item_background_material.xml",
-        "source": "/Users/yangqichao/GitBub/FolioReader-Android/folioreader/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.1/res/drawable-v21/abc_action_bar_item_background_material.xml"
-    },
-    {
-        "merged": "/Work/BookScience/folioreade/build/intermediates/res/merged/debug/drawable-v21/design_password_eye.xml",
-        "source": "/Users/yangqichao/.android/build-cache/267cce306155c01388ccd4646cefbc240b66842b/output/res/drawable-v21/design_password_eye.xml"
-    },
-    {
-        "merged": "/Users/yangqichao/GitBub/FolioReader-Android/folioreader/build/intermediates/res/merged/debug/drawable-v21/notification_action_background.xml",
-        "source": "/Users/yangqichao/GitBub/FolioReader-Android/folioreader/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.1/res/drawable-v21/notification_action_background.xml"
-    },
-    {
         "merged": "/Work/BookScience/folioreade/build/intermediates/res/merged/debug/drawable-v21/design_bottom_navigation_item_background.xml",
         "source": "/Users/yangqichao/.android/build-cache/f06e4b363254f2ceb86ece8fb42cd13588b70e83/output/res/drawable-v21/design_bottom_navigation_item_background.xml"
-    },
-    {
-        "merged": "/Work/BookScience/folioreade/build/intermediates/res/merged/debug/drawable-v21/avd_hide_password.xml",
-        "source": "/Users/yangqichao/.android/build-cache/267cce306155c01388ccd4646cefbc240b66842b/output/res/drawable-v21/avd_hide_password.xml"
     },
     {
         "merged": "/Work/BookScience/folioreade/build/intermediates/res/merged/debug/drawable-v21/abc_btn_colored_material.xml",
@@ -28,27 +12,11 @@
         "source": "/Users/yangqichao/.android/build-cache/198536c2dd2e7a39b9519fbd8b868dd292d546af/output/res/drawable-v21/abc_action_bar_item_background_material.xml"
     },
     {
-        "merged": "/Users/yangqichao/GitBub/FolioReader-Android/folioreader/build/intermediates/res/merged/debug/drawable-v21/design_bottom_navigation_item_background.xml",
-        "source": "/Users/yangqichao/GitBub/FolioReader-Android/folioreader/build/intermediates/exploded-aar/com.android.support/design/25.0.1/res/drawable-v21/design_bottom_navigation_item_background.xml"
-    },
-    {
         "merged": "/Work/BookScience/folioreade/build/intermediates/res/merged/debug/drawable-v21/notification_action_background.xml",
         "source": "/Users/yangqichao/.android/build-cache/198536c2dd2e7a39b9519fbd8b868dd292d546af/output/res/drawable-v21/notification_action_background.xml"
     },
     {
-        "merged": "/Users/yangqichao/GitBub/FolioReader-Android/folioreader/build/intermediates/res/merged/debug/drawable-v21/abc_edit_text_material.xml",
-        "source": "/Users/yangqichao/GitBub/FolioReader-Android/folioreader/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.1/res/drawable-v21/abc_edit_text_material.xml"
-    },
-    {
         "merged": "/Work/BookScience/folioreade/build/intermediates/res/merged/debug/drawable-v21/abc_edit_text_material.xml",
         "source": "/Users/yangqichao/.android/build-cache/198536c2dd2e7a39b9519fbd8b868dd292d546af/output/res/drawable-v21/abc_edit_text_material.xml"
-    },
-    {
-        "merged": "/Work/BookScience/folioreade/build/intermediates/res/merged/debug/drawable-v21/avd_show_password.xml",
-        "source": "/Users/yangqichao/.android/build-cache/267cce306155c01388ccd4646cefbc240b66842b/output/res/drawable-v21/avd_show_password.xml"
-    },
-    {
-        "merged": "/Users/yangqichao/GitBub/FolioReader-Android/folioreader/build/intermediates/res/merged/debug/drawable-v21/abc_btn_colored_material.xml",
-        "source": "/Users/yangqichao/GitBub/FolioReader-Android/folioreader/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.1/res/drawable-v21/abc_btn_colored_material.xml"
     }
 ]

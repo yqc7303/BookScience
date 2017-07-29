@@ -4,23 +4,11 @@
         "source": "/Work/BookScience/folioreade/res/menu/menu_on_highlight.xml"
     },
     {
-        "merged": "/Users/yangqichao/GitBub/FolioReader-Android/folioreader/build/intermediates/res/merged/release/menu/menu_on_highlight.xml",
-        "source": "/Users/yangqichao/GitBub/FolioReader-Android/folioreader/res/menu/menu_on_highlight.xml"
-    },
-    {
-        "merged": "/Users/yangqichao/GitBub/FolioReader-Android/folioreader/build/intermediates/res/merged/release/menu/context_menu.xml",
-        "source": "/Users/yangqichao/GitBub/FolioReader-Android/folioreader/res/menu/context_menu.xml"
-    },
-    {
         "merged": "/Work/BookScience/folioreade/build/intermediates/res/merged/release/menu/context_menu.xml",
         "source": "/Work/BookScience/folioreade/res/menu/context_menu.xml"
     },
     {
         "merged": "/Work/BookScience/folioreade/build/intermediates/res/merged/release/menu/menu_text_selection.xml",
         "source": "/Work/BookScience/folioreade/res/menu/menu_text_selection.xml"
-    },
-    {
-        "merged": "/Users/yangqichao/GitBub/FolioReader-Android/folioreader/build/intermediates/res/merged/release/menu/menu_text_selection.xml",
-        "source": "/Users/yangqichao/GitBub/FolioReader-Android/folioreader/res/menu/menu_text_selection.xml"
     }
 ]

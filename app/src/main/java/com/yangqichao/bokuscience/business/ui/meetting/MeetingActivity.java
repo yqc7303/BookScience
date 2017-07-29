@@ -1,11 +1,13 @@
 package com.yangqichao.bokuscience.business.ui.meetting;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -263,7 +265,28 @@ public class MeetingActivity extends BaseActivity implements SwipeRefreshLayout.
                         .subscribe(new CommonsSubscriber<String>() {
                             @Override
                             protected void onSuccess(String s) {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(MeetingActivity.this)
+                                        .setMessage("恭喜您会议签到成功")
+                                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialogInterface, int i) {
+                                                dialogInterface.dismiss();
+                                            }
+                                        });
+                                builder.show();
+                            }
 
+                            @Override
+                            public void onFail(String errorCode, String message) {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(MeetingActivity.this)
+                                        .setMessage(message)
+                                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialogInterface, int i) {
+                                                dialogInterface.dismiss();
+                                            }
+                                        });
+                                builder.show();
                             }
                         });
             } else {

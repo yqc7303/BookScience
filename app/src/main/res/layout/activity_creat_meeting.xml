@@ -409,7 +409,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:text="宣传册"
+                android:text="邀请函"
                 android:textColor="@color/base_text_black"
                 android:textSize="16sp" />
 
@@ -424,6 +424,7 @@
                 android:layout_toRightOf="@id/tv_xuanchuangce"
                 android:background="@null"
                 android:gravity="right"
+                android:maxHeight="80dp"
                 android:hint="请输入网址，例如：www.xxxx.com"
                 android:textColor="@color/base_text_black"
                 android:textColorHint="@color/base_text_gray_dark"

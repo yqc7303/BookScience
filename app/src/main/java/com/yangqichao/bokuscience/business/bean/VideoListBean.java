@@ -163,7 +163,7 @@ public class VideoListBean {
         private String hospitalName;
         private int createrId;
         private String createrName;
-        private long gmtCreate;
+        private String gmtCreate;
 
         public int getId() {
             return id;
@@ -261,11 +261,11 @@ public class VideoListBean {
             this.createrName = createrName;
         }
 
-        public long getGmtCreate() {
+        public String getGmtCreate() {
             return gmtCreate;
         }
 
-        public void setGmtCreate(long gmtCreate) {
+        public void setGmtCreate(String gmtCreate) {
             this.gmtCreate = gmtCreate;
         }
     }

@@ -70,6 +70,7 @@ public class UrlUtils {
             e.printStackTrace();
         }
         retriever.release();
+//        bitmap = null;
         return imgPath;
     };
 

@@ -2,6 +2,7 @@ package com.yangqichao.bokuscience.business.ui.video;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -54,10 +55,12 @@ public class SearchVideoActivity extends BaseActivity implements SwipeRefreshLay
     private BaseQuickAdapter<VideoListBean.RecordsBean,BaseViewHolder> adapter;
     InitVideoBean.SubjectListBean bean;
     private List<VideoListBean.RecordsBean> records;
+    private int typeInt;
 
-    public static void startAction(Context context, List<InitVideoBean.SubjectListBean> list){
+    public static void startAction(Context context, List<InitVideoBean.SubjectListBean> list,int type){
         Intent intent = new Intent(context,SearchVideoActivity.class);
         intent.putExtra("list", (Serializable) list);
+        intent.putExtra("type", type);
         context.startActivity(intent);
     }
 
@@ -84,6 +87,7 @@ public class SearchVideoActivity extends BaseActivity implements SwipeRefreshLay
             }
         });
 
+        typeInt = getIntent().getIntExtra("type",0);
         initType();
 
         adapter = new BaseQuickAdapter<VideoListBean.RecordsBean, BaseViewHolder>(R.layout.item_video_list) {
@@ -98,7 +102,7 @@ public class SearchVideoActivity extends BaseActivity implements SwipeRefreshLay
         recycleVideoSearch.addOnItemTouchListener(new OnItemClickListener() {
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-                VideoDetailActivity.startAction(SearchVideoActivity.this,records.get(position));
+                VideoDetailActivity.startAction(SearchVideoActivity.this,records.get(position).getId());
 
             }
         });
@@ -138,6 +142,8 @@ public class SearchVideoActivity extends BaseActivity implements SwipeRefreshLay
                 seatchData();
             }
         });
+        popupWindow.setBackgroundDrawable(new ColorDrawable(0x00000000));
+        popupWindow.setOutsideTouchable(true);
     }
 
     private void seatchData() {
@@ -147,6 +153,7 @@ public class SearchVideoActivity extends BaseActivity implements SwipeRefreshLay
         if(!bean.getSubName().equals("全部")){
             requestBody.setSubjectId(bean.getId()+"");
         }
+        requestBody.setVideoType(typeInt+"");
         requestBody.setSearch(key);
         requestBody.setPage(1+"");
         requestBody.setPageSize(100+"");
@@ -189,6 +196,7 @@ public class SearchVideoActivity extends BaseActivity implements SwipeRefreshLay
                 if(!bean.getSubName().equals("全部")){
                     requestBody.setSubjectId(bean.getId()+"");
                 }
+                requestBody.setVideoType(typeInt+"");
                 requestBody.setSearch(key);
                 requestBody.setPage(1+"");
                 requestBody.setPageSize(100+"");

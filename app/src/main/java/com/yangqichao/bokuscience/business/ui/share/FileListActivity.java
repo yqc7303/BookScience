@@ -73,7 +73,7 @@ public class FileListActivity extends BaseActivity {
     @NeedsPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
     public void showFileChooser() {
         beanList = FileUtils.getSpecificTypeOfFile(this, new String[]{
-                ".docx",".doc",".pdf",".txt",".xlsx",".xls"
+                ".docx",".doc",".pdf",".xlsx",".xls"
         });
         adapter.setNewData(beanList);
     }

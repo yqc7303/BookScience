@@ -4,15 +4,7 @@
         "source": "/Work/BookScience/webViewMarker/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/text_select_handle_right.png"
     },
     {
-        "merged": "/Users/yangqichao/GitBub/FolioReader-Android/webViewMarker/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/text_select_handle_left.png",
-        "source": "/Users/yangqichao/GitBub/FolioReader-Android/webViewMarker/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/text_select_handle_left.png"
-    },
-    {
         "merged": "/Work/BookScience/webViewMarker/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/text_select_handle_left.png",
         "source": "/Work/BookScience/webViewMarker/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/text_select_handle_left.png"
-    },
-    {
-        "merged": "/Users/yangqichao/GitBub/FolioReader-Android/webViewMarker/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/text_select_handle_right.png",
-        "source": "/Users/yangqichao/GitBub/FolioReader-Android/webViewMarker/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/text_select_handle_right.png"
     }
 ]

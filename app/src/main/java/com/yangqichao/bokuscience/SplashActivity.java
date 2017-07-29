@@ -88,6 +88,7 @@ public class SplashActivity extends Activity {
                                     PreferenceUtils.setPrefInt(SplashActivity.this,"publish",loginBean.getPublishFlag());
                                     PreferenceUtils.setPrefString(SplashActivity.this,"credit",loginBean.getCredit());
                                     PreferenceUtils.setPrefString(SplashActivity.this,"hospitalCode",loginBean.getHospitalCode());
+                                    PreferenceUtils.setPrefInt(SplashActivity.this,"isPwd",loginBean.getIsPwd());
                                     finish();
                                 }
 

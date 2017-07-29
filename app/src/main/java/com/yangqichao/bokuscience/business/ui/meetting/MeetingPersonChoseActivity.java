@@ -96,9 +96,6 @@ public class MeetingPersonChoseActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.img_back:
-                finish();
-                break;
-            case R.id.tv_submit_person:
                 chooseList = new ArrayList<>();
                 for(GetKeShiPerson.RecordsBean recordsBean:records){
                     if(recordsBean.isSelect()){
@@ -110,6 +107,13 @@ public class MeetingPersonChoseActivity extends BaseActivity {
                 getIntent().putExtra("choose", (Serializable) chooseList);
                 setResult(RESULT_OK,getIntent());
                 finish();
+                break;
+            case R.id.tv_submit_person:
+                for(GetKeShiPerson.RecordsBean recordsBean:records){
+                    recordsBean.setSelect(true);
+                }
+                adapter.notifyDataSetChanged();
+//                finish();
                 break;
         }
     }

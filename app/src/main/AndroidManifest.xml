@@ -43,6 +43,7 @@
         <!-- bugly热更新 -->
         <activity
             android:name="com.tencent.bugly.beta.ui.BetaActivity"
+            android:screenOrientation="portrait"
             android:configChanges="keyboardHidden|orientation|screenSize|locale"
             android:theme="@android:style/Theme.Translucent" />
 
@@ -56,9 +57,13 @@
                 android:resource="@xml/provider_paths" />
         </provider>
 
-        <activity android:name=".business.ui.EpubReaderActivity" />
-        <activity android:name="com.folioreader.activity.FolioActivity" />
-        <activity android:name=".business.ui.HomeActivity" />
+        <activity android:name=".business.ui.EpubReaderActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name="com.folioreader.activity.FolioActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".business.ui.HomeActivity"
+            android:screenOrientation="portrait"/>
 
         <service
             android:name=".business.service.GetuiPushService"
@@ -75,16 +80,23 @@
         <service android:name="com.amap.api.location.APSService" />
         <!-- end -->
 
-        <activity android:name=".business.ui.LocationActivity" />
-        <activity android:name=".business.ui.login.LoginActivity" />
+        <activity android:name=".business.ui.LocationActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".business.ui.login.LoginActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".business.ui.login.RegisterActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_register"
             android:theme="@style/AppTheme" />
-        <activity android:name=".business.ui.login.ForgetPWActivity" />
-        <activity android:name=".MainActivity" />
-        <activity android:name=".business.ui.login.RegisterCompleActivity" />
+        <activity android:name=".business.ui.login.ForgetPWActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".business.ui.login.RegisterCompleActivity"
+            android:screenOrientation="portrait"/>
         <activity android:name=".SplashActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppStartLoadTranslucent">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -92,34 +104,59 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".business.ui.message.DynamicListActivity" />
-        <activity android:name=".business.ui.message.DynamicDetailActivity" />
-        <activity android:name=".business.ui.meetting.MeetingActivity" />
-        <activity android:name=".business.ui.meetting.CreateMeetingActivity" />
-        <activity android:name=".business.ui.share.ShareActivity" />
-        <activity android:name=".business.ui.share.AddShareActivity" />
-        <activity android:name=".business.ui.share.FileListActivity" />
-        <activity android:name=".business.ui.meetting.MeetingDetailActivity" />
-        <activity android:name=".business.ui.meetting.MeetingPersonChoseActivity" />
-        <activity android:name=".business.ui.meetting.MeetingPersonActivity" />
-        <activity android:name=".business.ui.meetting.GetLocationActivity" />
-        <activity android:name=".business.ui.meetting.MeetingPersonShowActivity" />
-        <activity android:name=".business.ui.video.VideoMainActivity" />
-        <activity android:name=".business.ui.video.SearchVideoActivity" />
-        <activity android:name=".business.ui.book.BookMainActivity" />
+        <activity android:name=".business.ui.message.DynamicListActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".business.ui.message.DynamicDetailActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".business.ui.meetting.MeetingActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".business.ui.meetting.CreateMeetingActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".business.ui.share.ShareActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".business.ui.share.AddShareActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".business.ui.share.FileListActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".business.ui.meetting.MeetingDetailActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".business.ui.meetting.MeetingPersonChoseActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".business.ui.meetting.MeetingPersonActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".business.ui.meetting.GetLocationActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".business.ui.meetting.MeetingPersonShowActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".business.ui.video.VideoMainActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".business.ui.video.SearchVideoActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".business.ui.book.BookMainActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".business.ui.video.VideoDetailActivity"
+            android:screenOrientation="portrait"
             android:configChanges="orientation|screenSize|keyboardHidden" />
-        <activity android:name=".business.ui.CommonWebViewActivity" />
-        <activity android:name=".business.ui.book.MyBookMainActivity" />
-        <activity android:name=".business.ui.book.JournalActivity" />
-        <activity android:name=".business.ui.mine.MineActivity" />
-        <activity android:name=".business.ui.mine.VersionActivity" />
+        <activity android:name=".business.ui.CommonWebViewActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".business.ui.book.MyBookMainActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".business.ui.book.JournalActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".business.ui.mine.MineActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".business.ui.mine.VersionActivity"
+            android:screenOrientation="portrait"/>
         <activity android:name=".business.ui.mine.FeedBackActivity"
+            android:screenOrientation="portrait"
             />
-        <activity android:name=".business.ui.mine.ChangePWActivity" />
-        <activity android:name=".business.ui.main.SetFuncationActivity"></activity>
-        <activity android:name=".business.ui.WWQKWebViewActivity"/>
+        <activity android:name=".business.ui.mine.ChangePWActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".business.ui.main.SetFuncationActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".business.ui.WWQKWebViewActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

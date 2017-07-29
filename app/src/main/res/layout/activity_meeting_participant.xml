@@ -37,6 +37,7 @@
             android:id="@+id/tv_submit_person"
             android:src="@drawable/btn_add_meet"
             android:text="确定"
+            android:visibility="gone"
             android:padding="10dp"
             android:textSize="16sp"
             android:textColor="@color/white"

@@ -161,4 +161,8 @@ public interface API {
     @GET("/app/background/get")
     Observable<Response<BackGroundBean>> getBackGround();
 
+    @GET("/app/videos/get/{id}")
+    Observable<Response<VideoListBean.RecordsBean>> getVideoDetail(@Path("id") int id);
+
+
 }

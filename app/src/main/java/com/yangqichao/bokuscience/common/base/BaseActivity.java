@@ -1,11 +1,13 @@
 package com.yangqichao.bokuscience.common.base;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jaeger.library.StatusBarUtil;
@@ -17,6 +19,7 @@ import butterknife.ButterKnife;
 public abstract class BaseActivity extends AppCompatActivity {
 
     private boolean isFullscreen;
+    private Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +83,24 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     public int getColorResource(int color){
         return ContextCompat.getColor(this,color);
+    }
+
+    public void showProgress() {
+        showToast("xinashi");
+        if(dialog == null){
+            dialog = new Dialog(this, R.style.full_screen_dialog);
+            dialog.setContentView(R.layout.progress_dialog);
+            ((TextView) dialog.findViewById(R.id.label_loading)).setText("请稍后");
+            dialog.setCancelable(false);
+            dialog.show();
+        }else{
+            dialog.show();
+        }
+    }
+    public void dissProgress() {
+        if(dialog!=null){
+            dialog.dismiss();
+        }
     }
 
 }

@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,7 +13,6 @@ import android.support.v7.widget.SwitchCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
@@ -90,6 +90,7 @@ public class MeetingDetailActivity extends BaseActivity implements
 
     private static final int REQUESTCODE = 300;
     private String codeUrl;
+    private PopupWindow popupWindow;
 
     @Override
     protected int getLayoutResID() {
@@ -109,6 +110,25 @@ public class MeetingDetailActivity extends BaseActivity implements
                         initPage();
                     }
                 });
+        View dismissView = LayoutInflater.from(this).inflate(R.layout.popwindow_dismiss_meeting, null);
+        ImageView imageView = (ImageView) dismissView.findViewById(R.id.img_cancel);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RequestUtil.createApi().cancelMeeting(meetingId + "").compose(RequestUtil.<String>handleResult())
+                        .subscribe(new CommonsSubscriber<String>() {
+                            @Override
+                            protected void onSuccess(String s) {
+                                showToast("会议已取消");
+                                finish();
+                            }
+                        });
+            }
+        });
+        popupWindow = new PopupWindow(dismissView, ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT, false);
+        popupWindow.setBackgroundDrawable(new ColorDrawable(0x00000000));
+        popupWindow.setOutsideTouchable(true);
     }
 
     private void initPage() {
@@ -198,6 +218,9 @@ public class MeetingDetailActivity extends BaseActivity implements
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.img_back:
+                if(popupWindow!=null&&popupWindow.isShowing()){
+                    popupWindow.dismiss();
+                }
                 finish();
                 break;
             case R.id.tv_meeting_person:
@@ -217,45 +240,20 @@ public class MeetingDetailActivity extends BaseActivity implements
                 MeetingDetailActivityPermissionsDispatcher.saomaWithCheck(this);
                 break;
             case R.id.img_create:
-                View dismissView = LayoutInflater.from(this).inflate(R.layout.popwindow_dismiss_meeting, null);
-                ImageView imageView = (ImageView) dismissView.findViewById(R.id.img_cancel);
-                imageView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        RequestUtil.createApi().cancelMeeting(meetingId + "").compose(RequestUtil.<String>handleResult())
-                                .subscribe(new CommonsSubscriber<String>() {
-                                    @Override
-                                    protected void onSuccess(String s) {
-                                        showToast("会议已取消");
-                                        finish();
-                                    }
-                                });
-                    }
-                });
-                final PopupWindow popupWindow = new PopupWindow(dismissView, ViewGroup.LayoutParams.WRAP_CONTENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT, true);
-                popupWindow.setTouchable(true);
-                popupWindow.setTouchInterceptor(new View.OnTouchListener() {
-                    @Override
-                    public boolean onTouch(View v, MotionEvent event) {
-                        if (event.getAction() == MotionEvent.ACTION_OUTSIDE) {
-                            popupWindow.dismiss();
-                            return true;
-                        }
-                        return false;
-                    }
-                });
-                popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
-                    @Override
-                    public void onDismiss() {
-                        backgroundAlpha(1f);
-                    }
-                });
+
                 popupWindow.showAsDropDown(imgCreate);
                 break;
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        if(popupWindow!=null&&popupWindow.isShowing()){
+            popupWindow.dismiss();
+        }
+        super.onBackPressed();
+
+    }
 
     private void openFile(String url) {
         Intent intent = new Intent();

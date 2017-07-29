@@ -1,9 +1,5 @@
 [
     {
-        "merged": "/Users/yangqichao/GitBub/FolioReader-Android/folioreader/build/intermediates/res/merged/release/mipmap-hdpi-v4/ic_launcher.png",
-        "source": "/Users/yangqichao/GitBub/FolioReader-Android/folioreader/res/mipmap-hdpi/ic_launcher.png"
-    },
-    {
         "merged": "/Work/BookScience/folioreade/build/intermediates/res/merged/release/mipmap-hdpi-v4/ic_launcher.png",
         "source": "/Work/BookScience/folioreade/res/mipmap-hdpi/ic_launcher.png"
     }

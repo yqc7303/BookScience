@@ -162,7 +162,6 @@ public class MainActivity extends BaseActivity {
         if (loginBean.getModuleDTOSUser() != null) {
             getFragment();
         }
-        initGongGao();
 
 
         RxBus.getDefault().toObservable(MarkEvent.class)
@@ -201,6 +200,12 @@ public class MainActivity extends BaseActivity {
                 });
         showBrithday();
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initGongGao();
     }
 
     private void showBrithday() {

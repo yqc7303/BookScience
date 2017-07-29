@@ -36,6 +36,10 @@ public class MineActivity extends BaseActivity {
     TextView tvName;
     @BindView(R.id.tv_xuefen)
     TextView tvXuefen;
+    @BindView(R.id.view13)
+    View view13;
+    @BindView(R.id.tv_change_pw)
+    TextView tvChangePw;
 
     @Override
     protected int getLayoutResID() {
@@ -52,12 +56,20 @@ public class MineActivity extends BaseActivity {
         String deptName = PreferenceUtils.getPrefString(MineActivity.this, "deptName", "");
         tvName.setText(PreferenceUtils.getPrefString(MineActivity.this, "name", ""));
         String credit = PreferenceUtils.getPrefString(MineActivity.this, "credit", "");
-        tvXuefen.setText(credit.equals("0.0")?"0分":credit+"分");
+        tvXuefen.setText(credit.equals("0.0") ? "0分" : credit + "分");
         if (TextUtils.isEmpty(deptName)) {
             tvKeshiShow.setVisibility(View.GONE);
             tvKeshi.setVisibility(View.GONE);
         } else {
             tvKeshi.setText(deptName);
+        }
+
+        if (PreferenceUtils.getPrefInt(MineActivity.this, "isPwd", 0) == 1) {
+            view13.setVisibility(View.VISIBLE);
+            tvChangePw.setVisibility(View.VISIBLE);
+        } else {
+            view13.setVisibility(View.GONE);
+            tvChangePw.setVisibility(View.GONE);
         }
     }
 

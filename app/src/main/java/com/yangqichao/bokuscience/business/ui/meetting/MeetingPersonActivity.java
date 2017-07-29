@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -31,8 +30,6 @@ import butterknife.OnClick;
 public class MeetingPersonActivity extends BaseActivity {
 
 
-    @BindView(R.id.tv_submit_person)
-    TextView tvSubmitPerson;
     @BindView(R.id.recycle_keshi)
     RecyclerView recycleKeshi;
 
@@ -98,13 +95,10 @@ public class MeetingPersonActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.img_back, R.id.tv_submit_person})
+    @OnClick({R.id.img_back})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.img_back:
-                finish();
-                break;
-            case R.id.tv_submit_person:
                 chooseList = new ArrayList<>();
                 for(LevelBean levelBean:list){
                     if(levelBean.getKeShiPerson()!=null){
