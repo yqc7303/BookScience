@@ -126,52 +126,73 @@ public class BooKFragment extends Fragment {
                 protected void convert(final BaseViewHolder helper, final MyBookBean.RecordsBean item) {
 
 
-                    helper.setText(R.id.tv_book_name, item.getBookDTO().getTitle());
-                    helper.setText(R.id.tv_book_type, item.getBookDTO().getSubjectName());
-                    Glide.with(getActivity()).load(item.getBookDTO().getImgUrl()).placeholder(R.drawable.icon_book_null)
-                            .into((ImageView) helper.getView(R.id.img_book));
 
-                    final String path = basePath + item.getId();
-                    final String fileUrl = item.getBookDTO().getFileUrl();
-                    final String fileName = fileUrl.substring(fileUrl.lastIndexOf("/") + 1);
-                    if(!new File(path).exists()){
-                        new File(path).mkdirs();
-                    }
 
-                    boolean isdone = PreferenceUtils.getPrefBoolean(getActivity(), "book" + item.getId(), false);
-                    item.getBookDTO().setDone(isdone);
-                    if (item.getBookDTO().isDone()) {
-                        //已存在
+
+                    /**
+                     * 封面的不同响应事件
+                     */
+                    if(helper.getLayoutPosition()==adapterMy.getData().size()-1){
                         helper.getView(R.id.img_book).setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
-                                Intent intent = new Intent(getActivity(), FolioActivity.class);
-                                intent.putExtra(FolioActivity.INTENT_EPUB_SOURCE_TYPE,FolioActivity.EpubSourceType.SD_CARD);
-                                intent.putExtra(FolioActivity.INTENT_EPUB_SOURCE_PATH, path+File.separator+fileName);
-                                intent.putExtra("title",fileName);
-                                intent.putExtra("isAdd",true);
-                                startActivityForResult(intent,item.getBookId());
+                                Intent intent = new Intent(getActivity(), BookMainActivity.class);
+                                intent.putExtra("isJournal",false);
+                                startActivity(intent);
                             }
                         });
-                        helper.setVisible(R.id.tv_download, false);
-                    } else {
-                        helper.getView(R.id.img_book).setOnClickListener(null);
-                        helper.setVisible(R.id.tv_download, true);
-                        helper.getView(R.id.tv_download).setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                String path = basePath + item.getBookDTO().getId();
-                                if(!new File(path).exists()){
-                                    new File(path).mkdirs();
+                        helper.setImageResource(R.id.img_book,R.drawable.btn_book_add);
+                    }else{
+                        Glide.with(getActivity()).load(item.getBookDTO().getImgUrl()).placeholder(R.drawable.icon_book_null)
+                                .into((ImageView) helper.getView(R.id.img_book));
+                        helper.setText(R.id.tv_book_name, item.getBookDTO().getTitle());
+                        helper.setText(R.id.tv_book_type, item.getBookDTO().getSubjectName());
+//                    Glide.with(getActivity()).load(item.getBookDTO().getImgUrl()).placeholder(R.drawable.icon_book_null)
+//                            .into((ImageView) helper.getView(R.id.img_book));
+
+                        final String path = basePath + item.getBookId();
+                        final String fileUrl = item.getBookDTO().getFileUrl();
+                        final String fileName = fileUrl.substring(fileUrl.lastIndexOf("/") + 1);
+                        if(!new File(path).exists()){
+                            new File(path).mkdirs();
+                        }
+
+                        boolean isdone = PreferenceUtils.getPrefBoolean(getActivity(), "book" + item.getBookId(), false);
+                        item.getBookDTO().setDone(isdone);
+
+                        if (item.getBookDTO().isDone()) {
+                            //已存在
+                            helper.getView(R.id.img_book).setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    Intent intent = new Intent(getActivity(), FolioActivity.class);
+                                    intent.putExtra(FolioActivity.INTENT_EPUB_SOURCE_TYPE,FolioActivity.EpubSourceType.SD_CARD);
+                                    intent.putExtra(FolioActivity.INTENT_EPUB_SOURCE_PATH, path+File.separator+fileName);
+                                    intent.putExtra("title",fileName);
+                                    intent.putExtra("isAdd",true);
+                                    startActivityForResult(intent,item.getBookId());
+                                    Log.e(TAG, "onClick:  "+path+File.separator+fileName);
                                 }
-                                download(path+File.separator+fileName, item.getBookDTO().getFileUrl(),item.getId(),(TextView) helper.getView(R.id.tv_download),fileName,1);
+                            });
+                            helper.setVisible(R.id.tv_download, false);
+                        } else {
+                            helper.getView(R.id.img_book).setOnClickListener(null);
+                            helper.setVisible(R.id.tv_download, true);
+                            helper.getView(R.id.tv_download).setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+//                                    String path = basePath + item.getBookDTO().getId();
+                                    if(!new File(path).exists()){
+                                        new File(path).mkdirs();
+                                    }
+                                    download(path+File.separator+fileName, item.getBookDTO().getFileUrl(),item.getBookId(),(TextView) helper.getView(R.id.tv_download),fileName,true);
 
 //                                basePath + item.getId()+File.separator+ fileName,
 //                                        fileUrl,item.getId()
-                            }
-                        });
+                                }
+                            });
+                        }
                     }
-
                 }
 
             };
@@ -206,9 +227,11 @@ public class BooKFragment extends Fragment {
                                 intent.putExtra("title",fileName);
                                 intent.putExtra("isAdd",item.getIsAdd()==1);
                                 startActivityForResult(intent,item.getId());
+                                Log.e(TAG, "onClick:  "+path+File.separator+fileName);
                             }
                         });
                         helper.setVisible(R.id.tv_download, false);
+
                     } else {
                         //去下载
                         helper.setText(R.id.tv_download,"下载");
@@ -218,7 +241,7 @@ public class BooKFragment extends Fragment {
                             @Override
                             public void onClick(View view) {
                                 download(basePath + item.getId()+File.separator+ fileName,
-                                        fileUrl,item.getId(),((TextView) helper.getView(R.id.tv_download)),fileName,item.getIsAdd());
+                                        fileUrl,item.getId(),((TextView) helper.getView(R.id.tv_download)),fileName,item.getIsAdd()==1);
                             }
                         });
                     }
@@ -300,7 +323,7 @@ public class BooKFragment extends Fragment {
     }
 
     boolean downAble = true;
-    private void download(final String path, String url, final int id, final TextView textview, final String fileName, final int isAdd) {
+    private void download(final String path, String url, final int id, final TextView textview, final String fileName, final boolean isAdd) {
 //        Aria.download(this)
 //                .load(url)     //读取下载地址
 //                .setDownloadPath(path)    //设置文件保存的完整路径
@@ -399,8 +422,9 @@ public class BooKFragment extends Fragment {
 
                     @Override
                     protected void error(BaseDownloadTask task, Throwable e) {
+                        Log.e(TAG, "error: "+e);
                         downAble = true;
-                        Toast.makeText(getActivity(),e.toString(),Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getActivity(),e.toString(),Toast.LENGTH_SHORT).show();
                         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity())
                                 .setMessage("书籍有误，请联系管理员")
                                 .setPositiveButton("确实能够", new DialogInterface.OnClickListener() {
@@ -444,7 +468,9 @@ public class BooKFragment extends Fragment {
                     .subscribe(new CommonsSubscriber<MyBookBean>() {
                         @Override
                         protected void onSuccess(MyBookBean bookBean) {
-                            adapterMy.setNewData(bookBean.getRecords());
+                            List<MyBookBean.RecordsBean> records = bookBean.getRecords();
+                            records.add(new MyBookBean.RecordsBean());
+                            adapterMy.setNewData(records);
                         }
                     });
         } else {

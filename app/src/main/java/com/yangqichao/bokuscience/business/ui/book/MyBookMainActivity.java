@@ -1,8 +1,10 @@
 package com.yangqichao.bokuscience.business.ui.book;
 
+import android.Manifest;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -20,10 +22,11 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import permissions.dispatcher.NeedsPermission;
+import permissions.dispatcher.RuntimePermissions;
 
+@RuntimePermissions
 public class MyBookMainActivity extends BaseActivity {
-
-
 
 
 
@@ -57,7 +60,7 @@ public class MyBookMainActivity extends BaseActivity {
                     @Override
                     protected void onSuccess(InitBookBean initBookBean) {
                         subjectListBean = initBookBean.getSubjects();
-                        swichType(true);
+                        MyBookMainActivityPermissionsDispatcher.swichTypeWithCheck(MyBookMainActivity.this,true);
                     }
                 });
 
@@ -78,8 +81,8 @@ public class MyBookMainActivity extends BaseActivity {
                 break;
         }
     }
-
-    private void swichType(boolean isJournal) {
+    @NeedsPermission({Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE})
+    public void swichType(boolean isJournal) {
         if (journalFragment != null) {
             getSupportFragmentManager().beginTransaction().hide(journalFragment).commitAllowingStateLoss();
         }
@@ -119,7 +122,11 @@ public class MyBookMainActivity extends BaseActivity {
         }
     }
 
-
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        MyBookMainActivityPermissionsDispatcher.onRequestPermissionsResult(this,requestCode,grantResults);
+    }
 
     @OnClick(R.id.img_back)
     public void onViewClicked() {

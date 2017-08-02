@@ -59,7 +59,7 @@ public class BookMainActivity extends BaseActivity {
                     @Override
                     protected void onSuccess(InitBookBean initBookBean) {
                         subjectListBean = initBookBean.getSubjects();
-                        BookMainActivityPermissionsDispatcher.swichTypeWithCheck(BookMainActivity.this,true);
+                        BookMainActivityPermissionsDispatcher.swichTypeWithCheck(BookMainActivity.this,getIntent().getBooleanExtra("isJournal",false));
                     }
                 });
 

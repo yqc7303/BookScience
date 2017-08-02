@@ -7,7 +7,7 @@ import com.yangqichao.bokuscience.R;
 import com.yangqichao.bokuscience.business.bean.LoginBean;
 import com.yangqichao.bokuscience.business.ui.CommonWebViewActivity;
 import com.yangqichao.bokuscience.business.ui.WWQKWebViewActivity;
-import com.yangqichao.bokuscience.business.ui.book.BookMainActivity;
+import com.yangqichao.bokuscience.business.ui.book.MyBookMainActivity;
 import com.yangqichao.bokuscience.business.ui.meetting.MeetingActivity;
 import com.yangqichao.bokuscience.business.ui.share.ShareActivity;
 import com.yangqichao.bokuscience.business.ui.video.VideoMainActivity;
@@ -57,7 +57,7 @@ public class ShowMenuUtil {
         }else if(code.equals("qksj")){
             return  R.drawable.icon_qksj_big;
         }else if(code.equals("gjgx")){
-            return  R.drawable.icon_gjgx_big;
+            return  R.drawable.icon_gjgx;
         }else if(code.equals("yxsp")){
             return   R.drawable.icon_yxsp_big;
         }else if(code.equals("wwqk")){
@@ -73,7 +73,7 @@ public class ShowMenuUtil {
         }else if(code.equals("qksj")){
             return  R.drawable.icon_qksj_small;
         }else if(code.equals("gjgx")){
-            return  R.drawable.icon_gjgx_small;
+            return  R.drawable.icon_gjgx;
         }else if(code.equals("yxsp")){
             return   R.drawable.icon_yxsp_small;
         }else if(code.equals("wwqk")){
@@ -88,7 +88,7 @@ public class ShowMenuUtil {
         if(code.equals("hygl")){
             return new Intent(context,MeetingActivity.class);
         }else if(code.equals("qksj")){
-            return new Intent(context,BookMainActivity.class);
+            return new Intent(context,MyBookMainActivity.class);
         }else if(code.equals("gjgx")){
             return new Intent(context,ShareActivity.class);
         }else if(code.equals("yxsp")){

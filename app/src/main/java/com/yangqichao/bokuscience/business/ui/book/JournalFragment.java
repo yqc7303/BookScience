@@ -1,6 +1,7 @@
 package com.yangqichao.bokuscience.business.ui.book;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -98,21 +99,34 @@ public class JournalFragment extends Fragment {
             adapterMy = new BaseQuickAdapter<MyBookBean.RecordsBean, BaseViewHolder>(R.layout.item_journal) {
                 @Override
                 protected void convert(BaseViewHolder helper, final MyBookBean.RecordsBean item) {
-                    helper.setText(R.id.tv_book_name, item.getBookDTO().getTitle());
-                    helper.setText(R.id.tv_book_type, item.getBookDTO().getSubjectName());
-                    Glide.with(getActivity()).load(item.getBookDTO().getImgUrl()).placeholder(R.drawable.icon_book_null)
-                            .into((ImageView) helper.getView(R.id.img_book));
-                    helper.getView(R.id.img_book).setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            BookBean.RecordsBean recordsBean = new BookBean.RecordsBean();
-                            recordsBean.setTitle(item.getBookDTO().getTitle());
-                            recordsBean.setId(item.getBookId());
-                            recordsBean.setFileUrl(item.getBookDTO().getFileUrl());
-                            recordsBean.setIsAdd(1);
-                            JournalActivity.starAction(getActivity(), recordsBean);
-                        }
-                    });
+                    if(helper.getLayoutPosition()==adapterMy.getData().size()-1){
+                        helper.setImageResource(R.id.img_book,R.drawable.btn_book_add);
+                        helper.getView(R.id.img_book).setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Intent intent = new Intent(getActivity(), BookMainActivity.class);
+                                intent.putExtra("isJournal",true);
+                                startActivity(intent);
+                            }
+                        });
+                    }else{
+                        helper.setText(R.id.tv_book_name, item.getBookDTO().getTitle());
+                        helper.setText(R.id.tv_book_type, item.getBookDTO().getSubjectName());
+                        Glide.with(getActivity()).load(item.getBookDTO().getImgUrl()).placeholder(R.drawable.icon_book_null)
+                                .into((ImageView) helper.getView(R.id.img_book));
+                        helper.getView(R.id.img_book).setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                BookBean.RecordsBean recordsBean = new BookBean.RecordsBean();
+                                recordsBean.setTitle(item.getBookDTO().getTitle());
+                                recordsBean.setId(item.getBookId());
+                                recordsBean.setFileUrl(item.getBookDTO().getFileUrl());
+                                recordsBean.setIsAdd(1);
+                                JournalActivity.starAction(getActivity(), recordsBean);
+                            }
+                        });
+                    }
+
                 }
             };
 
@@ -202,7 +216,9 @@ public class JournalFragment extends Fragment {
                     .subscribe(new CommonsSubscriber<MyBookBean>() {
                         @Override
                         protected void onSuccess(MyBookBean bookBean) {
-                            adapterMy.setNewData(bookBean.getRecords());
+                            List<MyBookBean.RecordsBean> records = bookBean.getRecords();
+                            records.add(new MyBookBean.RecordsBean());
+                            adapterMy.setNewData(records);
                         }
                     });
         } else {
