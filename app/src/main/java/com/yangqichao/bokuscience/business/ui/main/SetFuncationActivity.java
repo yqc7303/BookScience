@@ -7,7 +7,9 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.jaeger.library.StatusBarUtil;
@@ -69,6 +71,12 @@ public class SetFuncationActivity extends BaseActivity {
             protected void convert(final BaseViewHolder helper, final LoginBean.ModuleDTOSBean item) {
                 helper.setText(R.id.tv_function,item.getName());
                 helper.setImageResource(R.id.img_function,ShowMenuUtil.getImageSmall(item.getCode()));
+                if(!TextUtils.isEmpty(item.getImgUrl())&&!ShowMenuUtil.isMainFuncation(item.getCode())){
+                    Glide.with(SetFuncationActivity.this).load(item.getImgUrl()).into((ImageView) helper.getView(R.id.img_function));
+                }else{
+                    helper.setImageResource(R.id.img_function,ShowMenuUtil.getImageSmall(item.getCode()));
+                }
+
                 if(item.isGone()){
                     helper.setImageResource(R.id.img_visible,R.drawable.icon_unshow);
                 }else{

@@ -214,15 +214,17 @@
         app:layout_constraintBottom_toTopOf="@+id/view11"
         app:layout_constraintRight_toRightOf="parent" />
 
-    <TextView
+    <EditText
         android:id="@+id/tv_hostipal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:layout_marginRight="32dp"
+        android:layout_marginRight="35dp"
         android:drawablePadding="5dp"
-        android:drawableRight="@drawable/list_arrow"
-        android:text="请选择"
+        android:background="@null"
+        android:hint="请填写"
+        android:textColorHint="#abffffff"
+        android:gravity="right"
         android:textColor="#abffffff"
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/view7"

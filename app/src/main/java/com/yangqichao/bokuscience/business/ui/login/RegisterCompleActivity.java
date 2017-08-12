@@ -9,7 +9,9 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -30,6 +32,7 @@ import com.yangqichao.bokuscience.common.net.RequestBody;
 import com.yangqichao.bokuscience.common.net.RequestUtil;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -43,7 +46,7 @@ public class RegisterCompleActivity extends BaseActivity {
     @BindView(R.id.tv_keshi)
     TextView tvKeshi;
     @BindView(R.id.tv_hostipal)
-    TextView tvHostipal;
+    EditText etHostipal;
     @BindView(R.id.tv_address)
     TextView tvAddress;
     @BindView(R.id.et_name)
@@ -54,7 +57,7 @@ public class RegisterCompleActivity extends BaseActivity {
     private PopupWindow popupWindow;
     private BaseQuickAdapter<LevelBean, BaseViewHolder> adapter;
 
-    private List<LevelBean> privinceList, hospitalList, keshiList;
+    private List<LevelBean> privinceList, hospitalList, aimHospitalList, keshiList;
 
     private RecyclerView recyclerViewAddress, recyclerViewHospital, recyclerViewKeshi;
 
@@ -83,10 +86,10 @@ public class RegisterCompleActivity extends BaseActivity {
         phone = getIntent().getStringExtra("phone");
         code = getIntent().getStringExtra("code");
         pw = getIntent().getStringExtra("pw");
-        if (TextUtils.isEmpty(phone) || TextUtils.isEmpty(code) || TextUtils.isEmpty(pw)) {
-            showToast("参数有误");
-            finish();
-        }
+//        if (TextUtils.isEmpty(phone) || TextUtils.isEmpty(code) || TextUtils.isEmpty(pw)) {
+//            showToast("参数有误");
+//            finish();
+//        }
 
 
         RequestUtil.createApi().get().compose(RequestUtil.<List<LevelBean>>handleResult()).subscribe(
@@ -114,7 +117,65 @@ public class RegisterCompleActivity extends BaseActivity {
 
         init();
 
+//        etHostipal.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
+//        etHostipal.setOnKeyListener(new View.OnKeyListener() {
+//            @Override
+//            public boolean onKey(View view, int i, KeyEvent keyEvent) {
+//                if(i==KeyEvent.KEYCODE_ENTER&&keyEvent.getAction()==KeyEvent.ACTION_DOWN){
+////                    seatchData();
+//                    aimHospitalList = new ArrayList<LevelBean>();
+//                    if (hospitalList != null && hospitalList.size() != 0) {
+//                        String key = etHostipal.getText().toString();
+//                        for(LevelBean levelBean:hospitalList){
+//                            if(levelBean.getOrgName().contains(key)){
+//                                aimHospitalList.add(levelBean);
+//                            }
+//                        }
+//                        if(aimHospitalList.size()==0){
+//                            showToast("没有选项");
+//                        }else{
+//                            showPopupWindow(recyclerViewHospital, aimHospitalList, etHostipal);
+//                        }
+//
+//                    } else {
+//                        showToast("没有选项");
+//                    }
+//                    hideSoftInputView();
+//                }
+//                return false;
+//            }
+//        });
+        etHostipal.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                aimHospitalList = new ArrayList<LevelBean>();
+                if (hospitalList != null && hospitalList.size() != 0&&editable.length()>0) {
+                    for (LevelBean levelBean : hospitalList) {
+                        if (levelBean.getOrgName().contains(editable.toString())) {
+                            aimHospitalList.add(levelBean);
+                        }
+                    }
+                    if (aimHospitalList.size() == 0) {
+                            showToast("没有选项");
+
+                    } else {
+                        showPopupWindow(recyclerViewHospital, aimHospitalList, etHostipal);
+                    }
+
+                }
+                hideSoftInputView();
+            }
+        });
     }
 
     private void init() {
@@ -141,10 +202,12 @@ public class RegisterCompleActivity extends BaseActivity {
                 addressBean = levelBean;
                 //清理下级列表
                 hospitalList = null;
+                aimHospitalList = null;
                 hospitalBean = null;
                 keshiBean = null;
                 keshiBean = null;
-                tvHostipal.setText("请选择");
+
+
                 tvKeshi.setText("请选择");
 
                 RequestUtil.createApi().getLevel(levelBean.getId()).compose(RequestUtil.<List<LevelBean>>handleResult())
@@ -152,6 +215,8 @@ public class RegisterCompleActivity extends BaseActivity {
                             @Override
                             protected void onSuccess(List<LevelBean> levelBeen) {
                                 hospitalList = levelBeen;
+                                etHostipal.setText("");
+                                etHostipal.setHint("请输入");
                             }
                         });
             }
@@ -161,7 +226,7 @@ public class RegisterCompleActivity extends BaseActivity {
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
                 LevelBean levelBean = hospitalList.get(position);
-                tvHostipal.setText(levelBean.getOrgName());
+                etHostipal.setText(levelBean.getOrgName());
                 popupWindow.dismiss();
 
                 hospitalBean = levelBean;
@@ -195,7 +260,7 @@ public class RegisterCompleActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.btn_login, R.id.img_back, R.id.tv_keshi, R.id.tv_hostipal, R.id.tv_address})
+    @OnClick({R.id.btn_login, R.id.img_back, R.id.tv_keshi, R.id.tv_address})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_login:
@@ -230,13 +295,13 @@ public class RegisterCompleActivity extends BaseActivity {
                     showToast("没有选项");
                 }
                 break;
-            case R.id.tv_hostipal:
-                if (hospitalList != null && hospitalList.size() != 0) {
-                    showPopupWindow(recyclerViewHospital, hospitalList, tvHostipal);
-                } else {
-                    showToast("没有选项");
-                }
-                break;
+//            case R.id.tv_hostipal:
+//                if (hospitalList != null && hospitalList.size() != 0) {
+//                    showPopupWindow(recyclerViewHospital, hospitalList, etHostipal);
+//                } else {
+//                    showToast("没有选项");
+//                }
+//                break;
             case R.id.tv_address:
                 showPopupWindow(recyclerViewAddress, privinceList, tvAddress);
                 break;
@@ -277,7 +342,7 @@ public class RegisterCompleActivity extends BaseActivity {
                                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialogInterface, int i) {
-                                        startActivity(new Intent(RegisterCompleActivity.this,LoginActivity.class));
+                                        startActivity(new Intent(RegisterCompleActivity.this, LoginActivity.class));
                                         finish();
                                     }
                                 }).setCancelable(false);
@@ -312,8 +377,8 @@ public class RegisterCompleActivity extends BaseActivity {
                 tvBirthday.setText(brithdayStr);
             }
         }).setType(new boolean[]{true, true, true, true, true, false})
-                .setSubmitColor(ContextCompat.getColor(this,R.color.base_orange))//确定按钮文字颜色
-                .setCancelColor(ContextCompat.getColor(this,R.color.base_orange))//取消按钮文字颜色
+                .setSubmitColor(ContextCompat.getColor(this, R.color.base_orange))//确定按钮文字颜色
+                .setCancelColor(ContextCompat.getColor(this, R.color.base_orange))//取消按钮文字颜色
                 .build();
         pickerView.setDate(Calendar.getInstance());//注：根据需求来决定是否使用该方法（一般是精确到秒的情况），此项可以在弹出选择器的时候重新设置当前时间，避免在初始化之后由于时间已经设定，导致选中时间与当前时间不匹配的问题。
         pickerView.show();
