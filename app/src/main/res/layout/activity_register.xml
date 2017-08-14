@@ -90,7 +90,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="请输入密码"
-            android:inputType="textPassword"
+            android:digits="0123456789"
+            android:maxLength="6"
+            android:inputType="textPassword|phone"
             android:textColor="@color/white" />
     </android.support.design.widget.TextInputLayout>
 
